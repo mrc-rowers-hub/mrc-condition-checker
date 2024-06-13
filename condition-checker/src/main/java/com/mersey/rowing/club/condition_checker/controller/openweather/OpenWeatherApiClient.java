@@ -34,6 +34,7 @@ public class OpenWeatherApiClient {
         String weatherResponse = restTemplate.getForObject("https://catfact.ninja/fact?max_length=140\n", String.class);
         System.out.println(weatherResponse);
 
+        //Storing api for later
         //"https://api.openweathermap.org/data/3.0/onecall?lat=53.39293&lon=-2.98532&exclude=&appid=30e37ff4eced9848ff7533eb14b0c685"
     }
 }
