@@ -9,6 +9,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import static io.restassured.RestAssured.when;
 
 public class WireMockSetupTests extends WiremockBaseTests {
+
     @Test
     void testWiremockMappingLive() throws JSONException {
         when().get(url)
