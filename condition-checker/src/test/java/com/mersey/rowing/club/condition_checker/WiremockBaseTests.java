@@ -21,7 +21,7 @@ import static io.restassured.RestAssured.when;
 @SpringBootTest()
 @Import(WireMockConfiguration.class)
 @Slf4j
-public class ExampleMockTests {
+public class WiremockBaseTests {
 
     @Autowired
     private WireMock wireMock;
@@ -36,8 +36,8 @@ public class ExampleMockTests {
     private static final String DUMMY_API_KEY = "testApiKey";
     private static final String TEST_EPOCH_TIME = "1625088000";
 
-    private static String url;
-    private static String expectedResponseBody;
+    protected static String url;
+    protected static String expectedResponseBody;
 
     @BeforeAll
     static void setUpBeforeClass() {
@@ -54,22 +54,6 @@ public class ExampleMockTests {
         WireMock wireMock = new WireMock("localhost", 5050);
         wireMock.register(mappingBuilder);
         log.info("<<<<< WIREMOCK MAPPINGS COMPLETE SETUP >>>>>");
-    }
-
-    @Test
-    void testWiremockMappingLive() throws JSONException {
-        when().get(url)
-                .then()
-                .assertThat()
-                .statusCode(200);
-
-        String responseBody = when().get(url)
-                .then()
-                .extract()
-                .body()
-                .asString();
-
-        JSONAssert.assertEquals(expectedResponseBody, responseBody, false);
     }
 
     @AfterAll
