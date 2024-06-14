@@ -13,4 +13,4 @@ Prerequisites:
 - Docker Desktop
 
 Instructions:
-- Run `docker-compose -f dockercompose.yaml logs` (this starts the wiremock container)
+- Run `docker-compose -f dockercompose.yaml ` (this starts the wiremock container)
