@@ -12,14 +12,15 @@
 	<artifactId>open-weather-mock</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>open-weather-mock</name>
-	<description>Mock for the open weather api </description>
+	<description>Mock for the open weather api</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
+		<wiremock.version>2.27.2</wiremock.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
@@ -31,6 +32,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock-standalone</artifactId>
+			<version>${wiremock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock-jre8</artifactId>
+			<version>${wiremock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock-standalone</artifactId>
+			<version>2.27.2</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
