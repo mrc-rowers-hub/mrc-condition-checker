@@ -9,6 +9,26 @@ open-weather-api:
 
   key: ${OPENWEATHER_API_KEY}
 
+boats:
+  feelsLikeTempMinKelvin: 273
+  feelsLikeTempMax: 299
+  unacceptableIds: ['2xx','302','312','314','5xx','6xx','7xx']
+  exceptionsToTheAbove: ['500','501','520','600','601','612','615','616','620']
+  boatTypes:
+    single:
+      wind: 12
+    double:
+      wind: 12
+    novice:
+      quad:
+        wind: 14
+    senior:
+      quad:
+        wind: 17
+    eight:
+      wind: 15
+#    the above are to be refined
+
 wiremock:
   host: ${WIREMOCK_HOST:localhost}
   port: ${WIREMOCK_PORT:5050}

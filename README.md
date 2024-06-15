@@ -14,3 +14,6 @@ Prerequisites:
 
 Instructions:
 - Run `docker-compose -f dockercompose.yaml ` (this starts the wiremock container)
+
+## Conditions
+For max temp, https://plus.britishrowing.org/2023/06/08/beat-the-heat/ 
