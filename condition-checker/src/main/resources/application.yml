@@ -11,7 +11,7 @@ open-weather-api:
 
 boats:
   feelsLikeTempMinKelvin: 273
-  feelsLikeTempMax: 299
+  feelsLikeTempMaxKelvin: 299
   unacceptableIds: ['2xx','302','312','314','5xx','6xx','7xx']
   exceptionsToTheAbove: ['500','501','520','600','601','612','615','616','620']
   boatTypes:
@@ -19,14 +19,10 @@ boats:
       wind: 12
     double:
       wind: 12
-    novice:
-      quad:
-        wind: 14
-    senior:
-      quad:
-        wind: 17
-    eight:
-      wind: 15
+    seniorFourAndAbove:
+      wind: 17
+    noviceFourAndAbove:
+      wind: 14
 #    the above are to be refined
 
 wiremock:
