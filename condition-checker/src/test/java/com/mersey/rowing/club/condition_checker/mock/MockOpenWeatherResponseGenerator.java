@@ -6,7 +6,7 @@ import com.mersey.rowing.club.condition_checker.model.openweatherapi.WeatherData
 
 import java.util.List;
 
-public class MockOpenWeatherResponseMessages {
+public class MockOpenWeatherResponseGenerator {
 
     public OpenWeatherResponse getOpenWeatherResponseAllGood(){
         List<Weather> weatherList = List.of(

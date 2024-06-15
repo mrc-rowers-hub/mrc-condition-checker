@@ -24,6 +24,7 @@ boats:
     noviceFourAndAbove:
       wind: 14
 #    the above are to be refined
+# the above wind values are treated as the max allowed atm
 
 wiremock:
   host: ${WIREMOCK_HOST:localhost}
