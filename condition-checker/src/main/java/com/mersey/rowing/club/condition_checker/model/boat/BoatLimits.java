@@ -11,7 +11,7 @@ import java.util.Map;
 public class BoatLimits {
     private int feelsLikeTempMinKelvin;
     private int feelsLikeTempMaxKelvin;
-    private List<String> unacceptableIds;
-    private List<String> exceptionsToTheAbove;
+    private String[] unacceptableIds;
+    private String[] exceptionsToTheAbove;
     private Map<BoatType, Integer> boatTypeWindLimit;
 }
