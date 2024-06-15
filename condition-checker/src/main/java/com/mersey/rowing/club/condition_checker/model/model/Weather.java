@@ -1,4 +1,4 @@
-package com.mersey.rowing.club.condition_checker.mock.model;
+package com.mersey.rowing.club.condition_checker.model.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

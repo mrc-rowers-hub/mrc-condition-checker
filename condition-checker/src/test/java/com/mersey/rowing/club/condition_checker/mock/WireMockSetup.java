@@ -6,9 +6,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
-import com.mersey.rowing.club.condition_checker.mock.model.OpenWeatherResponse;
-import com.mersey.rowing.club.condition_checker.mock.model.Weather;
-import com.mersey.rowing.club.condition_checker.mock.model.WeatherData;
+import com.mersey.rowing.club.condition_checker.model.model.OpenWeatherResponse;
+import com.mersey.rowing.club.condition_checker.model.model.Weather;
+import com.mersey.rowing.club.condition_checker.model.model.WeatherData;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
