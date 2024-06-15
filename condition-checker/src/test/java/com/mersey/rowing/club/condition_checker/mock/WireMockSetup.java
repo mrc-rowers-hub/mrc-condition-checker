@@ -34,6 +34,7 @@ public class WireMockSetup {
         }
     }
 
+    // move the below to testUtils
     private OpenWeatherResponse getOpenWeatherResponse(){
         List<Weather> weatherList = List.of(
                 new Weather(800, "Clear", "clear sky", "01d"));
