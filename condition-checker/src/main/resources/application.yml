@@ -18,7 +18,7 @@ boats:
     single:
       wind: 12
     double:
-      wind: 12
+      wind: 13
     seniorFourAndAbove:
       wind: 17
     noviceFourAndAbove:
