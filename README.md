@@ -2,6 +2,8 @@
 # 🛠️ WIP 🛠️
 An application to check the weather conditions of Mersey Rowing Club at the 6am and 6pm (for morning and evening sessions) to see if boats can go ahead. 
 
+You can view the swagger docs at http://localhost:8080/v3/api-docs 
+
 ## How to run
 - Install the Env file plugin https://plugins.jetbrains.com/plugin/7861-envfile 
 - Add your api key to the .env file - you need to sign up for a free OpenWeather account for this https://home.openweathermap.org/api_keys 
