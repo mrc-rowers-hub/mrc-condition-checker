@@ -25,10 +25,9 @@ public class BoatCapabilityClient {
     public BoatsAllowed getBoatsAllowed(OpenWeatherResponse openWeatherResponse) {
         WeatherData weatherData = openWeatherResponse.getData().getFirst();
         Weather something = weatherData.getWeather().getFirst(); // rename
-        // hm, reassess the below, only accounting for one weather data response
+        // Todo, reassess the below, only accounting for one weather data response
         WeatherConditions weatherConditions = WeatherConditions.builder().description(something.getDescription()).tempFeelsLike((int) weatherData.getFeelsLike()).windSpeed((int) weatherData.getWindSpeed()).build();
 
-        // assess feels like, if its above or below the limits, no boats will be going out
         if (!isTempWithinLimits(weatherData)) {
             return BoatsAllowed.builder().doubles(false).single(false).noviceFourAndAbove(false).seniorFourAndAbove(false).build();
         } else if (!isIdWithinLimits(something)) {
@@ -39,8 +38,7 @@ public class BoatCapabilityClient {
     }
 
     private BoatsAllowed getBoatsAllowedByWind(int actualWindSpeed, Map<BoatType, Integer> boatsAndLimits) {
-        // start with the boats that we know have the highest limits, as we can stop earlier if they're unable
-        // Todo refactor this...
+        // Todo refactor this
         BoatsAllowed.BoatsAllowedBuilder boatsAllowedBuilder = BoatsAllowed.builder();
 
         if(actualWindSpeed <= boatsAndLimits.get(BoatType.SINGLE)){
@@ -91,11 +89,5 @@ public class BoatCapabilityClient {
     private boolean isTempWithinLimits(WeatherData weatherData) {
         return (int) weatherData.getFeelsLike() < boatLimits.getFeelsLikeTempMaxKelvin() && (int) weatherData.getFeelsLike() > boatLimits.getFeelsLikeTempMinKelvin();
     }
-
-    private int convertToKelvin(double feelsLike) {
-        double kelvin = feelsLike - 273.15;
-        return (int) kelvin;
-    }
-
 
 }
