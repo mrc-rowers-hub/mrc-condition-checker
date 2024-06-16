@@ -22,16 +22,11 @@ public class BoatCapabilityClient {
     @Autowired
     BoatLimits boatLimits;
 
-    // Todo remove redundant test method
-    public void getBoatLimit() {
-        log.info(Arrays.toString(boatLimits.getUnacceptableIds()));
-    }
-
-    public BoatsAllowed getBoatsAllowed(OpenWeatherResponse openWeatherResponse) { // Todo this will treturn BoatsAllows
+    public BoatsAllowed getBoatsAllowed(OpenWeatherResponse openWeatherResponse) {
         WeatherData weatherData = openWeatherResponse.getData().getFirst();
         Weather something = weatherData.getWeather().getFirst(); // rename
         // hm, reassess the below, only accounting for one weather data response
-        WeatherConditions weatherConditions = WeatherConditions.builder().description(something.getDescription()).tempFeelsLike(convertToKelvin(weatherData.getFeelsLike())).windSpeed((int) weatherData.getWindSpeed()).build();
+        WeatherConditions weatherConditions = WeatherConditions.builder().description(something.getDescription()).tempFeelsLike((int) weatherData.getFeelsLike()).windSpeed((int) weatherData.getWindSpeed()).build();
 
         // assess feels like, if its above or below the limits, no boats will be going out
         if (!isTempWithinLimits(weatherData)) {
@@ -48,19 +43,25 @@ public class BoatCapabilityClient {
         // Todo refactor this...
         BoatsAllowed.BoatsAllowedBuilder boatsAllowedBuilder = BoatsAllowed.builder();
 
-        if (boatsAndLimits.get(BoatType.SENIOR_FOUR_AND_ABOVE) > actualWindSpeed) {
-            return boatsAllowedBuilder.seniorFourAndAbove(false).noviceFourAndAbove(false).single(false).doubles(false).build();
+        if (actualWindSpeed > boatsAndLimits.get(BoatType.SENIOR_FOUR_AND_ABOVE)) {
+            log.info("ALL BOATS CANCELLED: wind too high");
+            return boatsAllowedBuilder.build();
         }
         boatsAllowedBuilder.seniorFourAndAbove(true);
-        if (boatsAndLimits.get(BoatType.NOVICE_FOUR_AND_ABOVE) > actualWindSpeed) {
-            return boatsAllowedBuilder.noviceFourAndAbove(false).single(false).doubles(false).build();
+        if (actualWindSpeed > boatsAndLimits.get(BoatType.NOVICE_FOUR_AND_ABOVE)) {
+            log.info("SOME BOATS CANCELLED: wind too high");
+            return boatsAllowedBuilder.build();
         }
-        boatsAllowedBuilder.noviceFourAndAbove(false);
-        if (boatsAndLimits.get(BoatType.DOUBLE) > actualWindSpeed) {
-            return boatsAllowedBuilder.single(false).doubles(false).build();
+        boatsAllowedBuilder.noviceFourAndAbove(true);
+        if (actualWindSpeed >  boatsAndLimits.get(BoatType.DOUBLE)) {
+            log.info("SOME BOATS CANCELLED: wind too high");
+            return boatsAllowedBuilder.build();
         }
         boatsAllowedBuilder.doubles(true);
-        boolean singlesAllowed = boatsAndLimits.get(BoatType.SINGLE) < actualWindSpeed;
+        boolean singlesAllowed = actualWindSpeed < boatsAndLimits.get(BoatType.SINGLE);
+        if(!singlesAllowed){
+            log.info("SOME BOATS CANCELLED: wind too high");
+        }
         return boatsAllowedBuilder.single(singlesAllowed).build();
     }
 
