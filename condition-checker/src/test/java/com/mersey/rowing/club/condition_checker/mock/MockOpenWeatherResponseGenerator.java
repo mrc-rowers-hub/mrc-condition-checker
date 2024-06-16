@@ -8,45 +8,46 @@ import java.util.List;
 
 public class MockOpenWeatherResponseGenerator {
 
-    public OpenWeatherResponse getOpenWeatherResponseAllGood(){
+    public static OpenWeatherResponse getOpenWeatherResponseAllGood(){
         List<Weather> weatherList = List.of(
                 new Weather(800, "Clear", "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 
-    public OpenWeatherResponse getOpenWeatherResponseExemptId(){
+    public static OpenWeatherResponse getOpenWeatherResponseExemptId(){
         List<Weather> weatherList = List.of(
                 new Weather(501, "Clear", "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 
-    public OpenWeatherResponse getOpenWeatherResponseUnacceptableIdSpecific(){
+    public static OpenWeatherResponse getOpenWeatherResponseUnacceptableIdSpecific(){
         List<Weather> weatherList = List.of(
                 new Weather(302, "Clear", "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 
-    public OpenWeatherResponse getOpenWeatherResponseUnacceptableIdXx(){
+    public static OpenWeatherResponse getOpenWeatherResponseUnacceptableIdXx(){
         List<Weather> weatherList = List.of(
                 new Weather(210, "Clear", "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 
-    public OpenWeatherResponse getOpenWeatherResponseWindSpeed(double windSpeed){
+    public static OpenWeatherResponse getOpenWeatherResponseWindSpeed(double windSpeed){
         List<Weather> weatherList = List.of(
                 new Weather(800, "Clear", "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, windSpeed, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 
-    public OpenWeatherResponse getOpenWeatherResponseGenericFeelsLike(double feelsLike){
+    public static OpenWeatherResponse getOpenWeatherResponseFeelsLike(double feelsLike){
+        double feelsLikeKelvin = feelsLike + 273;
         List<Weather> weatherList = List.of(
                 new Weather(800, "Clear", "clear sky", "01d"));
-        List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, feelsLike, 3.6, weatherList));
+        List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, feelsLikeKelvin, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 
