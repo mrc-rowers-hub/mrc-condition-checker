@@ -1,4 +1,4 @@
-package com.mersey.rowing.club.condition_checker.model;
+package com.mersey.rowing.club.condition_checker.model.openweatherapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

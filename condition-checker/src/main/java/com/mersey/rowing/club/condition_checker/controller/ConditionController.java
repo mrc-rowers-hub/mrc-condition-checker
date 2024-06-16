@@ -18,6 +18,9 @@ public class ConditionController {
             log.info("date only is null");
         } else if (time == null) {
             log.info("time only is null");
+            // will return a response of weather summary, and boats that can go out
+            // call open weather API and map the response
+            // pass this into the BoatCapabilityClient to assess which boats can go
         }else{
             log.info("both date and time supplied");
             //specific

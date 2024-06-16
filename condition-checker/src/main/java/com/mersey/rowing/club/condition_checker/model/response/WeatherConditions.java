@@ -1,4 +1,4 @@
-package com.mersey.rowing.club.condition_checker.model;
+package com.mersey.rowing.club.condition_checker.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,18 +10,13 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 @AllArgsConstructor
 @Jacksonized
-public class Weather {
+public class WeatherConditions {
 
-    @JsonProperty("id")
-    private int id;
-
-    @JsonProperty("main")
-    private String main;
-
-    @JsonProperty("description")
     private String description;
 
-    @JsonProperty("icon")
-    private String icon;
+    @JsonProperty("temp_feels_like")
+    private int tempFeelsLike;
 
+    @JsonProperty("wind_speed")
+    private int windSpeed;
 }
