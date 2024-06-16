@@ -43,6 +43,10 @@ public class BoatCapabilityClient {
         // Todo refactor this...
         BoatsAllowed.BoatsAllowedBuilder boatsAllowedBuilder = BoatsAllowed.builder();
 
+        if(actualWindSpeed <= boatsAndLimits.get(BoatType.SINGLE)){
+            return boatsAllowedBuilder.seniorFourAndAbove(true).noviceFourAndAbove(true).doubles(true).single(true).build();
+        }
+
         if (actualWindSpeed > boatsAndLimits.get(BoatType.SENIOR_FOUR_AND_ABOVE)) {
             log.info("ALL BOATS CANCELLED: wind too high");
             return boatsAllowedBuilder.build();
@@ -58,11 +62,8 @@ public class BoatCapabilityClient {
             return boatsAllowedBuilder.build();
         }
         boatsAllowedBuilder.doubles(true);
-        boolean singlesAllowed = actualWindSpeed < boatsAndLimits.get(BoatType.SINGLE);
-        if(!singlesAllowed){
-            log.info("SOME BOATS CANCELLED: wind too high");
-        }
-        return boatsAllowedBuilder.single(singlesAllowed).build();
+        log.info("SOME BOATS CANCELLED: wind too high");
+        return boatsAllowedBuilder.build();
     }
 
     private boolean isIdWithinLimits(Weather weather) {
