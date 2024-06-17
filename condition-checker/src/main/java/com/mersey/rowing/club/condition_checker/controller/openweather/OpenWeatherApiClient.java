@@ -2,12 +2,15 @@ package com.mersey.rowing.club.condition_checker.controller.openweather;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.net.URI;
+import java.time.Instant;
 
+@Component
+@Slf4j
 public class OpenWeatherApiClient {
 //    @Autowired
 //    private RestTemplate restTemplate;
@@ -19,20 +22,26 @@ public class OpenWeatherApiClient {
     @Value("${open-weather-api.key}")
     private String apiKey;
 
-    @Value("${open-weather-api.url}")
-    private String apiUrl;
+    @Value("${open-weather-api.baseUrl}")
+    private String apiBaseUrl;
 
-    //Lat and long for Rowing Club
-    private final String clubLatitude = "53.39289";
-    private final String clubLongitude = "-2.98536";
+    @Value("${open-weather-api.endpoint}")
+    private String apiEndpoint;
+
+    private final String tempEndpoint = "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=53.39293&lon=-2.98532&dt=1718653615&appid=30e37ff4eced9848ff7533eb14b0c685";
+
+    //Epoch time for date time in api url
+    Instant instant = Instant.ofEpochMilli(1718653615L);
 
     public void callOpenWeatherApi() {
 
-        //Formatting API url for Liverpool Mersey Rowing Club and adding API key
-//        String url = String.format(apiUrl, clubLatitude, clubLongitude, apiKey);
+        //Formatting API url
+//        String url = String.format(apiBaseUrl + apiEndpoint, instant.toString(), apiKey);
+//        System.out.println(apiEndpoint);
+        log.info(tempEndpoint);
 
-        String weatherResponse = restTemplate.getForObject("https://catfact.ninja/fact?max_length=140\n", String.class);
-        System.out.println(weatherResponse);
+//        WeatherResponse weatherResponse = restTemplate.getForObject();
+//        System.out.println(weatherResponse);
 
         //Storing api for later
         //"https://api.openweathermap.org/data/3.0/onecall?lat=53.39293&lon=-2.98532&exclude=&appid=30e37ff4eced9848ff7533eb14b0c685"
