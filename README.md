@@ -15,7 +15,7 @@ Prerequisites:
 - Docker Desktop
 
 Instructions:
-- Run `docker-compose -f dockercompose.yaml ` (this starts the wiremock container)
+- Run `docker-compose up -d ` (this starts the wiremock container)
 - Run the maven unit tests 
 
 # Application Logic and Reasoning

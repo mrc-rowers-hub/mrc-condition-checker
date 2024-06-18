@@ -15,9 +15,6 @@ public class Weather {
     @JsonProperty("id")
     private int id;
 
-    @JsonProperty("main")
-    private String main;
-
     @JsonProperty("description")
     private String description;
 
