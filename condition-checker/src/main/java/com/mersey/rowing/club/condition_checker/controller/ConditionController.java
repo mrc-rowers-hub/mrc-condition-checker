@@ -11,13 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ConditionController {
 
-    @Autowired
-    private OpenWeatherApiClient openWeatherApiClient;
-
     @GetMapping("/get_conditions")
     public void getConditions(@RequestHeader(value = "date", required = false) String date, @RequestHeader(value = "time", required = false) String time){
-
-        openWeatherApiClient.getOpenWeatherAPIResponse();
 
         if(date == null && time == null){
             log.info("date and time is null");
@@ -34,5 +29,4 @@ public class ConditionController {
             //specific
         }
     }
-
 }
