@@ -12,6 +12,5 @@ import lombok.extern.jackson.Jacksonized;
 public class ConditionResponse {
 
     private SessionConditions sessionConditions;
-    // add additional field for any message to supply back, like 'something went wrong parsing request', etc
 
 }
