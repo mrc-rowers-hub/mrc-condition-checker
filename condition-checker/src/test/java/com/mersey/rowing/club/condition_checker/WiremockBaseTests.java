@@ -4,21 +4,17 @@ import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.mersey.rowing.club.condition_checker.mock.WireMockConfiguration;
 import com.mersey.rowing.club.condition_checker.mock.WireMockSetup;
+import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
-import static io.restassured.RestAssured.when;
-
-@SpringBootTest()
+@SpringBootTest(properties = { "open-weather-api.key=test","open-weather-api.baseUrl=http://localhost:5050" })
 @Import(WireMockConfiguration.class)
 @Slf4j
 public class WiremockBaseTests {
@@ -35,6 +31,8 @@ public class WiremockBaseTests {
     private static final String BASE_URL = "http://localhost:5050";
     private static final String DUMMY_API_KEY = "testApiKey";
     private static final String TEST_EPOCH_TIME = "1625088000";
+
+    protected static OpenWeatherResponse expectedOpenWeatherResponse;
 
     protected static String url;
     protected static String expectedResponseBody;
@@ -54,6 +52,8 @@ public class WiremockBaseTests {
         WireMock wireMock = new WireMock("localhost", 5050);
         wireMock.register(mappingBuilder);
         log.info("<<<<< WIREMOCK MAPPINGS COMPLETE SETUP >>>>>");
+
+        expectedOpenWeatherResponse = mockSetup.getOpenWeatherResponse();
     }
 
     @AfterAll
