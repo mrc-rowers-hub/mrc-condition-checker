@@ -21,7 +21,7 @@ public class WireMockSetup {
     public MappingBuilder setupOpenWeatherMapping() {
         String body = getOpenWeatherResponseAsString();
 
-        return get(urlPathMatching(endpoint)).willReturn(aResponse().withStatus(200).withBody(body));
+        return get(urlPathMatching(endpoint)).willReturn(aResponse().withStatus(200).withBody(body).withHeader("Content-Type", "application/json"));
     }
 
     public String getOpenWeatherResponseAsString(){
@@ -37,7 +37,7 @@ public class WireMockSetup {
     // move the below to testUtils
     private OpenWeatherResponse getOpenWeatherResponse(){
         List<Weather> weatherList = List.of(
-                new Weather(800, "Clear", "clear sky", "01d"));
+                new Weather(800, "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
