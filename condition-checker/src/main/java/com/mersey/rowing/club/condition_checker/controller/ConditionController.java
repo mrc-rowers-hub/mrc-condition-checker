@@ -47,22 +47,21 @@ public class ConditionController {
             }
         } else if (date == null) {
             log.info("date only is null");
-            // Call API with (dateToday, timeSupplied)
+            // Call API with (dateToday, time)
         } else if (time == null) {
             log.info("time only is null");
-            // Need to change this to be same type of object? Not sure
-            if (date.equals(dateToday)) {
+            if (date.equals(dateToday.toString())) {
                 // Run code under first section - maybe change to a switch statement?
             } else {
-                // Call API with (dateSupplied, sixMorning)
-                // Call API with (dateSupplied, sixEvening)
+                // Call API with (date, sixMorning)
+                // Call API with (date, sixEvening)
             }
             // will return a response of weather summary, and boats that can go out
             // call open weather API and map the response
             // pass this into the BoatCapabilityClient to assess which boats can go
         }else{
             log.info("both date and time supplied");
-            //specific
+            // Call API with (date, time)
         }
     }
 }
