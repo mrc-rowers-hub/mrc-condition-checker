@@ -26,4 +26,7 @@ public class WeatherData {
     @JsonProperty("weather")
     private List<Weather> weather;
 
+    public double kelvinToCelsius() {
+     return temperature - 273;
+    }
 }
