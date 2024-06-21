@@ -24,17 +24,21 @@ public class DateUtil {
     // Take in datetime string in the format "dd/MM/yyyy HH:mm"
 
     public static long callApiDateAndTimeSupplied(String date, String time) {
-        log.info("both date and time supplied");
+        log.info("Both date and time supplied");
         // Return epoch time as a long with (date, time)
+        log.info("Retrieved epoch time for " + date + " at time " + time);
         return getEpochTimeAsLong(date, time);
     }
 
     public static long[] callApiTimeOnlyIsNull(String date) {
-        log.info("time only is null");
+        log.info("Time only is null");
 
         // Call getEpochTimeAsLong method with sixMorning, and sixEvening
         long morningEpoch = getEpochTimeAsLong(date, sixMorning);
         long eveningEpoch = getEpochTimeAsLong(date, sixEvening);
+
+        log.info("Retrieved epoch time for " + date + " at time " + sixMorning);
+        log.info("Retrieved epoch time for " + date + " at time " + sixEvening);
 
         // Return epochs as a list
         return new long[] {morningEpoch, eveningEpoch};
@@ -48,7 +52,8 @@ public class DateUtil {
     public static long callApiDateOnlyIsNull(String time) {
         log.info("date only is null");
         // Call epochTimeAsLong using dateToday, and the time given
-        return getEpochTimeAsLong(dateToday.toString(), time);
+        log.info("Retrieved epoch time for " + formattedDateToday + " at time " + time);
+        return getEpochTimeAsLong(formattedDateToday, time);
     }
 
     public static long[] callApiDateNullAndTimeNull() {

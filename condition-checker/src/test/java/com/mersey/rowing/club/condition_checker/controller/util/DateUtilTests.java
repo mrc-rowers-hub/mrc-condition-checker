@@ -28,6 +28,11 @@ public class DateUtilTests {
     }
 
     @Test
+    void getEpochTimeAsLong_invalidDateTimeSupplied_doesntReturnEpochTime() {
+        // Needs implementing
+    }
+
+    @Test
     void callApiTimeOnlyIsNull_validDateSupplied_returnsLongListOfTwoElements() {
         int actualLength = DateUtil.callApiTimeOnlyIsNull("18/08/1999").length;
         int expectedLength = 2;
@@ -39,10 +44,5 @@ public class DateUtilTests {
         long actual = DateUtil.getEpochTimeAsLong("18/08/1999", "19:23");
         long expected = 935000580000L;
         Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    void getEpochTimeAsLong_invalidTimeSupplied_doesntReturnEpochTime() {
-        // Needs implementing
     }
 }
