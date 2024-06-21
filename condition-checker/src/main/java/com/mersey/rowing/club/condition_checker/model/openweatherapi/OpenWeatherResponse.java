@@ -26,6 +26,6 @@ public class OpenWeatherResponse {
     }
 
     public double getFeelsLike() {
-        return data.getFirst().getFeelsLike();
+        return data.getFirst().kelvinToCelsius();
     }
 }
