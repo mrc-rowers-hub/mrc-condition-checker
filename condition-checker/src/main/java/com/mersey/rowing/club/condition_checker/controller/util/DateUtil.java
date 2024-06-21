@@ -17,7 +17,9 @@ public class DateUtil {
     private static final LocalTime currentTime = LocalTime.now();
     private static final ZoneId zoneId = ZoneId.of("Europe/London");
     private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
+    private static DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    static String formattedDateToday = dtfMinusHours.format(dateToday);
+    static String formattedDateTomorrow = dtfMinusHours.format(dateTomorrow);
     // think about try catches later and what to do in case of invalid input
     // Take in datetime string in the format "dd/MM/yyyy HH:mm"
 
@@ -53,26 +55,33 @@ public class DateUtil {
         // Needs splitting up
         log.info("date and time are null OR time is null and date == dateToday");
         // Check to see if current time is after 6AM
+
         if (currentTime.isAfter(LocalTime.parse(sixMorning)) && currentTime.isBefore(LocalTime.parse(sixEvening))) {
             log.info("current time is: " + currentTime);
             // Call API with (dateToday, sixEvening)
-            long eveningEpoch = getEpochTimeAsLong(dateToday.toString(), sixEvening);
+            long eveningEpoch = getEpochTimeAsLong(formattedDateToday, sixEvening);
+            log.info("Retrieved epoch for " + formattedDateToday + " at sixEvening");
             // Call API with (dateTomorrow, sixMorning)
-            long morningEpoch = getEpochTimeAsLong(dateTomorrow.toString(), sixMorning);
+            long morningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixMorning);
+            log.info("Retrieved epoch for " + formattedDateTomorrow + " at sixMorning");
 
             return new long[] {eveningEpoch, morningEpoch};
         } else if (currentTime.isBefore(LocalTime.parse(sixMorning))) {
             // Call API with (dateToday, sixMorning)
-            long morningEpoch = getEpochTimeAsLong(dateToday.toString(), sixMorning);
+            long morningEpoch = getEpochTimeAsLong(formattedDateToday, sixMorning);
+            log.info("Retrieved epoch for " + formattedDateToday + " at sixMorning");
             // Call API with (dateToday, sixEvening)
-            long eveningEpoch = getEpochTimeAsLong(dateToday.toString(), sixEvening);
+            long eveningEpoch = getEpochTimeAsLong(formattedDateToday, sixEvening);
+            log.info("Retrieved epoch for " + formattedDateToday + " at sixEvening");
 
             return new long[] {morningEpoch, eveningEpoch};
         } else {
             // Call API with (dateTomorrow, sixMorning
-            long morningEpoch = getEpochTimeAsLong(dateTomorrow.toString(), sixMorning);
+            long morningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixMorning);
+            log.info("Retrieved epoch time for " + formattedDateTomorrow + " at sixMorning");
             // Call API with (dateTomorrow, sixEvening
-            long eveningEpoch = getEpochTimeAsLong(dateTomorrow.toString(), sixEvening);
+            long eveningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixEvening);
+            log.info("Retrieved epoch time for " + formattedDateTomorrow + " at sixEvening");
 
             return new long[] {morningEpoch, eveningEpoch};
         }
