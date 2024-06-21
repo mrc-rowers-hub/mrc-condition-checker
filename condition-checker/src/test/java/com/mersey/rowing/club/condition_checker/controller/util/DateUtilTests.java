@@ -19,4 +19,11 @@ public class DateUtilTests {
     void callApiDateAndTimeSupplied_invalidDateTimeSupplied_doesntReturnEpochTime() {
         Assertions.assertThrows(DateTimeParseException.class, () -> DateUtil.callApiDateAndTimeSupplied("1/08/1999", "19:23"));
     }
+
+    @Test
+    void getEpochTimeAsLong_validDateTimeSupplied_returnsEpochTimeAsLong() {
+        long actual = DateUtil.getEpochTimeAsLong("18/08/1999", "19:23");
+        long expected = 935000580000L;
+        Assertions.assertEquals(expected, actual);
+    }
 }

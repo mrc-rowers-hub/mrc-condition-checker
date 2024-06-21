@@ -23,14 +23,13 @@ public class DateUtil {
     public static long callApiDateAndTimeSupplied(String date, String time) {
         log.info("both date and time supplied");
         // Call API with (date, time)
-        LocalDateTime dateTime = LocalDateTime.parse(date + " " + time, dtf);
-        return dateTime.atZone(zoneId).toInstant().toEpochMilli();
+        return getEpochTimeAsLong(date, time);
     }
 
     public static long[] callApiTimeOnlyIsNull(String date) { // yes
         log.info("time only is null");
 
-        // Take in datetime string in the format "dd/MM/yyyy HH:mm", as expected by dtf in initialisation
+        // Take in datetime string in the format "dd/MM/yyyy HH:mm"
         LocalDateTime dateTimeMorning = LocalDateTime.parse(date + " " + sixMorning, dtf);
         long morningEpoch = dateTimeMorning.atZone(zoneId).toInstant().toEpochMilli();
 
@@ -40,8 +39,9 @@ public class DateUtil {
         return new long[] {morningEpoch, eveningEpoch};
     }
 
-    private static long getEpochTimeAsLong(String dateTime){
-        
+    public static long getEpochTimeAsLong(String date, String time) {
+        LocalDateTime dateTime1 = LocalDateTime.parse(date + " " + time, dtf);
+        return dateTime1.atZone(zoneId).toInstant().toEpochMilli();
     }
 
     public static void callApiDateOnlyIsNull(String time) { // yes
