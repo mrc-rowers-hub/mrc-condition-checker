@@ -50,7 +50,7 @@ public class DateUtil {
     }
 
     public static long callApiDateOnlyIsNull(String time) {
-        log.info("date only is null");
+        log.info("Date only is null");
         // Call epochTimeAsLong using dateToday, and the time given
         log.info("Retrieved epoch time for " + formattedDateToday + " at time " + time);
         return getEpochTimeAsLong(formattedDateToday, time);
