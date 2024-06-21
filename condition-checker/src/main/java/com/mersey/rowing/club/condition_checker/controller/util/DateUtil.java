@@ -12,12 +12,13 @@ import java.time.format.DateTimeFormatter;
 public class DateUtil {
     private final LocalDate dateToday = LocalDate.now();
     private final LocalDate dateTomorrow = LocalDate.now().plusDays(1);
-    private final LocalTime sixMorning = LocalTime.of(6, 0);
-    private final LocalTime sixEvening = LocalTime.of(18,0);
+    private final static String sixMorning = "06:00";
+    private final static String sixEvening = "18:00";
     private final LocalTime currentTime = LocalTime.now();
     private static final ZoneId zoneId = ZoneId.of("Europe/London");
     private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    // think about try catches later and what to do in case of invalid input
 
     public static long callApiDateAndTimeSupplied(String date, String time) {
         log.info("both date and time supplied");
@@ -26,10 +27,21 @@ public class DateUtil {
         return dateTime.atZone(zoneId).toInstant().toEpochMilli();
     }
 
-    public static void callApiTimeOnlyIsNull(String date) { // yes
+    public static long[] callApiTimeOnlyIsNull(String date) { // yes
         log.info("time only is null");
-        // Call API with (date, sixMorning)
-        // Call API with (date, sixEvening)
+
+        // Take in datetime string in the format "dd/MM/yyyy HH:mm", as expected by dtf in initialisation
+        LocalDateTime dateTimeMorning = LocalDateTime.parse(date + " " + sixMorning, dtf);
+        long morningEpoch = dateTimeMorning.atZone(zoneId).toInstant().toEpochMilli();
+
+        LocalDateTime dateTimeEvening = LocalDateTime.parse(date + " " + sixEvening, dtf);
+        long eveningEpoch = dateTimeEvening.atZone(zoneId).toInstant().toEpochMilli();
+
+        return new long[] {morningEpoch, eveningEpoch};
+    }
+
+    private static long getEpochTimeAsLong(String dateTime){
+        
     }
 
     public static void callApiDateOnlyIsNull(String time) { // yes
