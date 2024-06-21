@@ -16,11 +16,6 @@ public class DateUtilTests {
     }
 
     @Test
-    void callApiDateAndTimeSupplied_invalidDateTimeSupplied_doesntReturnEpochTime() {
-        Assertions.assertThrows(DateTimeParseException.class, () -> DateUtil.callApiDateAndTimeSupplied("1/08/1999", "19:23"));
-    }
-
-    @Test
     void callApiTimeOnlyIsNull_validDateSupplied_returnsLongListOfTwoElements() {
         int actualLength = DateUtil.callApiTimeOnlyIsNull("18/08/1999").length;
         int expectedLength = 2;
@@ -43,12 +38,12 @@ public class DateUtilTests {
 
     @Test
     void getEpochTimeAsLong_invalidDateTimeSupplied_doesNotReturnEpochTime() {
-        // Needs implementing
+        Assertions.assertThrows(DateTimeParseException.class, () -> DateUtil.getEpochTimeAsLong("18/08/1999", "245"));
     }
 
     @Test
     void callApiDateNullAndTimeNull_afterSixMorningBeforeSixEvening_returnsExpected() {
-
+        // Todo needs mocking 
     }
 }
 
