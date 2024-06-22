@@ -7,7 +7,6 @@ import java.time.format.DateTimeParseException;
 
 public class DateUtilTests {
 
-    // methodName_conditions_expectedResult
     @Test
     void callApiDateAndTimeSupplied_validDateTimeSupplied_returnsEpochTimeAsLong() {
         long actual = DateUtil.callApiDateAndTimeSupplied("18/08/1999", "19:23");
