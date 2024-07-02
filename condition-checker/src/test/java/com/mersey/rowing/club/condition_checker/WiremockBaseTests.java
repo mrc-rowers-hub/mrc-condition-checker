@@ -10,7 +10,6 @@ import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -19,12 +18,6 @@ import org.springframework.context.annotation.Import;
 @Import(WireMockConfiguration.class)
 @Slf4j
 public class WiremockBaseTests {
-
-    @Autowired
-    private WireMock wireMock;
-
-    @Autowired
-    private WireMockSetup wireMockSetup;
 
     @Value("${open-weather-api.endpoint}")
     private String endpoint;

@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static com.mersey.rowing.club.condition_checker.mockSetup.MockOpenWeatherResponseGenerator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@SpringBootTest(properties = { "open-weather-api.key=test","open-weather-api.baseUrl=http://localhost:5050" })
 public class BoatCapabilityClientTests {
 
     @Autowired
