@@ -19,4 +19,10 @@ public class WireMockSetup {
 
         return get(urlPathMatching(endpoint)).willReturn(aResponse().withStatus(200).withBody(body).withHeader("Content-Type", "application/json"));
     }
+
+    public MappingBuilder setupOpenWeatherMappingForDt(int epochDateTime) {
+        String body = testUtils.getOpenWeatherResponseAsString();
+        return get(urlPathMatching(endpoint)).withQueryParam("dt", equalTo(String.valueOf(epochDateTime))).willReturn(aResponse().withStatus(200).withBody(body).withHeader("Content-Type", "application/json"));
+    }
+
 }
