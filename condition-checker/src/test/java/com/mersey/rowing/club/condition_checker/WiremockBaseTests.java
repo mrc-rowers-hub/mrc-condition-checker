@@ -29,10 +29,6 @@ public class WiremockBaseTests {
     @Value("${open-weather-api.endpoint}")
     private String endpoint;
 
-    private static final String BASE_URL = "http://localhost:5050";
-    private static final String DUMMY_API_KEY = "testApiKey";
-    private static final String TEST_EPOCH_TIME = "1625088000";
-
     protected static TestUtils testUtils = new TestUtils();
 
     protected static OpenWeatherResponse expectedOpenWeatherResponse;
@@ -43,9 +39,9 @@ public class WiremockBaseTests {
     @BeforeAll
     static void setUpBeforeClass() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.baseURI = BASE_URL;
+        RestAssured.baseURI = Context.BASE_URL;
 
-        url = BASE_URL + "/timemachine?lat=53.39293&lon=-2.98532&dt=" + TEST_EPOCH_TIME + "&appid=" + DUMMY_API_KEY;
+        url = Context.BASE_URL + "/timemachine?lat=53.39293&lon=-2.98532&dt=" + Context.TEST_EPOCH_TIME + "&appid=" + Context.DUMMY_API_KEY;
 
         log.info("<<<<< SETTING UP WIREMOCK MAPPINGS >>>>>");
         WireMockSetup mockSetup = new WireMockSetup();
