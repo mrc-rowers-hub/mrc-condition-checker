@@ -15,7 +15,7 @@ import java.util.List;
 public class WeatherData {
 
     @JsonProperty("dt")
-    private double epochDateTime;
+    private int epochDateTime;
 
     @JsonProperty("temp")
     private double temperature;

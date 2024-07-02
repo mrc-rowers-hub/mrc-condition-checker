@@ -1,8 +1,7 @@
 package com.mersey.rowing.club.condition_checker.controller.boats;
 
-import com.mersey.rowing.club.condition_checker.mock.MockOpenWeatherResponseGenerator;
+import com.mersey.rowing.club.condition_checker.mockSetup.MockOpenWeatherResponseGenerator;
 import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.mersey.rowing.club.condition_checker.mock.MockOpenWeatherResponseGenerator.*;
+import static com.mersey.rowing.club.condition_checker.mockSetup.MockOpenWeatherResponseGenerator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest

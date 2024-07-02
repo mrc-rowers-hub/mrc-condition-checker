@@ -1,4 +1,4 @@
-package com.mersey.rowing.club.condition_checker.mock;
+package com.mersey.rowing.club.condition_checker.mockSetup;
 
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.Weather;
@@ -12,6 +12,13 @@ public class MockOpenWeatherResponseGenerator {
         List<Weather> weatherList = List.of(
                 new Weather(800,  "clear sky", "01d"));
         List<WeatherData> weatherDataList = List.of(new WeatherData(1718653615, 279.13, 276.44, 3.6, weatherList));
+        return OpenWeatherResponse.builder().data(weatherDataList).build();
+    }
+
+    public static OpenWeatherResponse getOpenWeatherResponseAllGoodWithDt(int epochDateTime){
+        List<Weather> weatherList = List.of(
+                new Weather(800,  "clear sky", "01d"));
+        List<WeatherData> weatherDataList = List.of(new WeatherData(epochDateTime, 279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 

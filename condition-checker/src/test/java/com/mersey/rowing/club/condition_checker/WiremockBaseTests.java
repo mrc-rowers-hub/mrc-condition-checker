@@ -2,8 +2,8 @@ package com.mersey.rowing.club.condition_checker;
 
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.mersey.rowing.club.condition_checker.mock.WireMockConfiguration;
-import com.mersey.rowing.club.condition_checker.mock.WireMockSetup;
+import com.mersey.rowing.club.condition_checker.mockSetup.WireMockConfiguration;
+import com.mersey.rowing.club.condition_checker.mockSetup.WireMockSetup;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
