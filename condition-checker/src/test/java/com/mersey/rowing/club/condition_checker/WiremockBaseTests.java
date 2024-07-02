@@ -5,6 +5,7 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.mersey.rowing.club.condition_checker.mockSetup.WireMockConfiguration;
 import com.mersey.rowing.club.condition_checker.mockSetup.WireMockSetup;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
+import com.mersey.rowing.club.condition_checker.utils.TestUtils;
 import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
@@ -32,6 +33,8 @@ public class WiremockBaseTests {
     private static final String DUMMY_API_KEY = "testApiKey";
     private static final String TEST_EPOCH_TIME = "1625088000";
 
+    protected static TestUtils testUtils = new TestUtils();
+
     protected static OpenWeatherResponse expectedOpenWeatherResponse;
 
     protected static String url;
@@ -47,13 +50,13 @@ public class WiremockBaseTests {
         log.info("<<<<< SETTING UP WIREMOCK MAPPINGS >>>>>");
         WireMockSetup mockSetup = new WireMockSetup();
         MappingBuilder mappingBuilder = mockSetup.setupOpenWeatherMapping();
-        expectedResponseBody = mockSetup.getOpenWeatherResponseAsString();
+        expectedResponseBody = testUtils.getOpenWeatherResponseAsString();
 
         WireMock wireMock = new WireMock("localhost", 5050);
         wireMock.register(mappingBuilder);
         log.info("<<<<< WIREMOCK MAPPINGS COMPLETE SETUP >>>>>");
 
-        expectedOpenWeatherResponse = mockSetup.getOpenWeatherResponse();
+        expectedOpenWeatherResponse = testUtils.getOpenWeatherResponse();
     }
 
     @AfterAll
