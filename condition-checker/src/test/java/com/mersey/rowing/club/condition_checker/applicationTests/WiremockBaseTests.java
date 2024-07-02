@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
+import static com.mersey.rowing.club.condition_checker.utils.TestOpenWeatherUtils.TEST_EPOCH_TIME;
+
 @SpringBootTest(properties = { "open-weather-api.key=test","open-weather-api.baseUrl=http://localhost:5050" })
 @Import(WireMockConfiguration.class)
 @Slf4j
@@ -27,18 +29,18 @@ public class WiremockBaseTests {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.baseURI = TestOpenWeatherUtils.BASE_URL;
 
-        url = TestOpenWeatherUtils.BASE_URL + "/timemachine?lat=53.39293&lon=-2.98532&dt=" + TestOpenWeatherUtils.TEST_EPOCH_TIME + "&appid=" + TestOpenWeatherUtils.DUMMY_API_KEY;
+        url = TestOpenWeatherUtils.BASE_URL + "/timemachine?lat=53.39293&lon=-2.98532&dt=" + TEST_EPOCH_TIME + "&appid=" + TestOpenWeatherUtils.DUMMY_API_KEY;
 
         log.info("<<<<< SETTING UP WIREMOCK MAPPINGS >>>>>");
         WireMockSetup mockSetup = new WireMockSetup();
         MappingBuilder mappingBuilder = mockSetup.setupOpenWeatherMapping();
-        expectedResponseBody = TestOpenWeatherUtils.getOpenWeatherResponseAsString();
+        expectedResponseBody = TestOpenWeatherUtils.getOpenWeatherResponseAsString(TEST_EPOCH_TIME);
 
         WireMock wireMock = new WireMock("localhost", 5050);
         wireMock.register(mappingBuilder);
         log.info("<<<<< WIREMOCK MAPPINGS COMPLETE SETUP >>>>>");
 
-        expectedGenericOpenWeatherResponse = TestOpenWeatherUtils.getOpenWeatherResponse();
+        expectedGenericOpenWeatherResponse = TestOpenWeatherUtils.getOpenWeatherResponse(TEST_EPOCH_TIME);
     }
 
     @AfterAll
