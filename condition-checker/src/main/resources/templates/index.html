@@ -2,14 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thymeleaf Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+        .header-container img {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>MRC Condition Checker</h1>
-
-<div class="top-right">
-    <img src="/mrc_logo.png" alt="MRC Logo" width="100">
-</div>
-
-<p th:text="'Hello, ' + ${name} + '!'"></p>
+<header>
+    <div class="header-container">
+        <h1>MRC Condition Checker</h1>
+        <img src="/mrc_logo.png" alt="MRC Logo" width="100">
+    </div>
+</header>
+<main>
+    <p th:text="'Hello, ' + ${name} + '!'"></p>
+</main>
 </body>
 </html>
