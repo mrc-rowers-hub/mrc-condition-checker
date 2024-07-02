@@ -14,7 +14,7 @@ Prerequisites:
 
 Instructions:
 - Run `docker-compose up -d ` (this starts the wiremock container)
-- Run the maven unit tests 
+- Run the maven unit tests _(right click on `java.com.mersey.rowing.club.condition_checker` -> run all tests)_
 
 # Application Logic and Reasoning
 Currently, we are working from a [Miro](https://miro.com/app/board/uXjVPMF8Djc=/?moveToWidget=3458764584603444169&cot=14) (_currently private, please request access if necessary_) page, designed by Adelaide Baron. Additionally, work is being prioritised through the GitHub Project associated with this repository. 
