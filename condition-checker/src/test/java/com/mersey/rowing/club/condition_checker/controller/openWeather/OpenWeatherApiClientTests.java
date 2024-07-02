@@ -17,7 +17,7 @@ public class OpenWeatherApiClientTests extends WiremockBaseTests {
     @Test
     void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOpenWeatherResponseModel(){
         OpenWeatherResponse actualMappedResponse = openWeatherApiClient.getOpenWeatherAPIResponse();
-        assertEquals(expectedOpenWeatherResponse, actualMappedResponse);
+        assertEquals(expectedGenericOpenWeatherResponse, actualMappedResponse);
     }
 
     // Todo API giving 500 doesn't map, should return null perhaps?
