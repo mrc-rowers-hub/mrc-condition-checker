@@ -49,6 +49,14 @@
 			<artifactId>spring-webflux</artifactId>
 			<version>6.1.8</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>3.2.5</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
