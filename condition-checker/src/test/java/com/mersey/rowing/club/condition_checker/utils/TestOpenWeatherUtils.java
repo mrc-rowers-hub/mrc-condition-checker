@@ -15,7 +15,7 @@ public class TestOpenWeatherUtils {
 
     public static final String BASE_URL = "http://localhost:5050";
     public static final String DUMMY_API_KEY = "testApiKey";
-    public static final String TEST_EPOCH_TIME = "1625088000";
+    public static final int TEST_EPOCH_TIME = 1718653615;
 
     public static String getOpenWeatherResponseAsString(){
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -30,7 +30,7 @@ public class TestOpenWeatherUtils {
     public static OpenWeatherResponse getOpenWeatherResponse(){
         List<Weather> weatherList = List.of(
                 new Weather(800, "clear sky", "01d"));
-        List<WeatherData> weatherDataList = List.of(new WeatherData(279.13, 276.44, 3.6, weatherList));
+        List<WeatherData> weatherDataList = List.of(new WeatherData(TEST_EPOCH_TIME, 279.13, 276.44, 3.6, weatherList));
         return OpenWeatherResponse.builder().data(weatherDataList).build();
     }
 }
