@@ -1,4 +1,4 @@
-package com.mersey.rowing.club.condition_checker.mock;
+package com.mersey.rowing.club.condition_checker.mockSetup;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.springframework.beans.factory.annotation.Value;

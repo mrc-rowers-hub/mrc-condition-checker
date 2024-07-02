@@ -1,5 +1,6 @@
-package com.mersey.rowing.club.condition_checker.model.openweatherapi;
+package com.mersey.rowing.club.condition_checker.applicationTests.model.openweatherapi;
 
+import com.mersey.rowing.club.condition_checker.model.openweatherapi.WeatherData;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

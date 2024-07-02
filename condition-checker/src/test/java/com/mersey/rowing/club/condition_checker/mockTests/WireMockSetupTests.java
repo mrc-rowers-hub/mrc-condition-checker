@@ -1,7 +1,7 @@
 package com.mersey.rowing.club.condition_checker.mockTests;
 
 
-import com.mersey.rowing.club.condition_checker.WiremockBaseTests;
+import com.mersey.rowing.club.condition_checker.applicationTests.WiremockBaseTests;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
