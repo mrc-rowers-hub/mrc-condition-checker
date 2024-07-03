@@ -14,6 +14,9 @@ import java.util.List;
 @Jacksonized
 public class WeatherData {
 
+    @JsonProperty("dt")
+    private int epochDateTime;
+
     @JsonProperty("temp")
     private double temperature;
 
