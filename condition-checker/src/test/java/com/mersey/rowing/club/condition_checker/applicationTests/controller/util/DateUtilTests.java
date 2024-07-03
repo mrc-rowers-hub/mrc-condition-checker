@@ -1,5 +1,6 @@
-package com.mersey.rowing.club.condition_checker.controller.util;
+package com.mersey.rowing.club.condition_checker.applicationTests.controller.util;
 
+import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

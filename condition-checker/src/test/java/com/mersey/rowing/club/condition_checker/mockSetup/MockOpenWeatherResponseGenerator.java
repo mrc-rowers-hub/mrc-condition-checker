@@ -1,4 +1,4 @@
-package com.mersey.rowing.club.condition_checker.mock;
+package com.mersey.rowing.club.condition_checker.mockSetup;
 
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.Weather;
