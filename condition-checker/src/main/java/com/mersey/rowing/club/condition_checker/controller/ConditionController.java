@@ -25,13 +25,13 @@ public class ConditionController {
 
     private void getEpochBasedOnLogic(String date, String time) {
         if((date == null && time == null) || (dateToday.toString().equals(date) && time == null)) {
-            DateUtil.callApiDateNullAndTimeNull();
+            DateUtil.getEpochsDateNullAndTimeNull();
         } else if (date == null) {
-            DateUtil.callApiDateOnlyIsNull(time);
+            DateUtil.getEpochsDateOnlyIsNull(time);
         } else if (time == null) {
-            DateUtil.callApiTimeOnlyIsNull(date);
+            DateUtil.getEpochsTimeOnlyIsNull(date);
         }else {
-            DateUtil.callApiDateAndTimeSupplied(date, time);
+            DateUtil.getEpochsDateAndTimeSupplied(date, time);
         }
     }
 
