@@ -3,10 +3,28 @@
 An application to check the weather conditions of Mersey Rowing Club at the 6am and 6pm (for morning and evening sessions) to see if boats can go ahead. 
 
 ## How to run
+### You will need:
+- An OpenWeather api key - _you need to sign up for a free OpenWeather account for this https://home.openweathermap.org/api_keys_
+- You need to be signed up for the One Call API 3.0 
+
+### Environment Variables 
+- `OPENWEATHER_API_KEY`
+
+### Locally using IntelliJ 
 - Install the Env file plugin https://plugins.jetbrains.com/plugin/7861-envfile 
 - Add your api key to the .env file - you need to sign up for a free OpenWeather account for this https://home.openweathermap.org/api_keys 
 - Edit the run configurations for ConditionCheckerApplication -> edit configurations -> enable env file -> select the .env file 
 - Run the app 
+
+### Using the jar 
+- <tests requiring docker>/...
+- Using the maven window, or maven commend (`mvn clean package`) create the JAR file 
+- Set the environment variables & run (e.g. `set OPENWEATHER_API_KEY=value && java -jar condition-checker.jar`)
+
+# Docker/Images
+### to build the image 
+- Run the dockerfile 
+- docker run -p 8080:8080 -e OPENWEATHER_API_KEY="your_actual_api_key" condition-checker
 
 ### Testing 
 Prerequisites:
