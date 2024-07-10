@@ -9,13 +9,15 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mersey.rowing.club</groupId>
-	<artifactId>condition-checker</artifactId>
+	<artifactId>condition_checker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>condition-checker</name>
+	<name>condition_checker</name>
 	<description>Demo project for Spring Boot</description>
+
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

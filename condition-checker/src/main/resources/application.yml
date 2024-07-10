@@ -1,6 +1,6 @@
 spring:
   application:
-    name: condition-checker
+    name: condition_checker
 
 open-weather-api:
   baseUrl: "https://api.openweathermap.org/data/3.0/onecall"
