@@ -23,7 +23,10 @@ An application to check the weather conditions of Mersey Rowing Club at the 6am 
 
 # Docker/Images
 ### to build the image 
-- Run the dockerfile 
+- Using the maven window, or maven commend (`mvn clean package`) create the JAR file
+- Run the dockerfile (or execute `docker build -t condition_checker:latest .`)
+
+### Run the image 
 - docker run -p 8080:8080 -e OPENWEATHER_API_KEY="your_actual_api_key" condition-checker
 
 ### Testing 
