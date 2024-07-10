@@ -1,5 +1,6 @@
 package com.mersey.rowing.club.condition_checker.controller.openweather;
 
+import com.mersey.rowing.club.condition_checker.controller.ConditionController;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +25,8 @@ public class OpenWeatherApiClient {
     private String apiEndpoint;
 
 
-    public OpenWeatherResponse getOpenWeatherAPIResponse() {
-        String url = String.format(apiBaseUrl + apiEndpoint, apiKey);
+    public OpenWeatherResponse getOpenWeatherAPIResponse(long epoch) {
+        String url = String.format(apiBaseUrl + apiEndpoint, epoch, apiKey);
         Class<OpenWeatherResponse> responseType = OpenWeatherResponse.class;
 
         try {
@@ -44,4 +45,6 @@ public class OpenWeatherApiClient {
             return null;
         }
     }
+
+
 }

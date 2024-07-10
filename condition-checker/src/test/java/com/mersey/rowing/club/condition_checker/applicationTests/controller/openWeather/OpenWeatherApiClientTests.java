@@ -16,7 +16,7 @@ public class OpenWeatherApiClientTests extends WiremockBaseTests {
 
     @Test
     void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOpenWeatherResponseModel(){
-        OpenWeatherResponse actualMappedResponse = openWeatherApiClient.getOpenWeatherAPIResponse();
+        OpenWeatherResponse actualMappedResponse = openWeatherApiClient.getOpenWeatherAPIResponse(1720626363L );
         assertEquals(expectedGenericOpenWeatherResponse, actualMappedResponse);
     }
 
