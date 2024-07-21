@@ -47,8 +47,7 @@ public class BoatCapabilityClient {
           .seniorFourAndAbove(false)
           .build();
     } else {
-      return getBoatsAllowedByWind(
-              windSpeed, boatLimits.getBoatTypeWindLimit());
+      return getBoatsAllowedByWind(windSpeed, boatLimits.getBoatTypeWindLimit());
     }
   }
 
