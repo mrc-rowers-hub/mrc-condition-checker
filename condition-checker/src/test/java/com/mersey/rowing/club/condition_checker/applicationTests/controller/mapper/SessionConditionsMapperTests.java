@@ -5,14 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mersey.rowing.club.condition_checker.controller.mapper.SessionConditionsMapper;
 import com.mersey.rowing.club.condition_checker.mockSetup.MockOpenWeatherResponseGenerator;
+import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 
 @Slf4j
 @SpringBootTest(properties = {"open-weather-api.key=test"})
@@ -21,6 +25,9 @@ public class SessionConditionsMapperTests {
 
   private static OpenWeatherResponse MOCK_OW_RESPONSE =
       MockOpenWeatherResponseGenerator.getOpenWeatherResponseAllGood();
+
+  private     ObjectMapper mapper = new ObjectMapper();
+;
 
   private static String EXPECTED_RESPONSE =
       """
@@ -38,15 +45,17 @@ public class SessionConditionsMapperTests {
             }}
             """;
 
+  @BeforeEach
+  public void init(){
+    mapper.registerModule(new JavaTimeModule());
+  }
+
   @Test
   void mapSessionConditionsFromOpenWeatherResponse_validOpenWeatherResponse_mapsAsExpected() {
-    SessionConditions sessionConditions =
-        sessionConditionsMapper.mapFromOwResponse(MOCK_OW_RESPONSE);
-
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.registerModule(new JavaTimeModule());
+    SessionConditions actualSessionConditions =
+        sessionConditionsMapper.mapFromHappyOwResponse(MOCK_OW_RESPONSE);
     try {
-      String sessionConditionsJson = mapper.writeValueAsString(sessionConditions);
+      String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
       JSONAssert.assertEquals(EXPECTED_RESPONSE, sessionConditionsJson, false);
     } catch (AssertionError e) {
       log.error("JSON objects are not equal: " + e.getMessage());
@@ -55,4 +64,31 @@ public class SessionConditionsMapperTests {
       throw new RuntimeException(e);
     }
   }
+
+  @Test
+  void mapFromUnhappyOwResponse_200Response_throwsException(){
+    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
+    Assertions.assertThrows(RuntimeException.class, () -> {
+      sessionConditionsMapper.mapFromUnhappyOwResponse(statusCodeObject);
+    });
+  }
+
+  @Test
+  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse(){
+    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
+    SessionConditions actualSessionConditions = sessionConditionsMapper.mapFromUnhappyOwResponse(statusCodeObject);
+    SessionConditions expectedSessionConditionsResponse = SessionConditions.builder().status(HttpStatus.UNAUTHORIZED.toString()).date("17/06/2024 20:46").build();
+    try {
+      String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
+      String expectedSessionConditionsJson = mapper.writeValueAsString(expectedSessionConditionsResponse);
+      JSONAssert.assertEquals(expectedSessionConditionsJson, sessionConditionsJson, false);
+    } catch (AssertionError e) {
+      log.error("JSON objects are not equal: " + e.getMessage());
+      throw e;
+    } catch (JSONException | JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
+
+  }
+
 }
