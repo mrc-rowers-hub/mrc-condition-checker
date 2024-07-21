@@ -23,7 +23,7 @@ public class WeatherData {
   private double feelsLike;
 
   @JsonProperty("wind_speed")
-  private double windSpeed;
+  private double windSpeed; // in m/s
 
   @JsonProperty("weather")
   private List<Weather> weather;

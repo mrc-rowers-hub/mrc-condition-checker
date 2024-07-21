@@ -15,7 +15,7 @@ public class SessionConditions {
 
   private String date;
 
-  @JsonProperty("boats_allowed")
+  @JsonProperty("weather_conditions")
   private WeatherConditions weatherConditions;
 
   @JsonProperty("boats_allowed")
