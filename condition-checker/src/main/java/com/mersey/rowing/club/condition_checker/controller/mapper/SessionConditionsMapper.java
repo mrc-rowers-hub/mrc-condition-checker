@@ -18,33 +18,33 @@ public class SessionConditionsMapper {
 
   private DateUtil dateUtil = new DateUtil();
 
-  public SessionConditions mapFromHappyOwResponse(OpenWeatherResponse openWeatherResponse) {
-    BoatsAllowed boatsAllowed = boatCapabilityClient.getBoatsAllowed(openWeatherResponse);
-
-    WeatherConditions weatherConditions =
-        WeatherConditions.builder()
-            .description(openWeatherResponse.getDescription())
-            .windSpeed((int) Math.round(openWeatherResponse.getWindSpeed()))
-            .tempFeelsLike((int) Math.round(openWeatherResponse.getFeelsLike()))
-            .build();
-
-    String dateTime =
-        dateUtil.getDatetimeFromEpochSeconds(
-            (long) openWeatherResponse.getData().getFirst().getEpochDateTime());
-
-    return SessionConditions.builder()
-        .weatherConditions(weatherConditions)
-        .boatsAllowed(boatsAllowed)
-        .date(dateTime)
-        .build();
-  }
-
-  public SessionConditions mapFromUnhappyOwResponse(StatusCodeObject statusCodeObject){
-    if(statusCodeObject.getHttpStatus().equals(HttpStatus.OK)){
-      throw new RuntimeException("Cannot map a valid response to unhappy response");
-    }
+  public SessionConditions mapFromStatusCodeObject(StatusCodeObject statusCodeObject){
     String status = statusCodeObject.getHttpStatus().toString();
-    String date = (String) statusCodeObject.getOwResponse();
-    return SessionConditions.builder().status(status).date(date).build();
+    if(statusCodeObject.getHttpStatus().equals(HttpStatus.OK)){
+      OpenWeatherResponse openWeatherResponse = (OpenWeatherResponse) statusCodeObject.getOwResponse();
+      BoatsAllowed boatsAllowed = boatCapabilityClient.getBoatsAllowed(openWeatherResponse);
+
+      WeatherConditions weatherConditions =
+              WeatherConditions.builder()
+                      .description(openWeatherResponse.getDescription())
+                      .windSpeed((int) Math.round(openWeatherResponse.getWindSpeed()))
+                      .tempFeelsLike((int) Math.round(openWeatherResponse.getFeelsLike()))
+                      .build();
+
+      String dateTime =
+              dateUtil.getDatetimeFromEpochSeconds(
+                      (long) openWeatherResponse.getData().getFirst().getEpochDateTime());
+
+      return SessionConditions.builder()
+              .weatherConditions(weatherConditions)
+              .boatsAllowed(boatsAllowed)
+              .date(dateTime)
+              .build();
+    } else {
+      String date = (String) statusCodeObject.getOwResponse();
+      return SessionConditions.builder().status(status).date(date).build();
+    }
   }
+
+
 }

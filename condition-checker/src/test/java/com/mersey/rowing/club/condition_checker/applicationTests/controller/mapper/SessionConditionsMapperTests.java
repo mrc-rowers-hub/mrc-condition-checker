@@ -52,8 +52,11 @@ public class SessionConditionsMapperTests {
 
   @Test
   void mapSessionConditionsFromOpenWeatherResponse_validOpenWeatherResponse_mapsAsExpected() {
+    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
+
     SessionConditions actualSessionConditions =
-        sessionConditionsMapper.mapFromHappyOwResponse(MOCK_OW_RESPONSE);
+        sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
+
     try {
       String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
       JSONAssert.assertEquals(EXPECTED_RESPONSE, sessionConditionsJson, false);
@@ -66,17 +69,9 @@ public class SessionConditionsMapperTests {
   }
 
   @Test
-  void mapFromUnhappyOwResponse_200Response_throwsException(){
-    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
-    Assertions.assertThrows(RuntimeException.class, () -> {
-      sessionConditionsMapper.mapFromUnhappyOwResponse(statusCodeObject);
-    });
-  }
-
-  @Test
   void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse(){
     StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
-    SessionConditions actualSessionConditions = sessionConditionsMapper.mapFromUnhappyOwResponse(statusCodeObject);
+    SessionConditions actualSessionConditions = sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
     SessionConditions expectedSessionConditionsResponse = SessionConditions.builder().status(HttpStatus.UNAUTHORIZED.toString()).date("17/06/2024 20:46").build();
     try {
       String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
