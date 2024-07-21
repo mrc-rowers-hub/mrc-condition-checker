@@ -3,7 +3,6 @@ package com.mersey.rowing.club.condition_checker.applicationTests.controller.map
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-// import com.mersey.rowing.club.condition_checker.mock.MockOpenWeatherResponseGenerator;
 import com.mersey.rowing.club.condition_checker.controller.mapper.SessionConditionsMapper;
 import com.mersey.rowing.club.condition_checker.mockSetup.MockOpenWeatherResponseGenerator;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
