@@ -37,7 +37,8 @@ public class OpenWeatherApiClient {
       return new StatusCodeObject(HttpStatus.OK, openWeatherResponse);
     } catch (RestClientResponseException e) {
       log.error("Open Weather API gave an unexpected response: {}", e.getStatusCode());
-      return new StatusCodeObject((HttpStatus) e.getStatusCode(), dateUtil.getDatetimeFromEpochSeconds(epoch));
+      return new StatusCodeObject(
+          (HttpStatus) e.getStatusCode(), dateUtil.getDatetimeFromEpochSeconds(epoch));
     } catch (Exception e) {
       log.error("Unexpected error: " + e.getMessage());
       throw e;

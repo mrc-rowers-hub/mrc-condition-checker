@@ -10,7 +10,6 @@ import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeather
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -26,8 +25,8 @@ public class SessionConditionsMapperTests {
   private static OpenWeatherResponse MOCK_OW_RESPONSE =
       MockOpenWeatherResponseGenerator.getOpenWeatherResponseAllGood();
 
-  private     ObjectMapper mapper = new ObjectMapper();
-;
+  private ObjectMapper mapper = new ObjectMapper();
+  ;
 
   private static String EXPECTED_RESPONSE =
       """
@@ -46,7 +45,7 @@ public class SessionConditionsMapperTests {
             """;
 
   @BeforeEach
-  public void init(){
+  public void init() {
     mapper.registerModule(new JavaTimeModule());
   }
 
@@ -69,13 +68,20 @@ public class SessionConditionsMapperTests {
   }
 
   @Test
-  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse(){
-    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
-    SessionConditions actualSessionConditions = sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
-    SessionConditions expectedSessionConditionsResponse = SessionConditions.builder().status(HttpStatus.UNAUTHORIZED.toString()).date("17/06/2024 20:46").build();
+  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() {
+    StatusCodeObject statusCodeObject =
+        new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
+    SessionConditions actualSessionConditions =
+        sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
+    SessionConditions expectedSessionConditionsResponse =
+        SessionConditions.builder()
+            .status(HttpStatus.UNAUTHORIZED.toString())
+            .date("17/06/2024 20:46")
+            .build();
     try {
       String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
-      String expectedSessionConditionsJson = mapper.writeValueAsString(expectedSessionConditionsResponse);
+      String expectedSessionConditionsJson =
+          mapper.writeValueAsString(expectedSessionConditionsResponse);
       JSONAssert.assertEquals(expectedSessionConditionsJson, sessionConditionsJson, false);
     } catch (AssertionError e) {
       log.error("JSON objects are not equal: " + e.getMessage());
@@ -83,7 +89,5 @@ public class SessionConditionsMapperTests {
     } catch (JSONException | JsonProcessingException e) {
       throw new RuntimeException(e);
     }
-
   }
-
 }
