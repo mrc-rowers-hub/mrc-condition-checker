@@ -1,5 +1,6 @@
 package com.mersey.rowing.club.condition_checker.controller.openweather;
 
+import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,24 +24,21 @@ public class OpenWeatherApiClient {
   @Value("${open-weather-api.endpoint}")
   private String apiEndpoint;
 
-  public OpenWeatherResponse getOpenWeatherAPIResponse() {
-    String url = String.format(apiBaseUrl + apiEndpoint, apiKey);
+  public StatusCodeObject getOpenWeatherAPIResponse(long epoch) {
+    String url = String.format(apiBaseUrl + apiEndpoint, epoch, apiKey);
     Class<OpenWeatherResponse> responseType = OpenWeatherResponse.class;
 
     try {
       OpenWeatherResponse openWeatherResponse = restTemplate.getForObject(url, responseType);
       log.info("Successfully retrieved and mapped response from open weather API");
-      return openWeatherResponse;
+      return new StatusCodeObject(HttpStatus.OK, openWeatherResponse);
     } catch (RestClientResponseException e) {
-      if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-        log.error("Resource not found at " + url);
-      } else {
-        log.error("Error occurred during request: " + e.getMessage());
-      }
-      return null;
+      log.error("Open Weather API gave an unexpected response: {}", e.getStatusCode());
+
+      return new StatusCodeObject((HttpStatus) e.getStatusCode(), null);
     } catch (Exception e) {
       log.error("Unexpected error: " + e.getMessage());
-      return null;
+      throw e;
     }
   }
 }

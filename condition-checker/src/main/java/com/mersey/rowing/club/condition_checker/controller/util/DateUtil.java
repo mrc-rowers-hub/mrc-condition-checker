@@ -25,14 +25,14 @@ public class DateUtil {
   // TODO think about try catches later and what to do in case of invalid input
   // Take in datetime string in the format "dd/MM/yyyy HH:mm"
 
-  public static long callApiDateAndTimeSupplied(String date, String time) {
+  public static long[] getEpochsDateAndTimeSupplied(String date, String time) {
     log.info("Both date and time supplied");
     // Return epoch time as a long with (date, time)
     log.info("Retrieved epoch time for " + date + " at time " + time);
-    return getEpochTimeAsLong(date, time);
+    return new long[] {getEpochTimeAsLong(date, time)};
   }
 
-  public static long[] callApiTimeOnlyIsNull(String date) {
+  public static long[] getEpochsTimeOnlyIsNull(String date) {
     log.info("Time only is null");
 
     // Call getEpochTimeAsLong method with sixMorning, and sixEvening
@@ -46,19 +46,20 @@ public class DateUtil {
     return new long[] {morningEpoch, eveningEpoch};
   }
 
+  // Maybe want to make this private
   public static long getEpochTimeAsLong(String date, String time) {
     LocalDateTime dateTime1 = LocalDateTime.parse(date + " " + time, dtf);
     return dateTime1.atZone(zoneId).toInstant().toEpochMilli();
   }
 
-  public static long callApiDateOnlyIsNull(String time) {
+  public static long[] getEpochsDateOnlyIsNull(String time) {
     log.info("Date only is null");
     // Call epochTimeAsLong using dateToday, and the time given
     log.info("Retrieved epoch time for " + formattedDateToday + " at time " + time);
-    return getEpochTimeAsLong(formattedDateToday, time);
+    return new long[] {getEpochTimeAsLong(formattedDateToday, time)};
   }
 
-  public static long[] callApiDateNullAndTimeNull() {
+  public static long[] getEpochsDateNullAndTimeNull() {
     log.info("date and time are null OR time is null and date == dateToday");
 
     // Check to see if current time is after 6AM
