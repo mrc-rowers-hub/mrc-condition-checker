@@ -41,7 +41,8 @@ public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
   void getOpenWeatherAPIResponse_apiDoesntGive200_returnsNullOw() {
 
     setupUnauthorisedWiremockMapping();
-    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.UNAUTHORIZED, null);
+    StatusCodeObject statusCodeObject =
+        new StatusCodeObject(HttpStatus.UNAUTHORIZED, "10/07/2024 16:46");
 
     assertThat(statusCodeObject)
         .isEqualTo(openWeatherApiClient.getOpenWeatherAPIResponse(1720626363L));
