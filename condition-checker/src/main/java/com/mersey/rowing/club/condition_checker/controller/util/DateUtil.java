@@ -2,6 +2,8 @@ package com.mersey.rowing.club.condition_checker.controller.util;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -90,5 +92,16 @@ public class DateUtil {
     Instant instant = Instant.ofEpochSecond(epoch);
     LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     return dateTime.format(dtf);
+  }
+
+  public String getDateTimeAsDdMmYyyyFromWebsite(String websiteDate){
+      try {
+        LocalDate localDate = LocalDate.parse(websiteDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+
+        return localDate.format(dtfMinusHours);
+      } catch (DateTimeParseException e) {
+        throw e;
+      }
+
   }
 }

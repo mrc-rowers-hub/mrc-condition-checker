@@ -108,4 +108,10 @@ public class DateUtilTests {
   void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
     assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
   }
+
+  @Test
+  void getDateTimeAsDdMmYyyyFromWebsite_stringInput_returnsDtInExpectedFormat(){
+    assertEquals("12/07/2024", dateUtil.getDateTimeAsDdMmYyyyFromWebsite("12 Jul 2024"));
+  }
+
 }
