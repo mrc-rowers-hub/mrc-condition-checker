@@ -1,9 +1,6 @@
 package com.mersey.rowing.club.condition_checker.controller.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -93,5 +90,12 @@ public class DateUtil {
 
       return new long[] {morningEpoch, eveningEpoch};
     }
+  }
+
+
+  public static String getDatetimeFromEpoch(Long epoch){
+    Instant instant = Instant.ofEpochMilli(epoch);
+    LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    return dateTime.format(dtf);
   }
 }
