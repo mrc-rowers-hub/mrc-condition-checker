@@ -17,12 +17,8 @@ public class DateUtil {
   private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
   private static final DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-  private final Clock clock;
-
   @Autowired
-  public DateUtil(Clock clock) {
-    this.clock = clock;
-  }
+  private Clock clock;
 
   private LocalDate getCurrentDate() {
     return LocalDate.now(clock);

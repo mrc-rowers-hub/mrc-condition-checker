@@ -38,11 +38,6 @@ public class WireMockSpecificDtBaseTests {
     log.info("<<<<< WIREMOCK MAPPINGS CLEARED >>>>>");
   }
 
-  @Test
-  void something() {
-    setupWiremockMappingForDt(1719928728);
-  }
-
   protected String formatUrl(int dt) {
     return TestOpenWeatherUtils.BASE_URL
         + endpoint.formatted(dt, TestOpenWeatherUtils.DUMMY_API_KEY);
