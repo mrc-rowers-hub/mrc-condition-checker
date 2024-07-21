@@ -46,7 +46,7 @@ public class DateUtil {
   // Maybe want to make this private
   public static long getEpochTimeAsLong(String date, String time) {
     LocalDateTime dateTime1 = LocalDateTime.parse(date + " " + time, dtf);
-    return dateTime1.atZone(zoneId).toInstant().toEpochMilli();
+    return dateTime1.atZone(zoneId).toInstant().getEpochSecond();// .toEpochMilli();
   }
 
   public static long[] getEpochsDateOnlyIsNull(String time) {

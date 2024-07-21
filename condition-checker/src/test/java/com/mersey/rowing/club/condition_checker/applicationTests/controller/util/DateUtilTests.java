@@ -9,15 +9,14 @@ import org.junit.jupiter.api.Test;
 
 public class DateUtilTests {
 
-  private long testEpoch = 1721562600000L;
-  private long testEpochMorning = 1721538000000L;
+  private long testEpoch = 1721562600L;
+  private long testEpochMorning = 1721538000L;
   private String testDate = "21/07/2024";
   private String testTime = "12:50";
 
   @Test
   void getEpochsDateAndTimeSupplied_validDateTimeSupplied_returnsEpochTimeAsLong() {
     long actual = DateUtil.getEpochsDateAndTimeSupplied(testDate, testTime)[0];
-    //    long expected = 935000580000L;
     assertEquals(testEpoch, actual);
   }
 
