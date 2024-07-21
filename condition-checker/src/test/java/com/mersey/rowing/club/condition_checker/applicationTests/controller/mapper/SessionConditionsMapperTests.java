@@ -43,8 +43,6 @@ public class SessionConditionsMapperTests {
     SessionConditions sessionConditions =
         sessionConditionsMapper.mapFromOwResponse(MOCK_OW_RESPONSE);
 
-    System.out.println(sessionConditions);
-
     ObjectMapper mapper = new ObjectMapper();
     mapper.registerModule(new JavaTimeModule());
     try {
