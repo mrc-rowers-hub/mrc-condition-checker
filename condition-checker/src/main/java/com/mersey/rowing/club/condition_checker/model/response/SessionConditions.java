@@ -12,6 +12,8 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class SessionConditions {
 
+  private String status;
+
   private String date;
 
   @JsonProperty("weather_conditions")
