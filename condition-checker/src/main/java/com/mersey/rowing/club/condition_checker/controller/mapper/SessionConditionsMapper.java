@@ -16,7 +16,7 @@ public class SessionConditionsMapper {
 
   @Autowired BoatCapabilityClient boatCapabilityClient;
 
-  private DateUtil dateUtil = new DateUtil();
+  @Autowired private DateUtil dateUtil;
 
   public SessionConditions mapFromStatusCodeObject(StatusCodeObject statusCodeObject) {
     String status = statusCodeObject.getHttpStatus().toString();
