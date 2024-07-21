@@ -12,14 +12,13 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class BoatsAllowed {
 
-    private boolean single;
+  private boolean single;
 
-    private boolean doubles;
+  private boolean doubles;
 
-    @JsonProperty("novice_four_and_above")
-    private boolean noviceFourAndAbove;
+  @JsonProperty("novice_four_and_above")
+  private boolean noviceFourAndAbove;
 
-    @JsonProperty("senior_four_and_above")
-    private boolean seniorFourAndAbove;
-
+  @JsonProperty("senior_four_and_above")
+  private boolean seniorFourAndAbove;
 }

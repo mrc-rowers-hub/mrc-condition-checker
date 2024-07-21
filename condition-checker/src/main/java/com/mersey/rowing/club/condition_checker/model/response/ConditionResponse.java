@@ -11,6 +11,5 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class ConditionResponse {
 
-    private SessionConditions sessionConditions;
-
+  private SessionConditions sessionConditions;
 }

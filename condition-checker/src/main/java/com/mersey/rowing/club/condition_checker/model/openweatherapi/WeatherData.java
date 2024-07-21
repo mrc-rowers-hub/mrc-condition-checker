@@ -1,12 +1,11 @@
 package com.mersey.rowing.club.condition_checker.model.openweatherapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
-
-import java.util.List;
 
 @Builder
 @Value
@@ -14,22 +13,22 @@ import java.util.List;
 @Jacksonized
 public class WeatherData {
 
-    @JsonProperty("dt")
-    private int epochDateTime;
+  @JsonProperty("dt")
+  private int epochDateTime;
 
-    @JsonProperty("temp")
-    private double temperature;
+  @JsonProperty("temp")
+  private double temperature;
 
-    @JsonProperty("feels_like")
-    private double feelsLike;
+  @JsonProperty("feels_like")
+  private double feelsLike;
 
-    @JsonProperty("wind_speed")
-    private double windSpeed;
+  @JsonProperty("wind_speed")
+  private double windSpeed;
 
-    @JsonProperty("weather")
-    private List<Weather> weather;
+  @JsonProperty("weather")
+  private List<Weather> weather;
 
-    public double kelvinToCelsius() {
-     return temperature - 273;
-    }
+  public double kelvinToCelsius() {
+    return temperature - 273;
+  }
 }
