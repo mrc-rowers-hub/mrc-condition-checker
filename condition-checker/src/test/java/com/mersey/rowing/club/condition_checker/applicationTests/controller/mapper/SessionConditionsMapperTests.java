@@ -25,12 +25,14 @@ public class SessionConditionsMapperTests {
   private static OpenWeatherResponse MOCK_OW_RESPONSE =
       MockOpenWeatherResponseGenerator.getOpenWeatherResponseAllGood();
 
-  private ObjectMapper mapper = new ObjectMapper();
-  ;
+  @Autowired
+  private ObjectMapper mapper;
 
   private static String EXPECTED_RESPONSE =
       """
-            {"date": "17/06/2024 20:46",
+            {
+            "status": "200 OK",
+            "date": "17/06/2024 20:46",
             "weather_conditions": {
             "description": "clear sky",
             "temp_feels_like": 6,

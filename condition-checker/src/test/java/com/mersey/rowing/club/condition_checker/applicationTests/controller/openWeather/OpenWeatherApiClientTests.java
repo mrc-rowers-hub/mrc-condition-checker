@@ -20,7 +20,7 @@ public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
 
   @Autowired private OpenWeatherApiClient openWeatherApiClient;
 
-  ObjectMapper objectMapper = new ObjectMapper();
+  private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
   void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOWResponse_withCorrectDT()
