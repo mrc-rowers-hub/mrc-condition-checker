@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
+import java.util.List;
+
 @Builder
 @Value
 @AllArgsConstructor
 @Jacksonized
 public class ConditionResponse {
 
-  private SessionConditions sessionConditions;
+  private List<SessionConditions> sessionConditions;
 }
