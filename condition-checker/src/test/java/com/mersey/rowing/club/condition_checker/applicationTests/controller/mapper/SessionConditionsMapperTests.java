@@ -25,8 +25,7 @@ public class SessionConditionsMapperTests {
   private static OpenWeatherResponse MOCK_OW_RESPONSE =
       MockOpenWeatherResponseGenerator.getOpenWeatherResponseAllGood();
 
-  @Autowired
-  private ObjectMapper mapper;
+  @Autowired private ObjectMapper mapper;
 
   private static String EXPECTED_RESPONSE =
       """
