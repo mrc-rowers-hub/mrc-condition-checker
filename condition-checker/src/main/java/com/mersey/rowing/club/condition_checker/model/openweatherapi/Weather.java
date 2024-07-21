@@ -12,13 +12,12 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class Weather {
 
-    @JsonProperty("id")
-    private int id;
+  @JsonProperty("id")
+  private int id;
 
-    @JsonProperty("description")
-    private String description;
+  @JsonProperty("description")
+  private String description;
 
-    @JsonProperty("icon")
-    private String icon;
-
+  @JsonProperty("icon")
+  private String icon;
 }

@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ThymeleafController {
 
-    @GetMapping("/")
-    public String index(Model model) {
+  @GetMapping("/")
+  public String index(Model model) {
 
-        model.addAttribute("currentDateTime", WebsiteDateUtils.getDateNowFormatted());
-        model.addAttribute("previousDays", WebsiteDateUtils.getPrevious7Days());
-        model.addAttribute("nextDays", WebsiteDateUtils.getNext4Days());
+    model.addAttribute("currentDateTime", WebsiteDateUtils.getDateNowFormatted());
+    model.addAttribute("previousDays", WebsiteDateUtils.getPrevious7Days());
+    model.addAttribute("nextDays", WebsiteDateUtils.getNext4Days());
 
-        return "index";
-    }
+    return "index";
+  }
 }
