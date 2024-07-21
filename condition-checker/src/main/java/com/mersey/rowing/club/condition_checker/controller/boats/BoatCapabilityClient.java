@@ -22,13 +22,14 @@ public class BoatCapabilityClient {
 
   public BoatsAllowed getBoatsAllowed(OpenWeatherResponse openWeatherResponse) {
     WeatherData weatherData = openWeatherResponse.getData().getFirst();
+    int windSpeed = (int) Math.round(openWeatherResponse.getWindSpeed());
     Weather something = weatherData.getWeather().getFirst(); // rename
     // Todo, reassess the below, only accounting for one weather data response
     WeatherConditions weatherConditions =
         WeatherConditions.builder()
             .description(something.getDescription())
-            .tempFeelsLike((int) weatherData.getFeelsLike())
-            .windSpeed((int) weatherData.getWindSpeed())
+            .tempFeelsLike((int) Math.round(openWeatherResponse.getFeelsLike()))
+            .windSpeed((int) Math.round(openWeatherResponse.getWindSpeed()))
             .build();
 
     if (!isTempWithinLimits(weatherData)) {
@@ -46,8 +47,7 @@ public class BoatCapabilityClient {
           .seniorFourAndAbove(false)
           .build();
     } else {
-      return getBoatsAllowedByWind(
-          (int) weatherData.getWindSpeed(), boatLimits.getBoatTypeWindLimit());
+      return getBoatsAllowedByWind(windSpeed, boatLimits.getBoatTypeWindLimit());
     }
   }
 

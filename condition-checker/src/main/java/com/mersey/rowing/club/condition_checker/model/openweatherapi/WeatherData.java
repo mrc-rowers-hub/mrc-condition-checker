@@ -14,7 +14,7 @@ import lombok.extern.jackson.Jacksonized;
 public class WeatherData {
 
   @JsonProperty("dt")
-  private int epochDateTime;
+  private int epochDateTime; // TODO hmmm is this okay - should be long?
 
   @JsonProperty("temp")
   private double temperature;
@@ -23,12 +23,16 @@ public class WeatherData {
   private double feelsLike;
 
   @JsonProperty("wind_speed")
-  private double windSpeed;
+  private double windSpeed; // in m/s
 
   @JsonProperty("weather")
   private List<Weather> weather;
 
   public double kelvinToCelsius() {
     return temperature - 273;
+  }
+
+  public double msTokmH() {
+    return windSpeed * 3.6;
   }
 }

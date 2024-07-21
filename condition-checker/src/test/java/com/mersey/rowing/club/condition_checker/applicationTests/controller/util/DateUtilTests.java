@@ -1,5 +1,7 @@
 package com.mersey.rowing.club.condition_checker.applicationTests.controller.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
 import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.Assertions;
@@ -7,42 +9,51 @@ import org.junit.jupiter.api.Test;
 
 public class DateUtilTests {
 
+  private long testEpoch = 1721562600000L;
+  private long testEpochMorning = 1721538000000L;
+  private String testDate = "21/07/2024";
+  private String testTime = "12:50";
+
   @Test
   void getEpochsDateAndTimeSupplied_validDateTimeSupplied_returnsEpochTimeAsLong() {
-    long actual = DateUtil.getEpochsDateAndTimeSupplied("18/08/1999", "19:23")[0];
-    long expected = 935000580000L;
-    Assertions.assertEquals(expected, actual);
+    long actual = DateUtil.getEpochsDateAndTimeSupplied(testDate, testTime)[0];
+    //    long expected = 935000580000L;
+    assertEquals(testEpoch, actual);
   }
 
   @Test
   void getEpochsTimeOnlyIsNull_validDateSupplied_returnsLongListOfTwoElements() {
-    int actualLength = DateUtil.getEpochsTimeOnlyIsNull("18/08/1999").length;
+    int actualLength = DateUtil.getEpochsTimeOnlyIsNull(testDate).length;
     int expectedLength = 2;
-    Assertions.assertEquals(expectedLength, actualLength);
+    assertEquals(expectedLength, actualLength);
   }
 
   @Test
   void getEpochsTimeOnlyIsNull_validDateSupplied_returnsEpochTimeAsLong() {
-    long[] actualMorningEpoch = (DateUtil.getEpochsTimeOnlyIsNull("18/08/1999"));
-    long expectedMorningEpoch = 934952400000L;
-    Assertions.assertEquals(actualMorningEpoch[0], expectedMorningEpoch);
+    long[] actualMorningEpoch = (DateUtil.getEpochsTimeOnlyIsNull(testDate));
+    assertEquals(testEpochMorning, actualMorningEpoch[0]);
   }
 
   @Test
   void getEpochTimeAsLong_validDateTimeSupplied_returnsEpochTimeAsLong() {
-    long actual = DateUtil.getEpochTimeAsLong("18/08/1999", "19:23");
-    long expected = 935000580000L;
-    Assertions.assertEquals(expected, actual);
+    long actual = DateUtil.getEpochTimeAsLong(testDate, testTime);
+    assertEquals(testEpoch, actual);
   }
 
   @Test
   void getEpochTimeAsLong_invalidDateTimeSupplied_doesNotReturnEpochTime() {
     Assertions.assertThrows(
-        DateTimeParseException.class, () -> DateUtil.getEpochTimeAsLong("18/08/1999", "245"));
+        DateTimeParseException.class, () -> DateUtil.getEpochTimeAsLong(testDate, "245"));
   }
 
   @Test
   void getEpochsDateNullAndTimeNull_afterSixMorningBeforeSixEvening_returnsExpected() {
     // Todo needs mocking
+  }
+
+  @Test
+  void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
+    DateUtil dateUtil = new DateUtil();
+    assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
   }
 }
