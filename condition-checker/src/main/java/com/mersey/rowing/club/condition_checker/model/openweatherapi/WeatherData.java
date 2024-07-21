@@ -31,4 +31,8 @@ public class WeatherData {
   public double kelvinToCelsius() {
     return temperature - 273;
   }
+
+  public double msTokmH() {
+    return windSpeed * 3.6;
+  }
 }

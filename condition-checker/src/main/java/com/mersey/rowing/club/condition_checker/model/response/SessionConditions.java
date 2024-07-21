@@ -1,5 +1,6 @@
 package com.mersey.rowing.club.condition_checker.model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,10 @@ import lombok.extern.jackson.Jacksonized;
 public class SessionConditions {
 
   private LocalDateTime date;
+
+  @JsonProperty("boats_allowed")
   private WeatherConditions weatherConditions;
+
+  @JsonProperty("boats_allowed")
   private BoatsAllowed boatsAllowed;
 }
