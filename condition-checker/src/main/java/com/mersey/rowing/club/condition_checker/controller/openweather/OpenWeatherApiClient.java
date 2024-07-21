@@ -1,5 +1,6 @@
 package com.mersey.rowing.club.condition_checker.controller.openweather;
 
+import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
 import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 public class OpenWeatherApiClient {
 
   RestTemplate restTemplate = new RestTemplate();
+
+  private DateUtil dateUtil = new DateUtil();
 
   @Value("${open-weather-api.key}")
   private String apiKey;
@@ -34,8 +37,7 @@ public class OpenWeatherApiClient {
       return new StatusCodeObject(HttpStatus.OK, openWeatherResponse);
     } catch (RestClientResponseException e) {
       log.error("Open Weather API gave an unexpected response: {}", e.getStatusCode());
-
-      return new StatusCodeObject((HttpStatus) e.getStatusCode(), null);
+      return new StatusCodeObject((HttpStatus) e.getStatusCode(), dateUtil.getDatetimeFromEpochSeconds(epoch));
     } catch (Exception e) {
       log.error("Unexpected error: " + e.getMessage());
       throw e;
