@@ -16,18 +16,18 @@
     <p th:text="'Current (UK): ' + ${currentDateTime}"></p>
 
     <div class="calendar">
-        <div class="calendar-header">Previous 7 Days:</div>
+        <div class="calendar-header">Today & Next 4 Days:</div>
         <ul class="day-list">
-            <li th:each="day : ${previousDays}" class="day-item">
+            <li th:each="day : ${nextDays}" class="day-item">
                 <a href="#" th:href="@{/date(selectedDate=${day})}" class="day-link button" th:text="${day}"></a>
             </li>
         </ul>
     </div>
 
     <div class="calendar">
-        <div class="calendar-header">Next 4 Days:</div>
+        <div class="calendar-header">Previous 7 Days:</div>
         <ul class="day-list">
-            <li th:each="day : ${nextDays}" class="day-item">
+            <li th:each="day : ${previousDays}" class="day-item">
                 <a href="#" th:href="@{/date(selectedDate=${day})}" class="day-link button" th:text="${day}"></a>
             </li>
         </ul>
