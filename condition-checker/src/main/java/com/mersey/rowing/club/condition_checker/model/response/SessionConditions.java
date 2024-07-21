@@ -13,7 +13,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class SessionConditions {
 
-  private LocalDateTime date;
+  private String date;
 
   @JsonProperty("boats_allowed")
   private WeatherConditions weatherConditions;
