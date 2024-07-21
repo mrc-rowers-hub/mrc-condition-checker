@@ -1,0 +1,23 @@
+<!-- dateDetails.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Selected Date</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <h1>Selected Date Details</h1>
+        <img src="/mrc_logo.png" alt="MRC Logo" width="100">
+    </div>
+</header>
+<main>
+    <p th:text="'Selected Date: ' + ${selectedDate}"></p>
+    <a href="/" class="day-link">Back to Home</a>
+</main>
+<footer>
+    <p>Data provided by <strong>OpenWeatherMap</strong></p>
+</footer>
+</body>
+</html>
