@@ -37,6 +37,7 @@ public class SessionConditionsMapper {
               (long) openWeatherResponse.getData().getFirst().getEpochDateTime());
 
       return SessionConditions.builder()
+          .status(HttpStatus.OK.toString())
           .weatherConditions(weatherConditions)
           .boatsAllowed(boatsAllowed)
           .date(dateTime)

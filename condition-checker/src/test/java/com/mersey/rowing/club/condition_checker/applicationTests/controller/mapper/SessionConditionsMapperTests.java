@@ -30,7 +30,9 @@ public class SessionConditionsMapperTests {
 
   private static String EXPECTED_RESPONSE =
       """
-            {"date": "17/06/2024 20:46",
+            {
+            "status": "200 OK",
+            "date": "17/06/2024 20:46",
             "weather_conditions": {
             "description": "clear sky",
             "temp_feels_like": 6,
