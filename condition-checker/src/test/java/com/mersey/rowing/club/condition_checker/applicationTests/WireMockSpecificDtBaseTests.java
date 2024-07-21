@@ -56,4 +56,12 @@ public class WireMockSpecificDtBaseTests {
     wireMock.register(mappingBuilder);
     log.info("<<<<< WIREMOCK MAPPINGS COMPLETE SETUP >>>>>");
   }
+
+  protected void setupUnauthorisedWiremockMapping() {
+    log.info("<<<<< SETTING UP WIREMOCK MAPPINGS >>>>>");
+    log.info("Mocking unauthorised response");
+    MappingBuilder mappingBuilder = mockSetup.setup401Response();
+    wireMock.register(mappingBuilder);
+    log.info("<<<<< WIREMOCK MAPPINGS COMPLETE SETUP >>>>>");
+  }
 }

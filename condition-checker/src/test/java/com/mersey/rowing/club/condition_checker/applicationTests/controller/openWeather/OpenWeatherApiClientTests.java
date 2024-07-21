@@ -1,9 +1,12 @@
 package com.mersey.rowing.club.condition_checker.applicationTests.controller.openWeather;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mersey.rowing.club.condition_checker.applicationTests.WireMockSpecificDtBaseTests;
 import com.mersey.rowing.club.condition_checker.controller.openweather.OpenWeatherApiClient;
+import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.utils.TestOpenWeatherUtils;
 import org.json.JSONException;
@@ -11,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
 
@@ -21,15 +25,25 @@ public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
   @Test
   void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOWResponse_withCorrectDT()
       throws JsonProcessingException, JSONException {
-    setupWiremockMappingForDt(1720626363);
+    int testDateTime = 1720626363;
+
+    setupWiremockMappingForDt(testDateTime);
 
     OpenWeatherResponse actualMappedResponse =
-        openWeatherApiClient.getOpenWeatherAPIResponse(1720626363L);
+        (OpenWeatherResponse)
+            openWeatherApiClient.getOpenWeatherAPIResponse((long) testDateTime).getOwResponse();
     String actualJson = objectMapper.writeValueAsString(actualMappedResponse);
-    String expectedJson = TestOpenWeatherUtils.getOpenWeatherResponseAsString(1720626363);
+    String expectedJson = TestOpenWeatherUtils.getOpenWeatherResponseAsString(testDateTime);
     JSONAssert.assertEquals(expectedJson, actualJson, JSONCompareMode.STRICT);
   }
 
-  // Todo API giving 500 doesn't map, should return null perhaps?
+  @Test
+  void getOpenWeatherAPIResponse_apiDoesntGive200_returnsNullOw() {
 
+    setupUnauthorisedWiremockMapping();
+    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.UNAUTHORIZED, null);
+
+    assertThat(statusCodeObject)
+        .isEqualTo(openWeatherApiClient.getOpenWeatherAPIResponse(1720626363L));
+  }
 }

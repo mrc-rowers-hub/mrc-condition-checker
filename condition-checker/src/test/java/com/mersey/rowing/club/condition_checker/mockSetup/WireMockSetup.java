@@ -32,4 +32,18 @@ public class WireMockSetup {
                 .withBody(body)
                 .withHeader("Content-Type", "application/json"));
   }
+
+  public MappingBuilder setup401Response() {
+    String body =
+        """
+            "cod": 401,
+                "message": "Please note that using One Call 3.0 requires a separate subscription to the One Call by Call plan. Learn more here https://openweathermap.org/price. If you have a valid subscription to the One Call by Call plan, but still receive this error, then please see https://openweathermap.org/faq#error401 for more info."
+            """; // copied directly from a call without appID
+    return get(urlPathMatching(endpoint))
+        .willReturn(
+            aResponse()
+                .withStatus(401)
+                .withBody(body)
+                .withHeader("Content-Type", "application/json"));
+  }
 }
