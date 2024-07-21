@@ -3,7 +3,6 @@ package com.mersey.rowing.club.condition_checker.controller.util;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -94,14 +93,14 @@ public class DateUtil {
     return dateTime.format(dtf);
   }
 
-  public String getDateTimeAsDdMmYyyyFromWebsite(String websiteDate){
-      try {
-        LocalDate localDate = LocalDate.parse(websiteDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
+  public String getDateTimeAsDdMmYyyyFromWebsite(String websiteDate) {
+    try {
+      LocalDate localDate =
+          LocalDate.parse(websiteDate, DateTimeFormatter.ofPattern("dd MMM yyyy"));
 
-        return localDate.format(dtfMinusHours);
-      } catch (DateTimeParseException e) {
-        throw e;
-      }
-
+      return localDate.format(dtfMinusHours);
+    } catch (DateTimeParseException e) {
+      throw e;
+    }
   }
 }

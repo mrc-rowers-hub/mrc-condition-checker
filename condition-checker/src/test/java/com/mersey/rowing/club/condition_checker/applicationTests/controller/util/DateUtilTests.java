@@ -110,8 +110,7 @@ public class DateUtilTests {
   }
 
   @Test
-  void getDateTimeAsDdMmYyyyFromWebsite_stringInput_returnsDtInExpectedFormat(){
+  void getDateTimeAsDdMmYyyyFromWebsite_stringInput_returnsDtInExpectedFormat() {
     assertEquals("12/07/2024", dateUtil.getDateTimeAsDdMmYyyyFromWebsite("12 Jul 2024"));
   }
-
 }
