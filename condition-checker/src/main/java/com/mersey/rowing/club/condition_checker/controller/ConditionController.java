@@ -22,6 +22,8 @@ public class ConditionController {
   private final LocalDate dateToday = LocalDate.now();
   @Autowired private OpenWeatherApiClient owac;
 
+  @Autowired private DateUtil dateUtil;
+
   @Autowired SessionConditionsMapper sessionConditionsMapper;
 
   @GetMapping("/get_conditions")
@@ -47,13 +49,13 @@ public class ConditionController {
 
   private long[] getEpochBasedOnLogic(String date, String time) {
     if ((date == null && time == null) || (dateToday.toString().equals(date) && time == null)) {
-      return DateUtil.getEpochsDateNullAndTimeNull();
+      return dateUtil.getEpochsDateNullAndTimeNull();
     } else if (date == null) {
-      return DateUtil.getEpochsDateOnlyIsNull(time);
+      return dateUtil.getEpochsDateOnlyIsNull(time);
     } else if (time == null) {
-      return DateUtil.getEpochsTimeOnlyIsNull(date);
+      return dateUtil.getEpochsTimeOnlyIsNull(date);
     } else {
-      return DateUtil.getEpochsDateAndTimeSupplied(date, time);
+      return dateUtil.getEpochsDateAndTimeSupplied(date, time);
     }
   }
 }
