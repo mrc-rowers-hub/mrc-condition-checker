@@ -30,7 +30,6 @@ public class OpenWeatherApiClient {
   public StatusCodeObject getOpenWeatherAPIResponse(long epoch) {
     String url = String.format(apiBaseUrl + apiEndpoint, epoch, apiKey);
     Class<OpenWeatherResponse> responseType = OpenWeatherResponse.class;
-
     try {
       OpenWeatherResponse openWeatherResponse = restTemplate.getForObject(url, responseType);
       log.info("Successfully retrieved and mapped response from open weather API");
