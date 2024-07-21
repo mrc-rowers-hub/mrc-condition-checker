@@ -1,5 +1,8 @@
 package com.mersey.rowing.club.condition_checker.view;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.mersey.rowing.club.condition_checker.controller.response.ConditionResponseClient;
 import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 public class ThymeleafController {
 
-  @Autowired
-  ConditionResponseClient conditionResponseClient;
+  @Autowired ConditionResponseClient conditionResponseClient;
 
-  @Autowired
-  DateUtil dateUtil;
+  @Autowired DateUtil dateUtil;
 
   @GetMapping("/")
   public String index(Model model) {
@@ -35,7 +36,21 @@ public class ThymeleafController {
 
     String dateTime = dateUtil.getDateTimeAsDdMmYyyyFromWebsite(selectedDate);
 
-    log.info(String.valueOf(conditionResponseClient.getConditionResponseFromDateTime(dateTime, null)));
+    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+    String infoToDisplay;
+    try {
+      infoToDisplay =
+          ow.writeValueAsString(
+              conditionResponseClient.getConditionResponseFromDateTime(dateTime, null));
+    } catch (JsonProcessingException e) {
+      log.error("Error while parsing JSON", e);
+      throw new RuntimeException(e);
+    }
+
+    log.info(infoToDisplay);
+
+    model.addAttribute("infoToDisplay", infoToDisplay);
 
     return "dateDetails";
   }

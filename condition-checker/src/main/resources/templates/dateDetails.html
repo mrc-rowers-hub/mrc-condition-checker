@@ -1,9 +1,19 @@
-<!-- dateDetails.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Selected Date</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
+    <style>
+        /* Basic styling for JSON display */
+        .json-container {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-family: monospace;
+            white-space: pre-wrap; /* Ensures that the JSON is readable */
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -15,6 +25,12 @@
 <main>
     <p th:text="'Selected Date: ' + ${selectedDate}"></p>
     <a href="/" class="day-link">Back to Home</a>
+
+    <!-- JSON Display Section -->
+    <div class="json-container">
+        <h2>Details:</h2>
+        <pre th:text="${infoToDisplay}"></pre>
+    </div>
 </main>
 <footer>
     <p>Data provided by <strong>OpenWeatherMap</strong></p>
