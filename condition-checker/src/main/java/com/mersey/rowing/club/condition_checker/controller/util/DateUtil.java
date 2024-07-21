@@ -68,8 +68,9 @@ public class DateUtil {
     String formattedDateToday = dtfMinusHours.format(dateToday);
     String formattedDateTomorrow = dtfMinusHours.format(dateTomorrow);
 
+    log.info("current time is: " + currentTime);
+
     if (currentTime.isAfter(LocalTime.parse(sixMorning)) && currentTime.isBefore(LocalTime.parse(sixEvening))) {
-      log.info("current time is: " + currentTime);
       long eveningEpoch = getEpochTimeAsLong(formattedDateToday, sixEvening);
       log.info("Retrieved epoch for " + formattedDateToday + " at sixEvening");
       long morningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixMorning);
