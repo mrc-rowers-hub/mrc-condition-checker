@@ -66,21 +66,21 @@ public class BoatCapabilityClient {
     }
 
     if (actualWindSpeed > boatsAndLimits.get(BoatType.SENIOR_FOUR_AND_ABOVE)) {
-      log.info("ALL BOATS CANCELLED: wind too high");
+      log.info("ALL BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
       return boatsAllowedBuilder.build();
     }
     boatsAllowedBuilder.seniorFourAndAbove(true);
     if (actualWindSpeed > boatsAndLimits.get(BoatType.NOVICE_FOUR_AND_ABOVE)) {
-      log.info("SOME BOATS CANCELLED: wind too high");
+      log.info("SOME BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
       return boatsAllowedBuilder.build();
     }
     boatsAllowedBuilder.noviceFourAndAbove(true);
     if (actualWindSpeed > boatsAndLimits.get(BoatType.DOUBLE)) {
-      log.info("SOME BOATS CANCELLED: wind too high");
+      log.info("SOME BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
       return boatsAllowedBuilder.build();
     }
     boatsAllowedBuilder.doubles(true);
-    log.info("SOME BOATS CANCELLED: wind too high");
+    log.info("SOME BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
     return boatsAllowedBuilder.build();
   }
 
