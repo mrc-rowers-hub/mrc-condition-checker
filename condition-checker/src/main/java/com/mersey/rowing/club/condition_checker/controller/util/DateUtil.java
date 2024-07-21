@@ -93,8 +93,8 @@ public class DateUtil {
   }
 
 
-  public String getDatetimeFromEpoch(Long epoch){
-    Instant instant = Instant.ofEpochMilli(epoch);
+  public String getDatetimeFromEpochSeconds(Long epoch){
+    Instant instant = Instant.ofEpochSecond(epoch);
     LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     return dateTime.format(dtf);
   }

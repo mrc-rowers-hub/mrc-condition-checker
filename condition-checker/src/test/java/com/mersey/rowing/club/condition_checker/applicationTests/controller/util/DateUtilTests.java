@@ -56,6 +56,6 @@ public class DateUtilTests {
     @Test
     void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
         DateUtil dateUtil = new DateUtil();
-        assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpoch(testEpoch));
+        assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
     }
 }
