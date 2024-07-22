@@ -30,6 +30,7 @@ public class DateUtilTests {
 
   @BeforeEach
   void init() {
+    // Ensure the clock returns UTC timezone
     when(clock.getZone()).thenReturn(ZoneId.of("UTC"));
   }
 
@@ -105,10 +106,8 @@ public class DateUtilTests {
 
   @Test
   void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
-    // Mock clock to use UTC timezone for consistent results
-    Instant fixedInstant = Instant.ofEpochSecond(1721562625L);
-    when(clock.instant()).thenReturn(fixedInstant);
-    when(clock.getZone()).thenReturn(ZoneId.of("UTC"));
+    // Mock the clock to ensure consistent timezone
+    when(clock.getZone()).thenReturn(ZoneId.of("Europe/London"));
 
     assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
   }
