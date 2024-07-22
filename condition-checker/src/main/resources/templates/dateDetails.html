@@ -4,14 +4,28 @@
     <title>Selected Date</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
     <style>
-        /* Basic styling for JSON display */
-        .json-container {
+        .session-box {
             border: 1px solid #ddd;
             padding: 10px;
+            margin: 10px 0;
             border-radius: 5px;
             background-color: #f9f9f9;
-            font-family: monospace;
-            white-space: pre-wrap; /* Ensures that the JSON is readable */
+        }
+        .session-box h3 {
+            margin-top: 0;
+        }
+        .weather-section {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px; /* Add space below the weather section */
+            background-color: #eef;
+            border-radius: 5px;
+        }
+        .weather-section h4 {
+            margin-top: 0; /* Remove space at the top before Weather Conditions */
+        }
+        .weather-section p {
+            margin: 5px 0;
         }
     </style>
 </head>
@@ -26,10 +40,20 @@
     <p th:text="'Selected Date: ' + ${selectedDate}"></p>
     <a href="/" class="day-link">Back to Home</a>
 
-    <!-- JSON Display Section -->
-    <div class="json-container">
-        <h2>Details:</h2>
-        <pre th:text="${infoToDisplay}"></pre>
+    <!-- Display each SessionCondition in its own box -->
+    <div th:each="sessionCondition : ${sessionConditions}" class="session-box">
+        <h3><span th:text="${sessionCondition.date}"></span></h3>
+        <div class="weather-section">
+            <p><b>Temperature Feels Like: </b><span th:text="${sessionCondition.weatherConditions.getTempFeelsLike()}"></span></p>
+            <p><b>Wind Speed:</b> <span th:text="${sessionCondition.weatherConditions.getWindSpeed()}"></span> km/h</p>
+            <p><b>Description:</b> <span th:text="${sessionCondition.weatherConditions.description}"></span></p>
+        </div>
+        <h3>Boats Permitted</h3>
+        <p><b>Single: </b><span th:text="${sessionCondition.boatsAllowed.single}"></span></p>
+        <p><b>Double: </b><span th:text="${sessionCondition.boatsAllowed.doubles}"></span></p>
+        <p><b>Four & above novice: </b><span th:text="${sessionCondition.boatsAllowed.noviceFourAndAbove}"></span></p>
+        <p><b>Four & above senior: </b><span th:text="${sessionCondition.boatsAllowed.seniorFourAndAbove}"></span></p>
+        <p style="font-size: 12px;">Status: <span th:text="${sessionCondition.status}"></span></p>
     </div>
 </main>
 <footer>

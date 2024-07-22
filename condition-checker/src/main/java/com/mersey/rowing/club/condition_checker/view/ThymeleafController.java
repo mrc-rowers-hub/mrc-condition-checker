@@ -5,12 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.mersey.rowing.club.condition_checker.controller.response.ConditionResponseClient;
 import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
+import com.mersey.rowing.club.condition_checker.model.response.ConditionResponse;
+import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -36,21 +40,12 @@ public class ThymeleafController {
 
     String dateTime = dateUtil.getDateTimeAsDdMmYyyyFromWebsite(selectedDate);
 
-    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+    ConditionResponse conditionResponse = conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
 
-    String infoToDisplay;
-    try {
-      infoToDisplay =
-          ow.writeValueAsString(
-              conditionResponseClient.getConditionResponseFromDateTime(dateTime, null));
-    } catch (JsonProcessingException e) {
-      log.error("Error while parsing JSON", e);
-      throw new RuntimeException(e);
-    }
+    List<SessionConditions> sessionConditions = conditionResponse.getSessionConditions();
 
-    log.info(infoToDisplay);
-
-    model.addAttribute("infoToDisplay", infoToDisplay);
+    // Add the list of session conditions to the model
+    model.addAttribute("sessionConditions", sessionConditions);
 
     return "dateDetails";
   }
