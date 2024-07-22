@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 @Value
 @AllArgsConstructor
 @Jacksonized
-@Slf4j
 public class WeatherData {
 
   @JsonProperty("dt")
@@ -31,7 +30,6 @@ public class WeatherData {
   private List<Weather> weather;
 
   public double feelsLikeFahrenheitToCelsius() {
-    log.info("converting fahrenheit: {} ", feelsLike);
     return (feelsLike - 32) * 5 / 9;
   }
 
