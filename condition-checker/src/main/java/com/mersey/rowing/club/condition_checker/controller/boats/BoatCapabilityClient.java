@@ -21,7 +21,6 @@ public class BoatCapabilityClient {
 
   public BoatsAllowed getBoatsAllowed(OpenWeatherResponse openWeatherResponse) {
     WeatherData weatherData = openWeatherResponse.getData().getFirst();
-    log.info("ADDI: {}", weatherData);
     int windSpeed = (int) Math.round(openWeatherResponse.getWindSpeed());
     Weather weather = weatherData.getWeather().getFirst();
     // Todo, reassess the below, only accounting for one weather data response

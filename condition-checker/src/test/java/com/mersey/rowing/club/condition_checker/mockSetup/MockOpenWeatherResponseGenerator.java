@@ -46,7 +46,6 @@ public class MockOpenWeatherResponseGenerator {
 
   public static OpenWeatherResponse getOpenWeatherResponseFeelsLike(double feelsLike) {
     double feelsLikeFahrenheit = (feelsLike * 9 / 5) + 32;
-    System.out.println("ADDI: " + feelsLikeFahrenheit);
     List<Weather> weatherList = List.of(new Weather(800, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
         List.of(

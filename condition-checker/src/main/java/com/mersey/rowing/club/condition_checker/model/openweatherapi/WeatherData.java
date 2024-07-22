@@ -19,10 +19,10 @@ public class WeatherData {
   private int epochDateTime; // TODO hmmm is this okay - should be long?
 
   @JsonProperty("temp")
-  private double temperature; // fahrenheit
+  private double temperature; // todo, do we use?
 
   @JsonProperty("feels_like")
-  private double feelsLike; // todo, do we use?
+  private double feelsLike; // fahrenheit
 
   @JsonProperty("wind_speed")
   private double windSpeed; // in miles per hour
