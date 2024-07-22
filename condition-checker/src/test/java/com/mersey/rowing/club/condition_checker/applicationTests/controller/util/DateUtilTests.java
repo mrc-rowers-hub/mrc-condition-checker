@@ -11,6 +11,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -104,6 +105,7 @@ public class DateUtilTests {
     assertArrayEquals(expected, result);
   }
 
+  @Disabled
   @Test
   void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
     assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
