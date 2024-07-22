@@ -63,11 +63,12 @@ public class DateUtilTests {
   @Test
   void getEpochTimeAsLong_invalidDateTimeSupplied_doesNotReturnEpochTime() {
     Assertions.assertThrows(
-            DateTimeParseException.class, () -> dateUtil.getEpochTimeAsLong(testDate, "245"));
+        DateTimeParseException.class, () -> dateUtil.getEpochTimeAsLong(testDate, "245"));
   }
 
   @Test
-  void getEpochsDateNullAndTimeNull_afterSixMorningBeforeSixEvening_returnsTonightAndTomorrowMorn() {
+  void
+      getEpochsDateNullAndTimeNull_afterSixMorningBeforeSixEvening_returnsTonightAndTomorrowMorn() {
     Instant fixedInstant = Instant.parse("2024-07-21T12:50:00Z");
     when(clock.instant()).thenReturn(fixedInstant);
 

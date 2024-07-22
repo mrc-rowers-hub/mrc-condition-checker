@@ -50,3 +50,7 @@ The conditions are set in the application.yml.
 
 ### Reasons for this application
 This process is currently a manual check done by a single member of the rowing club. This app, once complete, will enable crews to check this themselves to see if boats are going ahead. 
+
+
+# ADDI TODO 
+Run the app using mvn: mvn compile followed by mvn exec:java
