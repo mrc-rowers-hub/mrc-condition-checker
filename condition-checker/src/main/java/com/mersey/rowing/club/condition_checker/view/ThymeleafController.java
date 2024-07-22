@@ -1,20 +1,16 @@
 package com.mersey.rowing.club.condition_checker.view;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.mersey.rowing.club.condition_checker.controller.response.ConditionResponseClient;
 import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
 import com.mersey.rowing.club.condition_checker.model.response.ConditionResponse;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 @Slf4j
@@ -40,7 +36,8 @@ public class ThymeleafController {
 
     String dateTime = dateUtil.getDateTimeAsDdMmYyyyFromWebsite(selectedDate);
 
-    ConditionResponse conditionResponse = conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
+    ConditionResponse conditionResponse =
+        conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
 
     List<SessionConditions> sessionConditions = conditionResponse.getSessionConditions();
 
