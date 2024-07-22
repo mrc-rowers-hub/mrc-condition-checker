@@ -55,6 +55,6 @@ public class MockOpenWeatherResponseGenerator {
   }
 
   private static double getWindSpeedKmH(double windspeedMPerS) {
-    return windspeedMPerS / 3.6;
+    return windspeedMPerS / 1.60934;
   }
 }
