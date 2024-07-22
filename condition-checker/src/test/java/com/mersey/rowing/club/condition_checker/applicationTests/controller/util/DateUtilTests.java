@@ -106,9 +106,6 @@ public class DateUtilTests {
 
   @Test
   void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
-    // Mock the clock to ensure consistent timezone
-    when(clock.getZone()).thenReturn(ZoneId.of("Europe/London"));
-
     assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
   }
 
