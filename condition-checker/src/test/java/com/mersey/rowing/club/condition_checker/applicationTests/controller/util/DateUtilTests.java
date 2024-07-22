@@ -28,6 +28,11 @@ public class DateUtilTests {
 
   @MockBean private Clock clock;
 
+  @BeforeEach
+  void init() {
+    when(clock.getZone()).thenReturn(ZoneId.of("UTC"));
+  }
+
   @Test
   void getEpochsDateAndTimeSupplied_validDateTimeSupplied_returnsEpochTimeAsLong() {
     long actual = dateUtil.getEpochsDateAndTimeSupplied(testDate, testTime)[0];
@@ -57,11 +62,6 @@ public class DateUtilTests {
   void getEpochTimeAsLong_invalidDateTimeSupplied_doesNotReturnEpochTime() {
     Assertions.assertThrows(
         DateTimeParseException.class, () -> dateUtil.getEpochTimeAsLong(testDate, "245"));
-  }
-
-  @BeforeEach
-  void init() {
-    when(clock.getZone()).thenReturn(ZoneId.of("Europe/London"));
   }
 
   @Test
