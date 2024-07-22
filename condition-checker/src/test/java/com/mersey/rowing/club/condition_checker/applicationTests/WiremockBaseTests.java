@@ -12,6 +12,7 @@ import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
@@ -19,6 +20,7 @@ import org.springframework.context.annotation.Import;
     properties = {"open-weather-api.key=test", "open-weather-api.baseUrl=http://localhost:5050"})
 @Import(WireMockConfiguration.class)
 @Slf4j
+@Tag("wiremock")
 public class WiremockBaseTests {
 
   protected static OpenWeatherResponse expectedGenericOpenWeatherResponse;

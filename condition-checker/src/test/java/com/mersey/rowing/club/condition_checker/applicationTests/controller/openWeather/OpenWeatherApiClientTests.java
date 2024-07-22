@@ -10,12 +10,14 @@ import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.utils.TestOpenWeatherUtils;
 import org.json.JSONException;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+@Tag("wiremock")
 public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
 
   @Autowired private OpenWeatherApiClient openWeatherApiClient;
