@@ -61,12 +61,11 @@ public class DateUtilTests {
   @Test
   void getEpochTimeAsLong_invalidDateTimeSupplied_doesNotReturnEpochTime() {
     Assertions.assertThrows(
-        DateTimeParseException.class, () -> dateUtil.getEpochTimeAsLong(testDate, "245"));
+            DateTimeParseException.class, () -> dateUtil.getEpochTimeAsLong(testDate, "245"));
   }
 
   @Test
-  void
-      getEpochsDateNullAndTimeNull_afterSixMorningBeforeSixEvening_returnsTonightAndTomorrowMorn() {
+  void getEpochsDateNullAndTimeNull_afterSixMorningBeforeSixEvening_returnsTonightAndTomorrowMorn() {
     Instant fixedInstant = Instant.parse("2024-07-21T12:50:00Z");
     when(clock.instant()).thenReturn(fixedInstant);
 
@@ -106,6 +105,11 @@ public class DateUtilTests {
 
   @Test
   void getDatetimeFromEpoch_epochInput_returnsDtInExpectedFormat() {
+    // Mock clock to use UTC timezone for consistent results
+    Instant fixedInstant = Instant.ofEpochSecond(1721562625L);
+    when(clock.instant()).thenReturn(fixedInstant);
+    when(clock.getZone()).thenReturn(ZoneId.of("UTC"));
+
     assertEquals(testDate + " " + testTime, dateUtil.getDatetimeFromEpochSeconds(1721562625L));
   }
 
