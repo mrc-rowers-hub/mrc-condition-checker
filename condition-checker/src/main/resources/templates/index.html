@@ -1,56 +1,9 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thymeleaf Demo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .header-container {
-            display: flex;
-            align-items: center;
-        }
-        .header-container img {
-            margin-left: 10px;
-        }
-        .calendar {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .calendar-header {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .day-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .day-item {
-            margin-bottom: 5px;
-        }
-        .day-link {
-            text-decoration: none;
-            color: #333;
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-right: 10px;
-        }
-        .day-link:hover {
-            background-color: #e0e0e0;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-top: 1px solid #ccc;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 <header>
@@ -63,25 +16,26 @@
     <p th:text="'Current (UK): ' + ${currentDateTime}"></p>
 
     <div class="calendar">
-        <div class="calendar-header">Previous 7 Days:</div>
+        <div class="calendar-header">Today & Next 4 Days:</div>
         <ul class="day-list">
-            <li th:each="day : ${previousDays}" class="day-item">
-                <a href="#" class="day-link" th:text="${day}"></a>
+            <li th:each="day : ${nextDays}" class="day-item">
+                <a href="#" th:href="@{/date(selectedDate=${day})}" class="day-link button" th:text="${day}"></a>
             </li>
         </ul>
     </div>
 
     <div class="calendar">
-        <div class="calendar-header">Next 4 Days:</div>
+        <div class="calendar-header">Previous 7 Days:</div>
         <ul class="day-list">
-            <li th:each="day : ${nextDays}" class="day-item">
-                <a href="#" class="day-link" th:text="${day}"></a>
+            <li th:each="day : ${previousDays}" class="day-item">
+                <a href="#" th:href="@{/date(selectedDate=${day})}" class="day-link button" th:text="${day}"></a>
             </li>
         </ul>
     </div>
 </main>
 <footer>
     <p>Data provided by <strong>OpenWeatherMap</strong></p>
+    <p>Logic/weather rules, & website, provided by Mersey Rowing Club</p>
 </footer>
 </body>
 </html>

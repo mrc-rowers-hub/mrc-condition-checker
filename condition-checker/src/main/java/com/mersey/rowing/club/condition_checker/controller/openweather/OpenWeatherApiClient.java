@@ -17,8 +17,7 @@ public class OpenWeatherApiClient {
 
   RestTemplate restTemplate = new RestTemplate();
 
-  @Autowired
-  private DateUtil dateUtil;
+  @Autowired private DateUtil dateUtil;
 
   @Value("${open-weather-api.key}")
   private String apiKey;
