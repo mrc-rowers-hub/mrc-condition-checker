@@ -57,7 +57,7 @@ public class BoatCapabilityClientTests {
   }
 
   @ParameterizedTest
-  @ValueSource(ints = {-10, -1, 26})
+  @ValueSource(ints = {-10, -1, 28})
   void getBoatsAllowed_tempOutOfRange_cancelsAllBoats(int inputs) {
     assertEquals(
         allBoatsCancelled,

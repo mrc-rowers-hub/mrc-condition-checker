@@ -6,11 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
+import lombok.extern.slf4j.Slf4j;
 
 @Builder
 @Value
 @AllArgsConstructor
 @Jacksonized
+@Slf4j
 public class WeatherData {
 
   @JsonProperty("dt")
@@ -28,8 +30,9 @@ public class WeatherData {
   @JsonProperty("weather")
   private List<Weather> weather;
 
-  public double fahrenheitToCelsius() {
-    return (temperature - 32) * 5 / 9;
+  public double feelsLikeFahrenheitToCelsius() {
+    log.info("converting fahrenheit: {} ", feelsLike);
+    return (feelsLike - 32) * 5 / 9;
   }
 
   public double mphToKmph() {

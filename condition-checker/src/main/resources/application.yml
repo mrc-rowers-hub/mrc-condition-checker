@@ -8,8 +8,8 @@ open-weather-api:
   key: ${OPENWEATHER_API_KEY}
 
 boats:
-  feelsLikeTempMinKelvin: 273
-  feelsLikeTempMaxKelvin: 299
+  feelsLikeTempMinCelsius: 0
+  feelsLikeTempMaxCelsius: 27
   unacceptableIds: "2xx,302,312,314,5xx,6xx,7xx" #NO SPACES
   exceptionsToTheAbove: "500,501,520,600,601,612,615,616,620" #NO SPACES
   boatTypes:

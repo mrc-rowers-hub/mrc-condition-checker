@@ -25,6 +25,6 @@ public class OpenWeatherResponse {
   }
 
   public double getFeelsLike() {
-    return data.getFirst().fahrenheitToCelsius();
+    return data.getFirst().feelsLikeFahrenheitToCelsius();
   }
 }

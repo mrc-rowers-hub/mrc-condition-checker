@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 @Builder
 public class BoatLimits {
-  private int feelsLikeTempMinKelvin;
-  private int feelsLikeTempMaxKelvin;
+  private int feelsLikeTempMinCelsius;
+  private int feelsLikeTempMaxCelsius;
   private String[] unacceptableIds;
   private String[] exceptionsToTheAbove;
   private Map<BoatType, Integer> boatTypeWindLimit;
