@@ -27,6 +27,18 @@
         .weather-section p {
             margin: 5px 0;
         }
+        .boats-permitted {
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .boats-cancelled {
+            background-color: #f8d7da;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -44,15 +56,25 @@
     <div th:each="sessionCondition : ${sessionConditions}" class="session-box">
         <h3><span th:text="${sessionCondition.date}"></span></h3>
         <div class="weather-section">
+            <h4>Weather Conditions:</h4>
             <p><b>Temperature Feels Like: </b><span th:text="${sessionCondition.weatherConditions.getTempFeelsLike()}"></span></p>
             <p><b>Wind Speed:</b> <span th:text="${sessionCondition.weatherConditions.getWindSpeed()}"></span> km/h</p>
             <p><b>Description:</b> <span th:text="${sessionCondition.weatherConditions.description}"></span></p>
         </div>
         <h3>Boats Permitted</h3>
-        <p><b>Single: </b><span th:text="${sessionCondition.boatsAllowed.single}"></span></p>
-        <p><b>Double: </b><span th:text="${sessionCondition.boatsAllowed.doubles}"></span></p>
-        <p><b>Four & above novice: </b><span th:text="${sessionCondition.boatsAllowed.noviceFourAndAbove}"></span></p>
-        <p><b>Four & above senior: </b><span th:text="${sessionCondition.boatsAllowed.seniorFourAndAbove}"></span></p>
+        <div class="boats-permitted">
+            <p th:if="${sessionCondition.boatsAllowed.single}"><b>Single </b></p>
+            <p th:if="${sessionCondition.boatsAllowed.doubles}"><b>Doubles </b></p>
+            <p th:if="${sessionCondition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
+            <p th:if="${sessionCondition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
+        </div>
+        <h3>Boats Cancelled</h3>
+        <div class="boats-cancelled">
+            <p th:if="${!sessionCondition.boatsAllowed.single}"><b>Single </b></p>
+            <p th:if="${!sessionCondition.boatsAllowed.doubles}"><b>Doubles </b></p>
+            <p th:if="${!sessionCondition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
+            <p th:if="${!sessionCondition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
+        </div>
         <p style="font-size: 12px;">Status: <span th:text="${sessionCondition.status}"></span></p>
     </div>
 </main>
