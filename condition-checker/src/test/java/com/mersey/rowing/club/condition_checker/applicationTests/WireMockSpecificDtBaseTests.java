@@ -20,7 +20,7 @@ public class WireMockSpecificDtBaseTests {
 
   protected static String url;
 
-  @Value("${open-weather-api.endpointNoSetDt}")
+  @Value("${open-weather-api.endpoint}")
   private String endpoint;
 
   private WireMockSetup mockSetup = new WireMockSetup();

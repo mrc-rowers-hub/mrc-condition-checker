@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BoatConfig {
 
-  @Value("${boats.feelsLikeTempMinKelvin}")
-  private int feelsLikeTempMinKelvin;
+  @Value("${boats.feelsLikeTempMinCelsius}")
+  private int feelsLikeTempMinCelsius;
 
-  @Value("${boats.feelsLikeTempMaxKelvin}")
-  private int feelsLikeTempMaxKelvin;
+  @Value("${boats.feelsLikeTempMaxCelsius}")
+  private int feelsLikeTempMaxCelsius;
 
   @Value("${boats.unacceptableIds}")
   private String unacceptableIdsString;
@@ -48,8 +48,8 @@ public class BoatConfig {
                 seniorFourAboveWindLimit,
                 NOVICE_FOUR_AND_ABOVE,
                 noviceFourAboveWindLimit))
-        .feelsLikeTempMaxKelvin(feelsLikeTempMaxKelvin)
-        .feelsLikeTempMinKelvin(feelsLikeTempMinKelvin)
+        .feelsLikeTempMaxCelsius(feelsLikeTempMaxCelsius)
+        .feelsLikeTempMinCelsius(feelsLikeTempMinCelsius)
         .unacceptableIds(unacceptableIdsString.split(","))
         .exceptionsToTheAbove(exceptionsToTheAboveString.split(","))
         .build();
