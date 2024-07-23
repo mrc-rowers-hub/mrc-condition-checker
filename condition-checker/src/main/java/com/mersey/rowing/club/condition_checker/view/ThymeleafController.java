@@ -3,9 +3,13 @@ package com.mersey.rowing.club.condition_checker.view;
 import com.mersey.rowing.club.condition_checker.controller.boats.BoatCapabilityClient;
 import com.mersey.rowing.club.condition_checker.controller.response.ConditionResponseClient;
 import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
+import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
 import com.mersey.rowing.club.condition_checker.model.response.ConditionResponse;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import lombok.extern.slf4j.Slf4j;
@@ -43,23 +47,31 @@ public class ThymeleafController {
     String dateTime = dateUtil.getDateTimeAsDdMmYyyyFromWebsite(selectedDate);
 
     ConditionResponse conditionResponse =
-        conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
-    // instead, want it to
-    List<SessionConditions> conditionResponseOfStartTimes = conditionResponse.getSessionConditions().stream().filter(sessionConditions -> sessionConditions.getTimeType().equals(TimeType.SESSION_START)).toList();
+            conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
 
-    for(SessionConditions sessionConditions : conditionResponseOfStartTimes){
-      // EACH SESSION - HAVE THIS IN A BIG BOX
+    List<SessionConditions> conditionResponseOfStartTimes = conditionResponse.getSessionConditions().stream()
+            .filter(sessionConditions -> sessionConditions.getTimeType().equals(TimeType.SESSION_START))
+            .toList();
+
+    // Use a map to hold session UUIDs and their corresponding boats allowed
+    Map<String, BoatsAllowed> sessionBoatsMap = new HashMap<>();
+
+    for (SessionConditions sessionConditions : conditionResponseOfStartTimes) {
       String uuid = sessionConditions.getSessionUUID();
-      List<SessionConditions> conditionsDuringSession = conditionResponse.getSessionConditions().stream().filter(sessionConditions1 -> sessionConditions1.getSessionUUID().equals(uuid)).toList();
-      // for the whole session, have one big 'boats permitted' thing:
-      boatCapabilityClient.getSessionAverage(conditionsDuringSession); // I want this display in big - do not change this call
-    } // want to map all of these like they are now, but in the same box - e.g. all sessions in one big box, then in their separate boxes
+      List<SessionConditions> conditionsDuringSession = conditionResponse.getSessionConditions().stream()
+              .filter(sessionConditions1 -> sessionConditions1.getSessionUUID().equals(uuid))
+              .toList();
 
-    // then remove the below
+      // Get the average boats permitted for this session
+      BoatsAllowed boatsAllowed = boatCapabilityClient.getSessionAverage(conditionsDuringSession);
+      sessionBoatsMap.put(uuid, boatsAllowed);
+    }
+
+    // Add session start times and boats allowed data to the model
     model.addAttribute("sessionConditions", conditionResponseOfStartTimes);
-
-    // and have in
+    model.addAttribute("sessionBoatsMap", sessionBoatsMap);
 
     return "dateDetails";
   }
+
 }
