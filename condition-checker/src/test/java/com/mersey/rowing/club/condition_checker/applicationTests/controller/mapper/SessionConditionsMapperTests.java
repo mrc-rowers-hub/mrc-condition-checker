@@ -142,9 +142,8 @@ public class SessionConditionsMapperTests {
   }
 
   @Test
-  void
-      mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() { // todo edit this for NEW
-                                                                     // session mapper
+  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() { // todo edit this for NEW
+    // session mapper
     StatusCodeObject statusCodeObject =
         new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
     SessionConditions actualSessionConditions =

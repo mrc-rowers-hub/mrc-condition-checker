@@ -3,18 +3,19 @@ package com.mersey.rowing.club.condition_checker.controller.response;
 import com.mersey.rowing.club.condition_checker.controller.mapper.SessionConditionsMapper;
 import com.mersey.rowing.club.condition_checker.controller.openweather.OpenWeatherApiClient;
 import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
+import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.response.ConditionResponse;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
+import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class ConditionResponseClient {
 
   private final LocalDate dateToday = LocalDate.now();
@@ -28,40 +29,40 @@ public class ConditionResponseClient {
   public ResponseEntity<ConditionResponse> getConditionResponseFromDateTime(
       String date, String time) {
     List<SessionConditions> sessionConditionsList = new ArrayList<>();
-    // the first time = session, the others are 'during' the session
-    long[] epochs = getEpochBasedOnLogic(date, time);
-    // iterate over map
-    // for each 'key' - set uuid
-    // for each key - do session conditions with time type of start
-    // then grab the values
-    // for each of those, organise/sort it, then set the first one as DURING_SESSION
-    // second SESSION_END
+    Map<Long, long[]> epochs = getEpochBasedOnLogicWithSessionStart(date, time);
 
-    for (long epoch : epochs) {
-      SessionConditions thisTimeResponse =
-          sessionConditionsMapper.mapFromStatusCodeObject(owac.getOpenWeatherAPIResponse(epoch));
-      sessionConditionsList.add(thisTimeResponse);
+    for (Map.Entry<Long, long[]> entry : epochs.entrySet()) {
+      UUID sessionUuid = UUID.randomUUID();
+
+      // for the start
+      Long key = entry.getKey();
+      long startEpoch = key.longValue();
+      StatusCodeObject statusCodeObjectStart = owac.getOpenWeatherAPIResponse(startEpoch);
+      sessionConditionsList.add(
+          sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+              statusCodeObjectStart, sessionUuid, TimeType.SESSION_START));
+
+      long[] value = entry.getValue();
+      // for mid session
+      long midSessionEpoch = value[0];
+      log.info("epoch now: {}", midSessionEpoch);
+      StatusCodeObject statusCodeObjectmidSession = owac.getOpenWeatherAPIResponse(midSessionEpoch);
+      sessionConditionsList.add(
+          sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+              statusCodeObjectmidSession, sessionUuid, TimeType.DURING_SESSION));
+
+      // for end session
+      long endOfSessionEpoch = value[1];
+      StatusCodeObject statusCodeObjectEndOfSession =
+          owac.getOpenWeatherAPIResponse(endOfSessionEpoch);
+      sessionConditionsList.add(
+          sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+              statusCodeObjectEndOfSession, sessionUuid, TimeType.SESSION_END));
     }
 
     ConditionResponse response =
         ConditionResponse.builder().sessionConditions(sessionConditionsList).build();
     return ResponseEntity.ok(response);
-  }
-
-  //  public
-
-  private long[] getEpochBasedOnLogic(String date, String time) {
-    if ((date == null && time == null) || (dateToday.toString().equals(date) && time == null)) {
-      return dateUtil.getEpochsPlusTwoHoursToEach(
-          dateUtil.getEpochsDateNullAndTimeNull()); // plus two hours for each
-    } else if (date == null) {
-      return dateUtil.getEpochsPlusTwoHoursToEach(dateUtil.getEpochsDateOnlyIsNull(time));
-    } else if (time == null) {
-      return dateUtil.getEpochsPlusTwoHoursToEach(dateUtil.getEpochsTimeOnlyIsNull(date));
-    } else {
-      return dateUtil.getEpochsPlusTwoHoursToEach(
-          dateUtil.getEpochsDateAndTimeSupplied(date, time));
-    }
   }
 
   private Map<Long, long[]> getEpochBasedOnLogicWithSessionStart(String date, String time) {

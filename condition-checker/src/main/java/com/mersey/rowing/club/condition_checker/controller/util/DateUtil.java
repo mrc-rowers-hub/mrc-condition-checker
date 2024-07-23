@@ -176,13 +176,13 @@ public class DateUtil {
   }
 
   public long[] getEpochPlusOneAndTwoHours(long epoch) {
-    long[] longArray = new long[3];
+    long[] longArray = new long[2];
     long epochPlus1hr = epoch + ONE_HOUR_EPOCH;
     long epochPlus2hr = epochPlus1hr + ONE_HOUR_EPOCH;
 
     //    longArray[0] = epoch;
-    longArray[1] = epochPlus1hr;
-    longArray[2] = epochPlus2hr;
+    longArray[0] = epochPlus1hr;
+    longArray[1] = epochPlus2hr;
 
     return longArray;
   }
