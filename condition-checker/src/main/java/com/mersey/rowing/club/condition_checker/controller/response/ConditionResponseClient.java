@@ -26,7 +26,7 @@ public class ConditionResponseClient {
 
   @Autowired SessionConditionsMapper sessionConditionsMapper;
 
-  public ResponseEntity<ConditionResponse> getConditionResponseFromDateTime(
+  public ResponseEntity<ConditionResponse> getConditionResponseFromDateTime( // Todo unit test this
       String date, String time) {
     List<SessionConditions> sessionConditionsList = new ArrayList<>();
     Map<Long, long[]> epochs = getEpochBasedOnLogicWithSessionStart(date, time);
