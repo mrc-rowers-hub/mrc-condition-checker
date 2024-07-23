@@ -3,6 +3,9 @@ package com.mersey.rowing.club.condition_checker.controller.util;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +19,7 @@ public class DateUtil {
   private static final ZoneId zoneId = ZoneId.of("Europe/London");
   private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
   private static final DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+  private static final long ONE_HOUR_EPOCH = 3600L;
 
   @Autowired private Clock clock;
 
@@ -87,6 +91,19 @@ public class DateUtil {
     }
   }
 
+  public long[] getEpochsPlusTwoHoursToEach(long[] epochs){
+    List<Long> epochsToReturn = new ArrayList<>();
+    for(long epoch : epochs){
+      long epochPlus1hr = epoch + ONE_HOUR_EPOCH;
+      long epochPlus2hr = epochPlus1hr + ONE_HOUR_EPOCH;
+      epochsToReturn.add(epoch);
+      epochsToReturn.add(epochPlus1hr);
+      epochsToReturn.add(epochPlus2hr);
+    }
+
+    return convertListToArray(epochsToReturn);
+  }
+
   public String getDatetimeFromEpochSeconds(Long epoch) {
     Instant instant = Instant.ofEpochSecond(epoch);
     LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
@@ -102,5 +119,15 @@ public class DateUtil {
     } catch (DateTimeParseException e) {
       throw e;
     }
+  }
+
+  private long[] convertListToArray(List<Long> inputs){
+    long[] longArray = new long[inputs.size()];
+
+    for (int i = 0; i < inputs.size(); i++) {
+      longArray[i] = inputs.get(i);
+    }
+
+    return longArray;
   }
 }
