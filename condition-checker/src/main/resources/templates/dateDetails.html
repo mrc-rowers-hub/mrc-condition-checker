@@ -46,6 +46,12 @@
             margin-bottom: 20px;
             font-weight: bold;
         }
+        .average-boats-box h3 {
+            margin-bottom: 5px; /* Decrease bottom margin */
+        }
+        .average-boats-box p {
+            margin-top: 5px; /* Decrease top margin */
+        }
         .sub-box {
             border: 1px solid #ccc;
             padding: 10px;
@@ -72,7 +78,8 @@
             <h3><span th:text="${entry.key.date}"></span></h3>
 
             <div class="average-boats-box">
-                <p><b>Average Boats Permitted:</b></p>
+                <h3>Boats permitted during the session</h3>
+                <p><small>Please see the timings throughout the session for guidance</small> </p>
                 <p th:if="${sessionBoatsMap[entry.key].single}"><b>Single </b></p>
                 <p th:if="${sessionBoatsMap[entry.key].doubles}"><b>Doubles </b></p>
                 <p th:if="${sessionBoatsMap[entry.key].noviceFourAndAbove}"><b>Four & above - novice </b></p>
