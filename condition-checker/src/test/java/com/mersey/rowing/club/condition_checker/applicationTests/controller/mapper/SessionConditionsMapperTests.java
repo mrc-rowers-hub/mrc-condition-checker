@@ -15,6 +15,9 @@ import com.mersey.rowing.club.condition_checker.model.response.SessionConditions
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.UUID;
+
+import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,6 +64,26 @@ public class SessionConditionsMapperTests {
           }}
           """;
 
+  private static final String EXPECTED_RESPONSE_NEW =
+          """
+              {
+              "time_during_session": "SESSION_START",
+              "session_uuid": "5db375dc-28dc-4c43-a081-eeec53e19556",
+              "status": "200 OK",
+              "weather_conditions": {
+              "description": "clear sky",
+              "temp_feels_like": 10,
+              "wind_speed": 3
+              },
+              "boats_allowed": {
+              "single": true,
+              "doubles": true,
+              "novice_four_and_above": true,
+              "senior_four_and_above": true
+              }}
+              """;
+
+
   @BeforeEach
   public void init() {
     MockitoAnnotations.openMocks(this);
@@ -100,7 +123,26 @@ public class SessionConditionsMapperTests {
   }
 
   @Test
-  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() {
+  void mapFromStatusCodeObjectNEW_validOpenWeatherResponse_mapsAsExpected() {
+    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
+
+    SessionConditions actualSessionConditions =
+            sessionConditionsMapper.mapFromStatusCodeObjectNEW(statusCodeObject, UUID.fromString("5db375dc-28dc-4c43-a081-eeec53e19556"), TimeType.SESSION_START );
+
+    try {
+      String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
+      JSONAssert.assertEquals(EXPECTED_RESPONSE, sessionConditionsJson, false);
+    } catch (AssertionError e) {
+      log.error("JSON objects are not equal: " + e.getMessage());
+      throw e;
+    } catch (JSONException | JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+
+  @Test
+  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() { // todo edit this for NEW session mapper
     StatusCodeObject statusCodeObject =
         new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
     SessionConditions actualSessionConditions =

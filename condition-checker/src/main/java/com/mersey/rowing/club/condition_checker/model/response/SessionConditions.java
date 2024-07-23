@@ -6,11 +6,20 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
+import java.sql.Time;
+import java.util.UUID;
+
 @Builder
 @Value
 @AllArgsConstructor
 @Jacksonized
 public class SessionConditions {
+
+  @JsonProperty("time_during_session")
+  private TimeType timeType;
+
+  @JsonProperty("session_uuid")
+  private String sessionUUID;
 
   private String status;
 
