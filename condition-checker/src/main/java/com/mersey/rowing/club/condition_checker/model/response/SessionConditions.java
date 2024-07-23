@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
-import java.sql.Time;
-import java.util.UUID;
-
 @Builder
 @Value
 @AllArgsConstructor

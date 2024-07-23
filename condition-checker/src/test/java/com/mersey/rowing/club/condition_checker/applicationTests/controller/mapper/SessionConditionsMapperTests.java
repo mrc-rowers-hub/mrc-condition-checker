@@ -12,12 +12,11 @@ import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
+import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.UUID;
-
-import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,7 +64,7 @@ public class SessionConditionsMapperTests {
           """;
 
   private static final String EXPECTED_RESPONSE_NEW =
-          """
+      """
               {
               "time_during_session": "SESSION_START",
               "session_uuid": "5db375dc-28dc-4c43-a081-eeec53e19556",
@@ -82,7 +81,6 @@ public class SessionConditionsMapperTests {
               "senior_four_and_above": true
               }}
               """;
-
 
   @BeforeEach
   public void init() {
@@ -127,7 +125,10 @@ public class SessionConditionsMapperTests {
     StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
 
     SessionConditions actualSessionConditions =
-            sessionConditionsMapper.mapFromStatusCodeObjectNEW(statusCodeObject, UUID.fromString("5db375dc-28dc-4c43-a081-eeec53e19556"), TimeType.SESSION_START );
+        sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+            statusCodeObject,
+            UUID.fromString("5db375dc-28dc-4c43-a081-eeec53e19556"),
+            TimeType.SESSION_START);
 
     try {
       String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
@@ -140,9 +141,10 @@ public class SessionConditionsMapperTests {
     }
   }
 
-
   @Test
-  void mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() { // todo edit this for NEW session mapper
+  void
+      mapFromUnhappyOwResponse_401Response_mapsToSessionResponse() { // todo edit this for NEW
+                                                                     // session mapper
     StatusCodeObject statusCodeObject =
         new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
     SessionConditions actualSessionConditions =

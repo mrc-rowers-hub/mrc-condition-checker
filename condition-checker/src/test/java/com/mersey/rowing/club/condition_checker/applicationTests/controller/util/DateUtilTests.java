@@ -118,7 +118,7 @@ public class DateUtilTests {
   }
 
   @Test
-  void getEpochsPlusTwoHoursToEach_singleInput_returnsThreeEpochsWithin2Hours(){
+  void getEpochsPlusTwoHoursToEach_singleInput_returnsThreeEpochsWithin2Hours() {
     long[] inputs = {testEpoch};
     long[] result = dateUtil.getEpochsPlusTwoHoursToEach(inputs);
 
