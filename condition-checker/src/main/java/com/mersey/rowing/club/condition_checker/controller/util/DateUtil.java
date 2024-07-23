@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class DateUtil {
-
+// todo AS LIST REPLACEMENTS TODAY
   private static final String sixMorning = "06:00";
   private static final String sixEvening = "18:00";
   private static final ZoneId zoneId = ZoneId.of("Europe/London");
@@ -37,6 +37,14 @@ public class DateUtil {
     return new long[] {getEpochTimeAsLong(date, time)};
   }
 
+  public List<Long> getEpochsDateAndTimeSuppliedASLIST(String date, String time) {
+    List<Long> epochsToReturn = new ArrayList<>();
+
+    log.info("Both date and time supplied");
+    log.info("Retrieved epoch time for " + date + " at time " + time);
+    epochsToReturn.add(getEpochTimeAsLong(date, time));
+    return epochsToReturn;  }
+
   public long[] getEpochsTimeOnlyIsNull(String date) {
     log.info("Time only is null");
     long morningEpoch = getEpochTimeAsLong(date, sixMorning);
@@ -45,6 +53,18 @@ public class DateUtil {
     log.info("Retrieved epoch time for " + date + " at time " + sixEvening);
     return new long[] {morningEpoch, eveningEpoch};
   }
+
+  public List<Long> getEpochsTimeOnlyIsNullASLIST(String date) {
+    List<Long> epochsToReturn = new ArrayList<>();
+
+    log.info("Time only is null");
+    long morningEpoch = getEpochTimeAsLong(date, sixMorning);
+    long eveningEpoch = getEpochTimeAsLong(date, sixEvening);
+    log.info("Retrieved epoch time for " + date + " at time " + sixMorning);
+    log.info("Retrieved epoch time for " + date + " at time " + sixEvening);
+    epochsToReturn.add(eveningEpoch);
+    epochsToReturn.add(morningEpoch);
+    return epochsToReturn;  }
 
   public long getEpochTimeAsLong(String date, String time) {
     LocalDateTime dateTime1 = LocalDateTime.parse(date + " " + time, dtf);
@@ -56,6 +76,16 @@ public class DateUtil {
     String formattedDateToday = dtfMinusHours.format(getCurrentDate());
     log.info("Retrieved epoch time for " + formattedDateToday + " at time " + time);
     return new long[] {getEpochTimeAsLong(formattedDateToday, time)};
+  }
+
+  public List<Long> getEpochsDateOnlyIsNullASLIST(String time) {
+    List<Long> epochsToReturn = new ArrayList<>();
+
+    log.info("Date only is null");
+    String formattedDateToday = dtfMinusHours.format(getCurrentDate());
+    log.info("Retrieved epoch time for " + formattedDateToday + " at time " + time);
+    epochsToReturn.add(getEpochTimeAsLong(formattedDateToday, time));
+    return epochsToReturn;
   }
 
   public long[] getEpochsDateNullAndTimeNull() {
@@ -91,6 +121,44 @@ public class DateUtil {
     }
   }
 
+  public List<Long> getEpochsDateNullAndTimeNullASLIST() {
+    List<Long> epochsToReturn = new ArrayList<>();
+    log.info("date and time are null OR time is null and date == dateToday");
+    LocalTime currentTime = getCurrentTime();
+    LocalDate dateToday = getCurrentDate();
+    LocalDate dateTomorrow = dateToday.plusDays(1);
+
+    String formattedDateToday = dtfMinusHours.format(dateToday);
+    String formattedDateTomorrow = dtfMinusHours.format(dateTomorrow);
+
+    log.info("current time is: " + currentTime);
+
+    if (currentTime.isAfter(LocalTime.parse(sixMorning))
+            && currentTime.isBefore(LocalTime.parse(sixEvening))) {
+      long eveningEpoch = getEpochTimeAsLong(formattedDateToday, sixEvening);
+      log.info("Retrieved epoch for " + formattedDateToday + " at sixEvening");
+      long morningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixMorning);
+      log.info("Retrieved epoch for " + formattedDateTomorrow + " at sixMorning");
+      epochsToReturn.add(eveningEpoch);
+      epochsToReturn.add(morningEpoch);
+      return epochsToReturn;
+    } else if (currentTime.isBefore(LocalTime.parse(sixMorning))) {
+      long morningEpoch = getEpochTimeAsLong(formattedDateToday, sixMorning);
+      log.info("Retrieved epoch for " + formattedDateToday + " at sixMorning");
+      long eveningEpoch = getEpochTimeAsLong(formattedDateToday, sixEvening);
+      log.info("Retrieved epoch for " + formattedDateToday + " at sixEvening");
+      epochsToReturn.add(eveningEpoch);
+      epochsToReturn.add(morningEpoch);
+      return epochsToReturn;    } else {
+      long morningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixMorning);
+      log.info("Retrieved epoch time for " + formattedDateTomorrow + " at sixMorning");
+      long eveningEpoch = getEpochTimeAsLong(formattedDateTomorrow, sixEvening);
+      log.info("Retrieved epoch time for " + formattedDateTomorrow + " at sixEvening");
+      epochsToReturn.add(eveningEpoch);
+      epochsToReturn.add(morningEpoch);
+      return epochsToReturn;    }
+  }
+
   public long[] getEpochsPlusTwoHoursToEach(long[] epochs){
     List<Long> epochsToReturn = new ArrayList<>();
     for(long epoch : epochs){
@@ -102,6 +170,18 @@ public class DateUtil {
     }
 
     return convertListToArray(epochsToReturn);
+  }
+
+  public long[] getEpochPlusOneAndTwoHours(long epoch){
+    long[] longArray = new long[3];
+      long epochPlus1hr = epoch + ONE_HOUR_EPOCH;
+      long epochPlus2hr = epochPlus1hr + ONE_HOUR_EPOCH;
+
+//    longArray[0] = epoch;
+    longArray[1] = epochPlus1hr;
+    longArray[2] = epochPlus2hr;
+
+    return longArray;
   }
 
   public String getDatetimeFromEpochSeconds(Long epoch) {
