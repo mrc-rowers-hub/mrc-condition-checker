@@ -1,31 +1,39 @@
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
+    font-size: 16px; /* Increase the base font size */
 }
+
 .header-container {
     display: flex;
     align-items: center;
 }
+
 .header-container img {
     margin-left: 10px;
 }
+
 .calendar {
     margin-top: 20px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 .calendar-header {
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .day-list {
     list-style-type: none;
     padding: 0;
 }
+
 .day-item {
     margin-bottom: 5px;
 }
+
 .day-link {
     text-decoration: none;
     color: #333;
@@ -36,13 +44,22 @@ body {
     border-radius: 3px;
     margin-right: 10px;
 }
+
 .day-link:hover {
     background-color: #e0e0e0;
 }
+
 footer {
     text-align: center;
     margin-top: 20px;
     padding: 10px;
     background-color: #f0f0f0;
     border-top: 1px solid #ccc;
+}
+
+/* Increase font size for smaller screens */
+@media (max-width: 600px) {
+    body {
+        font-size: 18px; /* Larger font size for mobile */
+    }
 }
