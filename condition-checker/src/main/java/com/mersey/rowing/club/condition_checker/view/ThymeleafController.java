@@ -49,29 +49,36 @@ public class ThymeleafController {
     ConditionResponse conditionResponse =
             conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
 
-    List<SessionConditions> conditionResponseOfStartTimes = conditionResponse.getSessionConditions().stream()
-            .filter(sessionConditions -> sessionConditions.getTimeType().equals(TimeType.SESSION_START))
+    // List of session start times
+    List<SessionConditions> sessionStartTimes = conditionResponse.getSessionConditions().stream()
+            .filter(sc -> sc.getTimeType().equals(TimeType.SESSION_START))
             .toList();
 
-    // Use a map to hold session UUIDs and their corresponding boats allowed
-    Map<String, BoatsAllowed> sessionBoatsMap = new HashMap<>();
+    // Map to hold session UUIDs and their conditions and average boats allowed
+    Map<SessionConditions, List<SessionConditions>> sessionConditionsMap = new HashMap<>();
+    Map<SessionConditions, BoatsAllowed> sessionBoatsMap = new HashMap<>();
 
-    for (SessionConditions sessionConditions : conditionResponseOfStartTimes) {
-      String uuid = sessionConditions.getSessionUUID();
-      List<SessionConditions> conditionsDuringSession = conditionResponse.getSessionConditions().stream()
-              .filter(sessionConditions1 -> sessionConditions1.getSessionUUID().equals(uuid))
+    for (SessionConditions startTime : sessionStartTimes) {
+      String uuid = startTime.getSessionUUID();
+      List<SessionConditions> conditionsForSession = conditionResponse.getSessionConditions().stream()
+              .filter(sc -> sc.getSessionUUID().equals(uuid))
               .toList();
 
-      // Get the average boats permitted for this session
-      BoatsAllowed boatsAllowed = boatCapabilityClient.getSessionAverage(conditionsDuringSession);
-      sessionBoatsMap.put(uuid, boatsAllowed);
+      // Calculate average boats permitted for the session
+      BoatsAllowed averageBoatsAllowed = boatCapabilityClient.getSessionAverage(conditionsForSession);
+
+      // Map start time to conditions and average boats allowed
+      sessionConditionsMap.put(startTime, conditionsForSession);
+      sessionBoatsMap.put(startTime, averageBoatsAllowed);
     }
 
-    // Add session start times and boats allowed data to the model
-    model.addAttribute("sessionConditions", conditionResponseOfStartTimes);
+    // Add data to the model
+    model.addAttribute("sessionConditionsMap", sessionConditionsMap);
     model.addAttribute("sessionBoatsMap", sessionBoatsMap);
 
     return "dateDetails";
   }
+
+
 
 }
