@@ -120,7 +120,7 @@ footer {
 /* General font size adjustments for smaller screens */
 @media (max-width: 600px) {
     body {
-        font-size: 100px; /* Larger font size for mobile */
+        font-size: 80px; /* Larger font size for mobile */
     }
     h1, h2, h3, h4, h5, h6 {
         font-size: 3em; /* Adjust header sizes */
