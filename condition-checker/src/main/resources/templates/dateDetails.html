@@ -29,28 +29,31 @@
                 <p th:if="${sessionBoatsMap[entry.key].seniorFourAndAbove}"><b>Four & above - senior </b></p>
             </div>
 
-            <!-- Display each individual session condition -->
-            <div th:each="condition : ${entry.value}" class="sub-box">
-                <h4>Condition on <span th:text="${condition.date}"></span></h4>
-                <div class="weather-section">
-                    <h4>Weather Conditions:</h4>
-                    <p><b>Temperature Feels Like: </b><span th:text="${condition.weatherConditions.getTempFeelsLike()}"></span></p>
-                    <p><b>Wind Speed:</b> <span th:text="${condition.weatherConditions.getWindSpeed()}"></span> km/h</p>
-                    <p><b>Description:</b> <span th:text="${condition.weatherConditions.description}"></span></p>
+            <!-- Container for individual conditions -->
+            <div class="conditions-container">
+                <!-- Display each individual session condition -->
+                <div th:each="condition : ${entry.value}" class="sub-box condition-box">
+                    <h4>Condition on <span th:text="${condition.date}"></span></h4>
+                    <div class="weather-section">
+                        <h4>Weather Conditions:</h4>
+                        <p><b>Temperature Feels Like: </b><span th:text="${condition.weatherConditions.getTempFeelsLike()}"></span></p>
+                        <p><b>Wind Speed:</b> <span th:text="${condition.weatherConditions.getWindSpeed()}"></span> km/h</p>
+                        <p><b>Description:</b> <span th:text="${condition.weatherConditions.description}"></span></p>
+                    </div>
+                    <div class="boats-permitted">
+                        <p th:if="${condition.boatsAllowed.single}"><b>Single </b></p>
+                        <p th:if="${condition.boatsAllowed.doubles}"><b>Doubles </b></p>
+                        <p th:if="${condition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
+                        <p th:if="${condition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
+                    </div>
+                    <div class="boats-cancelled">
+                        <p th:if="${!condition.boatsAllowed.single}"><b>Single </b></p>
+                        <p th:if="${!condition.boatsAllowed.doubles}"><b>Doubles </b></p>
+                        <p th:if="${!condition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
+                        <p th:if="${!condition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
+                    </div>
+                    <p style="font-size: 24px;">Status: <span th:text="${condition.status}"></span></p>
                 </div>
-                <div class="boats-permitted">
-                    <p th:if="${condition.boatsAllowed.single}"><b>Single </b></p>
-                    <p th:if="${condition.boatsAllowed.doubles}"><b>Doubles </b></p>
-                    <p th:if="${condition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
-                    <p th:if="${condition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
-                </div>
-                <div class="boats-cancelled">
-                    <p th:if="${!condition.boatsAllowed.single}"><b>Single </b></p>
-                    <p th:if="${!condition.boatsAllowed.doubles}"><b>Doubles </b></p>
-                    <p th:if="${!condition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
-                    <p th:if="${!condition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
-                </div>
-                <p style="font-size: 24px;">Status: <span th:text="${condition.status}"></span></p>
             </div>
         </div>
     </div>
