@@ -103,29 +103,11 @@ public class SessionConditionsMapperTests {
   }
 
   @Test
-  void mapSessionConditionsFromOpenWeatherResponse_validOpenWeatherResponse_mapsAsExpected() {
-    StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
-
-    SessionConditions actualSessionConditions =
-        sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
-
-    try {
-      String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
-      JSONAssert.assertEquals(EXPECTED_RESPONSE, sessionConditionsJson, false);
-    } catch (AssertionError e) {
-      log.error("JSON objects are not equal: " + e.getMessage());
-      throw e;
-    } catch (JSONException | JsonProcessingException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  @Test
   void mapFromStatusCodeObjectNEW_validOpenWeatherResponse_mapsAsExpected() {
     StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
 
     SessionConditions actualSessionConditions =
-        sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+        sessionConditionsMapper.mapFromStatusCodeObject(
             statusCodeObject,
             UUID.fromString("5db375dc-28dc-4c43-a081-eeec53e19556"),
             TimeType.SESSION_START);
@@ -147,7 +129,8 @@ public class SessionConditionsMapperTests {
     StatusCodeObject statusCodeObject =
         new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
     SessionConditions actualSessionConditions =
-        sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
+        sessionConditionsMapper.mapFromStatusCodeObject(
+            statusCodeObject, UUID.randomUUID(), TimeType.ERROR);
     SessionConditions expectedSessionConditionsResponse =
         SessionConditions.builder()
             .status(HttpStatus.UNAUTHORIZED.toString())
