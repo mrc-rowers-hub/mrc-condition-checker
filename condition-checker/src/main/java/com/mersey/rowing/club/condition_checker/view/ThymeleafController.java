@@ -6,12 +6,10 @@ import com.mersey.rowing.club.condition_checker.controller.util.DateUtil;
 import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
 import com.mersey.rowing.club.condition_checker.model.response.ConditionResponse;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
-
+import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +25,7 @@ public class ThymeleafController {
 
   @Autowired DateUtil dateUtil;
 
-  @Autowired
-  BoatCapabilityClient boatCapabilityClient;
+  @Autowired BoatCapabilityClient boatCapabilityClient;
 
   @GetMapping("/")
   public String index(Model model) {
@@ -47,10 +44,11 @@ public class ThymeleafController {
     String dateTime = dateUtil.getDateTimeAsDdMmYyyyFromWebsite(selectedDate);
 
     ConditionResponse conditionResponse =
-            conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
+        conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
 
     // List of session start times
-    List<SessionConditions> sessionStartTimes = conditionResponse.getSessionConditions().stream()
+    List<SessionConditions> sessionStartTimes =
+        conditionResponse.getSessionConditions().stream()
             .filter(sc -> sc.getTimeType().equals(TimeType.SESSION_START))
             .toList();
 
@@ -60,12 +58,14 @@ public class ThymeleafController {
 
     for (SessionConditions startTime : sessionStartTimes) {
       String uuid = startTime.getSessionUUID();
-      List<SessionConditions> conditionsForSession = conditionResponse.getSessionConditions().stream()
+      List<SessionConditions> conditionsForSession =
+          conditionResponse.getSessionConditions().stream()
               .filter(sc -> sc.getSessionUUID().equals(uuid))
               .toList();
 
       // Calculate average boats permitted for the session
-      BoatsAllowed averageBoatsAllowed = boatCapabilityClient.getSessionAverage(conditionsForSession);
+      BoatsAllowed averageBoatsAllowed =
+          boatCapabilityClient.getSessionAverage(conditionsForSession);
 
       // Map start time to conditions and average boats allowed
       sessionConditionsMap.put(startTime, conditionsForSession);
@@ -78,7 +78,4 @@ public class ThymeleafController {
 
     return "dateDetails";
   }
-
-
-
 }
