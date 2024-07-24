@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class DateUtil {
-  // todo AS LIST REPLACEMENTS TODAY
   private static final String sixMorning = "06:00";
   private static final String sixEvening = "18:00";
   private static final ZoneId zoneId = ZoneId.of("Europe/London");
@@ -180,7 +179,6 @@ public class DateUtil {
     long epochPlus1hr = epoch + ONE_HOUR_EPOCH;
     long epochPlus2hr = epochPlus1hr + ONE_HOUR_EPOCH;
 
-    //    longArray[0] = epoch;
     longArray[0] = epochPlus1hr;
     longArray[1] = epochPlus2hr;
 

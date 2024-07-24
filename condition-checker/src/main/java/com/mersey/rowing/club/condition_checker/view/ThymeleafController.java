@@ -39,7 +39,6 @@ public class ThymeleafController {
 
     ConditionResponse conditionResponse =
         conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
-    // instead, want it to
     List<SessionConditions> conditionResponseOfStartTimes =
         conditionResponse.getSessionConditions().stream()
             .filter(
