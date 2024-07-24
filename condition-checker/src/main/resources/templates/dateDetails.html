@@ -3,63 +3,6 @@
 <head>
     <title>MRC Conditions</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
-    <style>
-        .session-box {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .session-box h3 {
-            margin-top: 0;
-        }
-        .weather-section {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 20px;
-            background-color: #eef;
-            border-radius: 5px;
-        }
-        .weather-section h4 {
-            margin-top: 0;
-        }
-        .weather-section p {
-            margin: 5px 0;
-        }
-        .boats-permitted {
-            background-color: #d4edda;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .boats-cancelled {
-            background-color: #f8d7da;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .average-boats-box {
-            background-color: #cce5ff;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .average-boats-box h3 {
-            margin-bottom: 5px; /* Decrease bottom margin */
-        }
-        .average-boats-box p {
-            margin-top: 5px; /* Decrease top margin */
-        }
-        .sub-box {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            background-color: #e9ecef;
-        }
-    </style>
 </head>
 <body>
 <header>
@@ -107,7 +50,7 @@
                     <p th:if="${!condition.boatsAllowed.noviceFourAndAbove}"><b>Four & above - novice </b></p>
                     <p th:if="${!condition.boatsAllowed.seniorFourAndAbove}"><b>Four & above - senior </b></p>
                 </div>
-                <p style="font-size: 12px;">Status: <span th:text="${condition.status}"></span></p>
+                <p style="font-size: 24px;">Status: <span th:text="${condition.status}"></span></p>
             </div>
         </div>
     </div>

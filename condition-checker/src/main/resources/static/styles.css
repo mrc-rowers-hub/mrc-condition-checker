@@ -1,7 +1,7 @@
 /* styles.css */
 body {
     font-family: Arial, sans-serif;
-    font-size: 20px; /* Increase the base font size */
+    font-size: 100px; /* Double the base font size */
 }
 
 .header-container {
@@ -57,15 +57,75 @@ footer {
     border-top: 1px solid #ccc;
 }
 
+.session-box {
+    border: 1px solid #ddd;
+    padding: 20px; /* Double padding */
+    margin: 20px 0; /* Double margin */
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.session-box h3 {
+    margin-top: 0;
+}
+
+.weather-section {
+    border: 1px solid #ccc;
+    padding: 20px; /* Double padding */
+    margin-bottom: 40px; /* Double margin */
+    background-color: #eef;
+    border-radius: 5px;
+}
+
+.weather-section h4 {
+    margin-top: 0;
+}
+
+.weather-section p {
+    margin: 10px 0; /* Double margin */
+}
+
+.boats-permitted, .boats-cancelled, .average-boats-box, .sub-box {
+    padding: 20px; /* Double padding */
+    border-radius: 5px;
+    margin-bottom: 40px; /* Double margin */
+}
+
+.boats-permitted {
+    background-color: #d4edda;
+}
+
+.boats-cancelled {
+    background-color: #f8d7da;
+}
+
+.average-boats-box {
+    background-color: #cce5ff;
+    font-weight: bold;
+}
+
+.average-boats-box h3 {
+    margin-bottom: 10px; /* Double bottom margin */
+}
+
+.average-boats-box p {
+    margin-top: 10px; /* Double top margin */
+}
+
+.sub-box {
+    border: 1px solid #ccc;
+    background-color: #e9ecef;
+}
+
 /* General font size adjustments for smaller screens */
 @media (max-width: 600px) {
     body {
-        font-size: 24px; /* Larger font size for mobile */
+        font-size: 100px; /* Larger font size for mobile */
     }
     h1, h2, h3, h4, h5, h6 {
-        font-size: 1.5em; /* Adjust header sizes */
+        font-size: 3em; /* Adjust header sizes */
     }
     p, a {
-        font-size: 1.2em; /* Adjust paragraph and link sizes */
+        font-size: 2.4em; /* Adjust paragraph and link sizes */
     }
 }
