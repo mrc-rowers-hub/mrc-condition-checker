@@ -55,8 +55,8 @@ public class WiremockBaseTests {
   @AfterAll
   static void tearDownAfterClass() {
     log.info("<<<<< CLEARING WIREMOCK MAPPINGS >>>>>");
-        WireMock wireMock = new WireMock("localhost", 5050);
-        wireMock.resetMappings();
+    WireMock wireMock = new WireMock("localhost", 5050);
+    wireMock.resetMappings();
     log.info("<<<<< WIREMOCK MAPPINGS CLEARED >>>>>");
   }
 }
