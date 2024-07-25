@@ -11,11 +11,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+
 @Component
 @Slf4j
 public class OpenWeatherApiClient {
 
   RestTemplate restTemplate = new RestTemplate();
+  private static final DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
   @Autowired
   private DateUtil dateUtil;
@@ -44,5 +51,38 @@ public class OpenWeatherApiClient {
       log.error("Unexpected error: " + e.getMessage());
       throw e;
     }
+  }
+
+  public String checkDateAndAddCounter() throws IOException {
+    BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/counter.txt"));
+
+    // Skipping first line & grabbing date in file
+    bufferedReader.readLine();
+    String currentDate = bufferedReader.readLine();
+
+    // Skipping third line and grabbing current number of API calls
+    bufferedReader.readLine();
+    Integer counter = Integer.valueOf(bufferedReader.readLine());
+    bufferedReader.close();
+
+    // Logic to update counter.txt
+    if (dateUtil.getCurrentDate().toString().equals(currentDate)) {
+      counter++;
+    } else {
+      currentDate = dtfMinusHours.format(dateUtil.getCurrentDate());
+      counter = 1;
+    }
+
+    // Opening and updating counter.txt
+    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/counter.txt"));
+
+    bufferedWriter.write("Current Date:\n");
+    bufferedWriter.write(currentDate + "\n");
+
+    bufferedWriter.write("No. of API calls since above date:\n");
+    bufferedWriter.write(String.valueOf(counter));
+    bufferedWriter.close();
+
+    return currentDate;
   }
 }

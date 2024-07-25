@@ -20,7 +20,7 @@ public class DateUtil {
   @Autowired
   private Clock clock;
 
-  private LocalDate getCurrentDate() {
+  public LocalDate getCurrentDate() {
     return LocalDate.now(clock);
   }
 
@@ -91,4 +91,5 @@ public class DateUtil {
     Instant instant = Instant.ofEpochSecond(epoch);
     LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     return dateTime.format(dtf);
-  }}
+  }
+}

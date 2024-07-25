@@ -1,6 +1,6 @@
 # Condition Checker 
 # 🛠️ WIP 🛠️
-An application to check the weather conditions of Mersey Rowing Club at the 6am and 6pm (for morning and evening sessions) to see if boats can go ahead. 
+An application to check the weather conditions of Mersey Rowing Club at 6am and 6pm (for morning and evening sessions) to see if boats can go ahead. 
 
 ## How to run
 - Install the Env file plugin https://plugins.jetbrains.com/plugin/7861-envfile 
@@ -15,6 +15,10 @@ Prerequisites:
 Instructions:
 - Run `docker-compose up -d ` (this starts the wiremock container)
 - Run the maven unit tests _(right click on `java.com.mersey.rowing.club.condition_checker` -> run all tests)_
+
+### Counter.txt File
+The counter.txt file is essential for keeping an eye on the number of API calls made per day.  
+It contains the current date which is updated automatically when the API is called, and a counter, which is also updated and refreshed each day automatically, to keep track of the number of API calls made on the current date.
 
 # Application Logic and Reasoning
 Currently, we are working from a [Miro](https://miro.com/app/board/uXjVPMF8Djc=/?moveToWidget=3458764584603444169&cot=14) (_currently private, please request access if necessary_) page, designed by Adelaide Baron. Additionally, work is being prioritised through the GitHub Project associated with this repository. 
