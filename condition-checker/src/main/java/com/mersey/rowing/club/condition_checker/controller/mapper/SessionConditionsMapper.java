@@ -20,37 +20,7 @@ public class SessionConditionsMapper {
 
   @Autowired private DateUtil dateUtil;
 
-  public SessionConditions mapFromStatusCodeObject(StatusCodeObject statusCodeObject) {
-    String status = statusCodeObject.getHttpStatus().toString();
-    if (statusCodeObject.getHttpStatus().equals(HttpStatus.OK)) {
-      OpenWeatherResponse openWeatherResponse =
-          (OpenWeatherResponse) statusCodeObject.getOwResponse();
-      BoatsAllowed boatsAllowed = boatCapabilityClient.getBoatsAllowed(openWeatherResponse);
-
-      WeatherConditions weatherConditions =
-          WeatherConditions.builder()
-              .description(openWeatherResponse.getDescription())
-              .windSpeed((int) Math.round(openWeatherResponse.getWindSpeed()))
-              .tempFeelsLike((int) Math.round(openWeatherResponse.getFeelsLike()))
-              .build();
-
-      String dateTime =
-          dateUtil.getDatetimeFromEpochSeconds(
-              (long) openWeatherResponse.getData().getFirst().getEpochDateTime());
-
-      return SessionConditions.builder()
-          .status(HttpStatus.OK.toString())
-          .weatherConditions(weatherConditions)
-          .boatsAllowed(boatsAllowed)
-          .date(dateTime)
-          .build();
-    } else {
-      String date = (String) statusCodeObject.getOwResponse();
-      return SessionConditions.builder().status(status).date(date).build();
-    }
-  }
-
-  public SessionConditions mapFromStatusCodeObjectNEW(
+  public SessionConditions mapFromStatusCodeObject(
       StatusCodeObject statusCodeObject, UUID sessionUUID, TimeType timeType) {
     String status = statusCodeObject.getHttpStatus().toString();
     if (statusCodeObject.getHttpStatus().equals(HttpStatus.OK)) {

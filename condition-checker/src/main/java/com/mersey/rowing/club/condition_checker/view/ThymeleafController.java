@@ -70,6 +70,7 @@ public class ThymeleafController {
       // Map start time to conditions and average boats allowed
       sessionConditionsMap.put(startTime, conditionsForSession);
       sessionBoatsMap.put(startTime, averageBoatsAllowed);
+
     }
 
     // Add data to the model

@@ -39,7 +39,7 @@ public class ConditionResponseClient {
       long startEpoch = key.longValue();
       StatusCodeObject statusCodeObjectStart = owac.getOpenWeatherAPIResponse(startEpoch);
       sessionConditionsList.add(
-          sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+          sessionConditionsMapper.mapFromStatusCodeObject(
               statusCodeObjectStart, sessionUuid, TimeType.SESSION_START));
 
       long[] value = entry.getValue();
@@ -47,7 +47,7 @@ public class ConditionResponseClient {
       long midSessionEpoch = value[0];
       StatusCodeObject statusCodeObjectmidSession = owac.getOpenWeatherAPIResponse(midSessionEpoch);
       sessionConditionsList.add(
-          sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+          sessionConditionsMapper.mapFromStatusCodeObject(
               statusCodeObjectmidSession, sessionUuid, TimeType.DURING_SESSION));
 
       // for end session
@@ -55,7 +55,7 @@ public class ConditionResponseClient {
       StatusCodeObject statusCodeObjectEndOfSession =
           owac.getOpenWeatherAPIResponse(endOfSessionEpoch);
       sessionConditionsList.add(
-          sessionConditionsMapper.mapFromStatusCodeObjectNEW(
+          sessionConditionsMapper.mapFromStatusCodeObject(
               statusCodeObjectEndOfSession, sessionUuid, TimeType.SESSION_END));
     }
 
