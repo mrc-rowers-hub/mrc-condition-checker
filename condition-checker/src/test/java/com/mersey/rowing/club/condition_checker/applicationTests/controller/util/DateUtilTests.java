@@ -116,4 +116,13 @@ public class DateUtilTests {
   void getDateTimeAsDdMmYyyyFromWebsite_stringInput_returnsDtInExpectedFormat() {
     assertEquals("12/07/2024", dateUtil.getDateTimeAsDdMmYyyyFromWebsite("12 Jul 2024"));
   }
+
+  @Test
+  void getEpochsPlusTwoHoursToEach_singleInput_returnsThreeEpochsWithin2Hours() {
+    long[] inputs = {testEpoch};
+    long[] result = dateUtil.getEpochsPlusTwoHoursToEach(inputs);
+
+    long[] expected = {testEpoch, testEpoch + 3600, testEpoch + 2 * 3600};
+    assertArrayEquals(expected, result);
+  }
 }

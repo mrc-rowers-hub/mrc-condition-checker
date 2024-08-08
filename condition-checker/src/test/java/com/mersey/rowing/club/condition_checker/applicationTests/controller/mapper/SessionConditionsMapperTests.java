@@ -12,9 +12,11 @@ import com.mersey.rowing.club.condition_checker.model.StatusCodeObject;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeatherResponse;
 import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
+import com.mersey.rowing.club.condition_checker.model.response.TimeType;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -77,16 +79,18 @@ public class SessionConditionsMapperTests {
             .build();
     when(boatCapabilityClient.getBoatsAllowed(MOCK_OW_RESPONSE)).thenReturn(mockBoatsAllowed);
 
-    // Mock DateUtil behavior as needed
     when(dateUtil.getDatetimeFromEpochSeconds(1721581200L)).thenReturn("17/06/2024 20:46");
   }
 
   @Test
-  void mapSessionConditionsFromOpenWeatherResponse_validOpenWeatherResponse_mapsAsExpected() {
+  void mapFromStatusCodeObject_validOpenWeatherResponse_mapsAsExpected() {
     StatusCodeObject statusCodeObject = new StatusCodeObject(HttpStatus.OK, MOCK_OW_RESPONSE);
 
     SessionConditions actualSessionConditions =
-        sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
+        sessionConditionsMapper.mapFromStatusCodeObject(
+            statusCodeObject,
+            UUID.fromString("5db375dc-28dc-4c43-a081-eeec53e19556"),
+            TimeType.SESSION_START);
 
     try {
       String sessionConditionsJson = mapper.writeValueAsString(actualSessionConditions);
@@ -104,7 +108,8 @@ public class SessionConditionsMapperTests {
     StatusCodeObject statusCodeObject =
         new StatusCodeObject(HttpStatus.UNAUTHORIZED, "17/06/2024 20:46");
     SessionConditions actualSessionConditions =
-        sessionConditionsMapper.mapFromStatusCodeObject(statusCodeObject);
+        sessionConditionsMapper.mapFromStatusCodeObject(
+            statusCodeObject, UUID.randomUUID(), TimeType.ERROR);
     SessionConditions expectedSessionConditionsResponse =
         SessionConditions.builder()
             .status(HttpStatus.UNAUTHORIZED.toString())
