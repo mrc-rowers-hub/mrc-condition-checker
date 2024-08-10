@@ -168,10 +168,6 @@
                 </executions>
                 <configuration>
                     <mainClass>com.mersey.rowing.club.condition_checker.ConditionCheckerApplication</mainClass>
-					<arguments>
-						<argument>--port</argument>
-						<argument>8080</argument>
-					</arguments>
                 </configuration>
             </plugin>
 		</plugins>
