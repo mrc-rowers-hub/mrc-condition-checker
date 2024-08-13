@@ -5,9 +5,11 @@ import static io.restassured.RestAssured.when;
 import com.mersey.rowing.club.condition_checker.applicationTests.WireMockSpecificDtBaseTests;
 import com.mersey.rowing.club.condition_checker.utils.TestOpenWeatherUtils;
 import org.json.JSONException;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
+@Tag("wiremock")
 public class WiremockSpecificDtSetupTests extends WireMockSpecificDtBaseTests {
 
   @Test

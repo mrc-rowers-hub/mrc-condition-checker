@@ -8,7 +8,6 @@ import com.mersey.rowing.club.condition_checker.utils.TestOpenWeatherUtils;
 import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -21,7 +20,7 @@ public class WireMockSpecificDtBaseTests {
 
   protected static String url;
 
-  @Value("${open-weather-api.endpointNoSetDt}")
+  @Value("${open-weather-api.endpoint}")
   private String endpoint;
 
   private WireMockSetup mockSetup = new WireMockSetup();

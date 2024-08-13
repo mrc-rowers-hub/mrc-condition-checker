@@ -12,6 +12,12 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class SessionConditions {
 
+  @JsonProperty("time_during_session")
+  private TimeType timeType;
+
+  @JsonProperty("session_uuid")
+  private String sessionUUID;
+
   private String status;
 
   private String date;

@@ -17,22 +17,23 @@ public class WeatherData {
   private int epochDateTime; // TODO hmmm is this okay - should be long?
 
   @JsonProperty("temp")
-  private double temperature;
+  private double temperature; // todo, do we use?
 
   @JsonProperty("feels_like")
-  private double feelsLike;
+  private double feelsLike; // fahrenheit
 
   @JsonProperty("wind_speed")
-  private double windSpeed; // in m/s
+  private double windSpeed; // in miles per hour
 
   @JsonProperty("weather")
   private List<Weather> weather;
 
-  public double kelvinToCelsius() {
-    return temperature - 273;
+  public double feelsLikeFahrenheitToCelsius() {
+    return (feelsLike - 32) * 5 / 9;
   }
 
-  public double msTokmH() {
-    return windSpeed * 3.6;
+  public double mphToKmph() {
+    double CONVERSION = 1.60934;
+    return windSpeed * CONVERSION;
   }
 }

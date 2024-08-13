@@ -21,10 +21,10 @@ public class OpenWeatherResponse {
   }
 
   public double getWindSpeed() {
-    return data.getFirst().msTokmH();
+    return data.getFirst().mphToKmph();
   }
 
   public double getFeelsLike() {
-    return data.getFirst().kelvinToCelsius();
+    return data.getFirst().feelsLikeFahrenheitToCelsius();
   }
 }

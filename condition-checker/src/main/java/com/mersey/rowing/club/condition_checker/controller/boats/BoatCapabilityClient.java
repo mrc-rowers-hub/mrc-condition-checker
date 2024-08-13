@@ -6,7 +6,7 @@ import com.mersey.rowing.club.condition_checker.model.openweatherapi.OpenWeather
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.Weather;
 import com.mersey.rowing.club.condition_checker.model.openweatherapi.WeatherData;
 import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
-import com.mersey.rowing.club.condition_checker.model.response.WeatherConditions;
+import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -20,26 +20,50 @@ public class BoatCapabilityClient {
 
   @Autowired BoatLimits boatLimits;
 
+  public BoatsAllowed getSessionAverage(List<SessionConditions> conditionsThroughoutSession) {
+    BoatsAllowed conditionsAtStart = conditionsThroughoutSession.get(0).getBoatsAllowed();
+    BoatsAllowed conditionsMidway = conditionsThroughoutSession.get(1).getBoatsAllowed();
+    BoatsAllowed conditionsEnd = conditionsThroughoutSession.get(2).getBoatsAllowed();
+
+    boolean singles =
+        (conditionsAtStart.isSingle() && conditionsMidway.isSingle())
+            || (conditionsMidway.isSingle() && conditionsEnd.isSingle());
+    boolean doubles =
+        (conditionsAtStart.isDoubles() && conditionsMidway.isDoubles())
+            || (conditionsMidway.isDoubles() && conditionsEnd.isDoubles());
+    boolean novice =
+        (conditionsAtStart.isNoviceFourAndAbove() && conditionsMidway.isNoviceFourAndAbove())
+            || (conditionsMidway.isNoviceFourAndAbove() && conditionsEnd.isNoviceFourAndAbove());
+    boolean senior =
+        (conditionsAtStart.isSeniorFourAndAbove() && conditionsMidway.isSeniorFourAndAbove())
+            || (conditionsMidway.isSeniorFourAndAbove() && conditionsEnd.isSeniorFourAndAbove());
+
+    return BoatsAllowed.builder()
+        .single(singles)
+        .doubles(doubles)
+        .noviceFourAndAbove(novice)
+        .seniorFourAndAbove(senior)
+        .build();
+  }
+
   public BoatsAllowed getBoatsAllowed(OpenWeatherResponse openWeatherResponse) {
     WeatherData weatherData = openWeatherResponse.getData().getFirst();
     int windSpeed = (int) Math.round(openWeatherResponse.getWindSpeed());
-    Weather something = weatherData.getWeather().getFirst(); // rename
+    Weather weather = weatherData.getWeather().getFirst();
     // Todo, reassess the below, only accounting for one weather data response
-    WeatherConditions weatherConditions =
-        WeatherConditions.builder()
-            .description(something.getDescription())
-            .tempFeelsLike((int) Math.round(openWeatherResponse.getFeelsLike()))
-            .windSpeed((int) Math.round(openWeatherResponse.getWindSpeed()))
-            .build();
 
     if (!isTempWithinLimits(weatherData)) {
+      log.info(
+          "Temperature out of allowed range, cancelling all boats: {} celsius",
+          weatherData.feelsLikeFahrenheitToCelsius());
       return BoatsAllowed.builder()
           .doubles(false)
           .single(false)
           .noviceFourAndAbove(false)
           .seniorFourAndAbove(false)
           .build();
-    } else if (!isIdWithinLimits(something)) {
+    } else if (!isIdWithinLimits(weather)) {
+      log.info("Weather ID not allowed: {}", weather.getId());
       return BoatsAllowed.builder()
           .doubles(false)
           .single(false)
@@ -110,7 +134,11 @@ public class BoatCapabilityClient {
   }
 
   private boolean isTempWithinLimits(WeatherData weatherData) {
-    return (int) weatherData.getFeelsLike() < boatLimits.getFeelsLikeTempMaxKelvin()
-        && (int) weatherData.getFeelsLike() > boatLimits.getFeelsLikeTempMinKelvin();
+    boolean belowMinTemp =
+        weatherData.feelsLikeFahrenheitToCelsius() < boatLimits.getFeelsLikeTempMaxCelsius();
+    boolean aboveMaxTemp =
+        weatherData.feelsLikeFahrenheitToCelsius() > boatLimits.getFeelsLikeTempMinCelsius();
+
+    return belowMinTemp && aboveMaxTemp;
   }
 }
