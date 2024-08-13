@@ -27,8 +27,7 @@ public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
-  void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOWResponse_withCorrectDT()
-      throws JsonProcessingException, JSONException {
+  void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOWResponse_withCorrectDT() throws JSONException, JsonProcessingException {
     int testDateTime = 1720626363;
 
     setupWiremockMappingForDt(testDateTime);
@@ -50,14 +49,5 @@ public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
 
     assertThat(statusCodeObject)
         .isEqualTo(openWeatherApiClient.getOpenWeatherAPIResponse(1720626363L));
-  }
-
-  //Placeholder Test
-  @Test
-  void checkDateAndAddCounter() throws IOException {
-    String currentDate = openWeatherApiClient.checkDateAndAddCounter();
-
-    Assertions.assertEquals(currentDate, "24/07/2024");
-    System.out.println(currentDate);
   }
 }

@@ -40,6 +40,7 @@ public class OpenWeatherApiClient {
     String url = String.format(apiBaseUrl + apiEndpoint, epoch, apiKey);
     Class<OpenWeatherResponse> responseType = OpenWeatherResponse.class;
     try {
+      checkDateAndAddCounter();
       OpenWeatherResponse openWeatherResponse = restTemplate.getForObject(url, responseType);
       log.info("Successfully retrieved and mapped response from open weather API");
       return new StatusCodeObject(HttpStatus.OK, openWeatherResponse);
@@ -53,27 +54,39 @@ public class OpenWeatherApiClient {
     }
   }
 
-  public String checkDateAndAddCounter() throws IOException {
-    BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/counter.txt"));
+  public String checkDateAndAddCounter() {
+      BufferedReader bufferedReader = null;
+      try {
+          bufferedReader = new BufferedReader(new FileReader("src/main/resources/counter.txt"));
+        // Skipping first line & grabbing date in file
+        bufferedReader.readLine();
+        String currentDate = bufferedReader.readLine();
 
-    // Skipping first line & grabbing date in file
-    bufferedReader.readLine();
-    String currentDate = bufferedReader.readLine();
+        // Skipping third line and grabbing current number of API calls
+        bufferedReader.readLine();
+        Integer counter = Integer.valueOf(bufferedReader.readLine());
+        bufferedReader.close();
 
-    // Skipping third line and grabbing current number of API calls
-    bufferedReader.readLine();
-    Integer counter = Integer.valueOf(bufferedReader.readLine());
-    bufferedReader.close();
+        // Logic to update counter.txt
+        if (dateUtil.getCurrentDate().toString().equals(currentDate)) {
+          counter++;
+        } else {
+          currentDate = dtfMinusHours.format(dateUtil.getCurrentDate());
+          counter = 1;
+        }
 
-    // Logic to update counter.txt
-    if (dateUtil.getCurrentDate().toString().equals(currentDate)) {
-      counter++;
-    } else {
-      currentDate = dtfMinusHours.format(dateUtil.getCurrentDate());
-      counter = 1;
-    }
+        // Opening and updating counter.txt
+        openFileAndUpdateCounter(currentDate, counter);
 
-    // Opening and updating counter.txt
+        return currentDate;
+      } catch (IOException e) {
+          throw new RuntimeException(e);
+      }
+
+
+  }
+
+  private static void openFileAndUpdateCounter(String currentDate, Integer counter) throws IOException {
     BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/counter.txt"));
 
     bufferedWriter.write("Current Date:\n");
@@ -82,7 +95,5 @@ public class OpenWeatherApiClient {
     bufferedWriter.write("No. of API calls since above date:\n");
     bufferedWriter.write(String.valueOf(counter));
     bufferedWriter.close();
-
-    return currentDate;
   }
 }
