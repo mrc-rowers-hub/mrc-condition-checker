@@ -21,7 +21,7 @@ public class DateUtil {
 
   @Autowired private Clock clock;
 
-  private LocalDate getCurrentDate() {
+  public LocalDate getCurrentDate() {
     return LocalDate.now(clock);
   }
 
