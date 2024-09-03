@@ -56,7 +56,7 @@ public class OpenWeatherApiClient {
   public String checkDateAndAddCounter() {
       BufferedReader bufferedReader = null;
       try {
-          bufferedReader = new BufferedReader(new FileReader("src/main/resources/counter.txt"));
+          bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
         // Skipping first line & grabbing date in file
         bufferedReader.readLine();
         String currentDate = bufferedReader.readLine();
@@ -67,8 +67,8 @@ public class OpenWeatherApiClient {
         bufferedReader.close();
 
         // Logic to update counter.txt
-        if (dateUtil.getCurrentDate().toString().equals(currentDate)) {
-          counter++;
+        if (dtfMinusHours.format(dateUtil.getCurrentDate()).equals(currentDate)) {
+           counter++;
         } else {
           currentDate = dtfMinusHours.format(dateUtil.getCurrentDate());
           counter = 1;
@@ -86,12 +86,10 @@ public class OpenWeatherApiClient {
       } catch (IOException e) {
           throw new RuntimeException(e);
       }
-
-
   }
 
   private static void openFileAndUpdateCounter(String currentDate, Integer counter) throws IOException {
-    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/counter.txt"));
+    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
 
     bufferedWriter.write("Current Date:\n");
     bufferedWriter.write(currentDate + "\n");
