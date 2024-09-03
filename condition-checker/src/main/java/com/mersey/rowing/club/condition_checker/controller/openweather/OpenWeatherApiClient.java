@@ -76,7 +76,7 @@ public class OpenWeatherApiClient {
 
         if (counter > 900) {
           System.out.println("There are less than 100 calls left for today! Please use sparingly.");
-          log.warn("There are only " + (1000 - counter) + " calls left");
+            log.warn("There are only {} calls left", 1000 - counter);
         }
 
         // Opening and updating counter.txt
