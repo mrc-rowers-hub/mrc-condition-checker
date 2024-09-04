@@ -1,6 +1,6 @@
 # Condition Checker 
 # 🛠️ WIP 🛠️
-An application to check the weather conditions of Mersey Rowing Club at the 6am and 6pm (for morning and evening sessions) to see if boats can go ahead. 
+An application to check the weather conditions of Mersey Rowing Club at 6am and 6pm (for morning and evening sessions) to see if boats can go ahead. 
 
 ## How to run
 ### You will need:
@@ -37,6 +37,10 @@ Prerequisites:
 Instructions:
 - Run `docker-compose up -d ` (this starts the wiremock container)
 - Run the maven unit tests _(right click on `java.com.mersey.rowing.club.condition_checker` -> run all tests)_
+
+### Counter.txt File
+The counter.txt file is essential for keeping an eye on the number of API calls made per day.  
+It contains the current date which is updated automatically when the API is called, and a counter, which is also updated and refreshed each day automatically, to keep track of the number of API calls made on the current date.
 
 To exclude wiremock tests, run `mvn test` - those that use wiremock are annotated with `@Tag("wiremock")`
 

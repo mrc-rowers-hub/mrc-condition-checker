@@ -17,6 +17,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+
 @Tag("wiremock")
 public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
 
@@ -25,8 +26,7 @@ public class OpenWeatherApiClientTests extends WireMockSpecificDtBaseTests {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
-  void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOWResponse_withCorrectDT()
-      throws JsonProcessingException, JSONException {
+  void getOpenWeatherAPIResponse_apiGivesExpectedResponse_mapsToOWResponse_withCorrectDT() throws JSONException, JsonProcessingException {
     int testDateTime = 1720626363;
 
     setupWiremockMappingForDt(testDateTime);

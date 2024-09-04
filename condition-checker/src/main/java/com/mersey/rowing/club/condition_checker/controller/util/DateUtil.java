@@ -16,12 +16,12 @@ public class DateUtil {
   private static final String sixEvening = "18:00";
   private static final ZoneId zoneId = ZoneId.of("Europe/London");
   private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-  private static final DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+  public final DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
   private static final long ONE_HOUR_EPOCH = 3600L;
 
   @Autowired private Clock clock;
 
-  private LocalDate getCurrentDate() {
+  public LocalDate getCurrentDate() {
     return LocalDate.now(clock);
   }
 
