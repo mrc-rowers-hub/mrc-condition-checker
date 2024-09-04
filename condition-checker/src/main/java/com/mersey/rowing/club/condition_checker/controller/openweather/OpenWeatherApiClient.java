@@ -12,7 +12,6 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
-import java.time.format.DateTimeFormatter;
 
 @Component
 @Slf4j
@@ -32,7 +31,38 @@ public class OpenWeatherApiClient {
     @Value("${open-weather-api.endpoint}")
     private String apiEndpoint;
 
+    String counterPath = System.getProperty("user.dir") + "/condition-checker/src/main/resources/counter.txt";
+
+    public boolean checkAPILimitIsNotReached() {
+        boolean limitReached = false;
+        try {
+
+            // Reads down to counter number, if it's greater than or equal to 994, limit reached boolean is set to true
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(counterPath));
+            bufferedReader.readLine();
+            bufferedReader.readLine();
+            bufferedReader.readLine();
+            int counter = Integer.parseInt(bufferedReader.readLine());
+            if (counter > 994) {
+                log.warn("Call limit has been reached, no more calls can be made until tomorrow.");
+                limitReached = true;
+            }
+        } catch (FileNotFoundException e) {
+            log.error("File was not found: {}", e.getMessage());
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return limitReached;
+    }
+
     public StatusCodeObject getOpenWeatherAPIResponse(long epoch) {
+
+        if (checkAPILimitIsNotReached()) {
+            log.warn("API limit reached. API is not able to called.");
+            return new StatusCodeObject(HttpStatus.TOO_MANY_REQUESTS, "API limit reached, please try again tomorrow");
+        }
+
         String url = String.format(apiBaseUrl + apiEndpoint, epoch, apiKey);
         Class<OpenWeatherResponse> responseType = OpenWeatherResponse.class;
         try {
@@ -50,12 +80,11 @@ public class OpenWeatherApiClient {
         }
     }
 
-    public String checkDateAndAddCounter() {
+    public void checkDateAndAddCounter() {
 
         BufferedReader bufferedReader = null;
         String currentDate = "12/12/1970";
         int counter = 1;
-        String counterPath = System.getProperty("user.dir") + "/condition-checker/src/main/resources/counter.txt";
 
         // Checking if counter.txt exists
         File file = new File(counterPath);
@@ -74,6 +103,8 @@ public class OpenWeatherApiClient {
                 throw new RuntimeException(e);
             }
         }
+
+        // To check if the file exists but is empty
         try {
             bufferedReader = new BufferedReader(new FileReader(counterPath));
             // Checking to see if file is empty or not
@@ -108,9 +139,6 @@ public class OpenWeatherApiClient {
             if (counter > 900 && counter < 1000) {
                 System.out.println("There are less than 100 calls left for today! Please use sparingly.");
                 log.warn("There are only {} calls left", 1000 - counter);
-            } else if (counter > 1000) {
-                System.out.println("There are no calls left for today's date.");
-                log.warn("There are no calls left for today");
             } else {
                 log.info("There are a total of: {} calls left for today", 1000 - counter);
             }
@@ -118,7 +146,6 @@ public class OpenWeatherApiClient {
             // Opening and updating counter.txt
             openFileAndUpdateCounter(currentDate, counter);
 
-            return currentDate;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
