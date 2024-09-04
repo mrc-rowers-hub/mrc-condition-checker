@@ -19,8 +19,6 @@ import java.time.format.DateTimeFormatter;
 public class OpenWeatherApiClient {
 
     RestTemplate restTemplate = new RestTemplate();
-    private static final DateTimeFormatter dtfMinusHours = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
 
     @Autowired
     private DateUtil dateUtil;
@@ -99,10 +97,10 @@ public class OpenWeatherApiClient {
             bufferedReader.close();
 
             // Logic to update counter.txt
-            if (dtfMinusHours.format(dateUtil.getCurrentDate()).equals(currentDate)) {
+            if (dateUtil.dtfMinusHours.format(dateUtil.getCurrentDate()).equals(currentDate)) {
                 counter++;
             } else {
-                currentDate = dtfMinusHours.format(dateUtil.getCurrentDate());
+                currentDate = dateUtil.dtfMinusHours.format(dateUtil.getCurrentDate());
                 counter = 1;
             }
 
