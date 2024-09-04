@@ -56,7 +56,7 @@ public class OpenWeatherApiClient {
 
         BufferedReader bufferedReader = null;
         String currentDate = "12/12/1970";
-        Integer counter = 1;
+        int counter = 1;
 
         // Checking if counter.txt exists
         File file = new File("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt");
@@ -64,11 +64,12 @@ public class OpenWeatherApiClient {
         // If file does not exist, counter.txt is created and filled with boilerplate code
         if (!file.exists()) {
             try {
+                log.info("counter.txt was not found! Creating now.");
                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
                 bufferedWriter.write("Current Date:\n");
                 bufferedWriter.write(currentDate + "\n");
                 bufferedWriter.write("Counter:\n");
-                bufferedWriter.write(counter);
+                bufferedWriter.write(String.valueOf(counter));
                 bufferedWriter.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -94,7 +95,7 @@ public class OpenWeatherApiClient {
 
             // Skipping third line and grabbing current number of API calls
             bufferedReader.readLine();
-            counter = Integer.valueOf(bufferedReader.readLine());
+            counter = Integer.parseInt(bufferedReader.readLine());
             bufferedReader.close();
 
             // Logic to update counter.txt
