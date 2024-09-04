@@ -55,15 +55,16 @@ public class OpenWeatherApiClient {
         BufferedReader bufferedReader = null;
         String currentDate = "12/12/1970";
         int counter = 1;
+        String counterPath = System.getProperty("user.dir") + "/condition-checker/src/main/resources/counter.txt";
 
         // Checking if counter.txt exists
-        File file = new File("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt");
+        File file = new File(counterPath);
 
         // If file does not exist, counter.txt is created and filled with boilerplate code
         if (!file.exists()) {
             try {
                 log.info("counter.txt was not found! Creating now.");
-                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(counterPath));
                 bufferedWriter.write("Current Date:\n");
                 bufferedWriter.write(currentDate + "\n");
                 bufferedWriter.write("Counter:\n");
@@ -74,7 +75,7 @@ public class OpenWeatherApiClient {
             }
         }
         try {
-            bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
+            bufferedReader = new BufferedReader(new FileReader(counterPath));
             // Checking to see if file is empty or not
             String firstLine = bufferedReader.readLine();
             if (firstLine == null) {
@@ -85,7 +86,7 @@ public class OpenWeatherApiClient {
             }
 
             // Reinitialising the buffered reader to start from the top of counter.txt
-            bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
+            bufferedReader = new BufferedReader(new FileReader(counterPath));
 
             // Skipping first line and grabbing currentDate
             bufferedReader.readLine();
