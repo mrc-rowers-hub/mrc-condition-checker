@@ -55,15 +55,29 @@ public class OpenWeatherApiClient {
 
   public String checkDateAndAddCounter() {
       BufferedReader bufferedReader = null;
+      String currentDate = "12/12/1970";
+      Integer counter = 1;
       try {
           bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
-        // Skipping first line & grabbing date in file
+        // Checking to see if file is empty or not
+        String firstLine = bufferedReader.readLine();
+        if (firstLine == null) {
+          openFileAndUpdateCounter(currentDate, counter);
+          log.info("counter.txt was empty! Calls remaining may not be accurate!");
+          // Closing reader to reset to beginning of counter.txt
+          bufferedReader.close();
+        }
+
+        // Reinitialising the buffered reader to start from the top of counter.txt
+        bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
+
+        // Skipping first line and grabbing currentDate
         bufferedReader.readLine();
-        String currentDate = bufferedReader.readLine();
+        currentDate = bufferedReader.readLine();
 
         // Skipping third line and grabbing current number of API calls
         bufferedReader.readLine();
-        Integer counter = Integer.valueOf(bufferedReader.readLine());
+        counter = Integer.valueOf(bufferedReader.readLine());
         bufferedReader.close();
 
         // Logic to update counter.txt
@@ -74,9 +88,14 @@ public class OpenWeatherApiClient {
           counter = 1;
         }
 
-        if (counter > 900) {
+        if (counter > 900 && counter < 1000) {
           System.out.println("There are less than 100 calls left for today! Please use sparingly.");
             log.warn("There are only {} calls left", 1000 - counter);
+        } else if (counter > 1000) {
+          System.out.println("There are no calls left for today's date.");
+          log.warn("There are no calls left for today");
+        } else {
+          log.info("There are a total of: {} calls left for today", 1000 - counter);
         }
 
         // Opening and updating counter.txt
