@@ -43,7 +43,7 @@ public class OpenWeatherApiClient {
             bufferedReader.readLine();
             bufferedReader.readLine();
             int counter = Integer.parseInt(bufferedReader.readLine());
-            if (counter > 994) {
+            if (counter > 999) {
                 log.warn("Call limit has been reached, no more calls can be made until tomorrow.");
                 limitReached = true;
             }
