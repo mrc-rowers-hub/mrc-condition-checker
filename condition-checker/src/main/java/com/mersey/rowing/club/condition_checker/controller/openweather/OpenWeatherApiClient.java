@@ -55,7 +55,7 @@ public class OpenWeatherApiClient {
         BufferedReader bufferedReader = null;
         String currentDate = "12/12/1970";
         int counter = 1;
-        String counterPath = System.getProperty("user.dir") + "/condition-checker/src/main/resources/counter.txt";
+        String counterPath = System.getProperty("user.home") + "/Documents/Code/Rowing Stuff/mrc-condition-checker/condition-checker/src/main/resources/counter.txt";
 
         // Checking if counter.txt exists
         File file = new File(counterPath);
@@ -125,7 +125,7 @@ public class OpenWeatherApiClient {
     }
 
     private static void openFileAndUpdateCounter(String currentDate, Integer counter) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\Users\\Sam\\Documents\\Code\\condition-checker\\condition-checker\\src\\main\\resources\\counter.txt"));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getProperty("user.home") + "/Documents/Code/Rowing Stuff/mrc-condition-checker/condition-checker/src/main/resources/counter.txt"));
 
         bufferedWriter.write("Current Date:\n");
         bufferedWriter.write(currentDate + "\n");
