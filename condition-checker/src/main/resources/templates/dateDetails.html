@@ -38,6 +38,7 @@
                         <h4>Weather Conditions:</h4>
                         <p><b>Temperature Feels Like: </b><span th:text="${condition.weatherConditions.getTempFeelsLike()}"></span></p>
                         <p><b>Wind Speed:</b> <span th:text="${condition.weatherConditions.getWindSpeed()}"></span> km/h</p>
+                        <p><b>Wind Gusts:</b> <span th:text="${condition.weatherConditions.windGust}"></span>km/h</p>
                         <p><b>Description:</b> <span th:text="${condition.weatherConditions.description}"></span></p>
                     </div>
                     <div class="boats-permitted">
