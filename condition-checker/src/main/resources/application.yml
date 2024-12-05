@@ -16,11 +16,11 @@ boats:
     single:
       wind: 12
     double:
-      wind: 13
+      wind: 12
     eight:
-      wind: 17
+      wind: 15
     quads:
-      wind: 14
+      wind: 15
 #    the above are to be refined
 # the above wind values are treated as the max allowed atm
 
