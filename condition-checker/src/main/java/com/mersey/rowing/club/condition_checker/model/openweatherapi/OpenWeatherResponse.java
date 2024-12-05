@@ -21,7 +21,7 @@ public class OpenWeatherResponse {
   }
 
   public double getWindSpeed() {
-    return data.getFirst().mphToKmph();
+    return data.getFirst().getWindSpeed();
   }
 
   public double getFeelsLike() {

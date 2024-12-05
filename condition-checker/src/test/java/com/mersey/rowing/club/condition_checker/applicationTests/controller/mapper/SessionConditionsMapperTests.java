@@ -53,7 +53,7 @@ public class SessionConditionsMapperTests {
           "weather_conditions": {
           "description": "clear sky",
           "temp_feels_like": 10,
-          "wind_speed": 3
+          "wind_speed": 2
           },
           "boats_allowed": {
           "single": true,
