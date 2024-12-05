@@ -28,11 +28,12 @@ public class SessionConditionsMapper {
           (OpenWeatherResponse) statusCodeObject.getOwResponse();
       BoatsAllowed boatsAllowed = boatCapabilityClient.getBoatsAllowed(openWeatherResponse);
 
-      WeatherConditions weatherConditions =
+      WeatherConditions weatherConditions = // CHEWCK HERE
           WeatherConditions.builder()
               .description(openWeatherResponse.getDescription())
               .windSpeed((int) Math.round(openWeatherResponse.getWindSpeed()))
               .tempFeelsLike((int) Math.round(openWeatherResponse.getFeelsLike()))
+                  .windGust((int) Math.round(openWeatherResponse.getData().getFirst().getWindGust()))
               .build();
 
       String dateTime =

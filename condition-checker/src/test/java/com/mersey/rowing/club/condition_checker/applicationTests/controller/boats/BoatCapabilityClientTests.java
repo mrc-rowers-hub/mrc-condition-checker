@@ -89,12 +89,12 @@ public class BoatCapabilityClientTests {
   }
 
   @Test
-  void getBoatsAllowed_windInRangeForAboveSingles_allowsAllBoatsExceptSingle() {
+  void getBoatsAllowed_windInRangeForAboveSinglesAndDoubles_allowsAllBoatsExceptSingle() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
             .eight(true)
             .quads(true)
-            .doubles(true)
+            .doubles(false)
             .single(false)
             .build();
     assertEquals(
@@ -117,17 +117,31 @@ public class BoatCapabilityClientTests {
   }
 
   @Test
-  void getBoatsAllowed_windInRangeForAboveNoviceQuad_allowsOnlySenior() {
+  void getBoatsAllowed_gustsAbove30_cancels() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .eight(true)
+            .eight(false)
             .quads(false)
             .doubles(false)
             .single(false)
             .build();
     assertEquals(
         expectedBoatsAllowed,
-        boatCapabilityClient.getBoatsAllowed(getOpenWeatherResponseWindSpeed(15)));
+        boatCapabilityClient.getBoatsAllowed(getOpenWeatherResponseWindGustSpeed(31)));
+  }
+
+  @Test
+  void getBoatsAllowed_gustsUnder30_allows() {
+    BoatsAllowed expectedBoatsAllowed =
+            boatsAllowedBuilder
+                    .eight(true)
+                    .quads(true)
+                    .doubles(true)
+                    .single(true)
+                    .build();
+    assertEquals(
+            expectedBoatsAllowed,
+            boatCapabilityClient.getBoatsAllowed(getOpenWeatherResponseWindGustSpeed(29)));
   }
 
   @Test
