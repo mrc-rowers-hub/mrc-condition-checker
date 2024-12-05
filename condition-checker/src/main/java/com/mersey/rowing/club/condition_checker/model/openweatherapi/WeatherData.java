@@ -34,9 +34,4 @@ public class WeatherData {
   public double feelsLikeFahrenheitToCelsius() {
     return (feelsLike - 32) * 5 / 9;
   }
-
-  public double mphToKmph() {
-    double CONVERSION = 1.60934;
-    return windSpeed * CONVERSION;
-  }
 }

@@ -18,6 +18,6 @@ public class WeatherDataTests {
   void mphToKmph_weatherDataBuiltWithoutmphToKmph_setsKmph() {
     WeatherData myWeatherData = WeatherData.builder().windSpeed(1).build();
     System.out.println(myWeatherData);
-    assertEquals(1.60934, myWeatherData.mphToKmph());
+    assertEquals(1.60934, myWeatherData.getWindSpeed());
   }
 }
