@@ -14,10 +14,4 @@ public class WeatherDataTests {
     assertEquals(10, myWeatherData.feelsLikeFahrenheitToCelsius());
   }
 
-  @Test
-  void mphToKmph_weatherDataBuiltWithoutmphToKmph_setsKmph() {
-    WeatherData myWeatherData = WeatherData.builder().windSpeed(1).build();
-    System.out.println(myWeatherData);
-    assertEquals(1.60934, myWeatherData.getWindSpeed());
-  }
 }

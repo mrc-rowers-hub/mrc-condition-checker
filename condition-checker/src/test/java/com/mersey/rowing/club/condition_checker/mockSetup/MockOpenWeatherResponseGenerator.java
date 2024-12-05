@@ -40,14 +40,14 @@ public class MockOpenWeatherResponseGenerator {
   public static OpenWeatherResponse getOpenWeatherResponseWindSpeed(double windSpeed) {
     List<Weather> weatherList = List.of(new Weather(800, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, getWindSpeedKmH(windSpeed), getWindSpeedKmH(windSpeed), weatherList));
+        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, windSpeed, windSpeed, weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
   public static OpenWeatherResponse getOpenWeatherResponseWindGustSpeed(double windSpeed) {
     List<Weather> weatherList = List.of(new Weather(800, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-            List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, getWindSpeedKmH(windSpeed), weatherList));
+            List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, windSpeed, weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
@@ -61,7 +61,4 @@ public class MockOpenWeatherResponseGenerator {
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
-  private static double getWindSpeedKmH(double windspeedMPerS) {
-    return windspeedMPerS / 1.60934;
-  }
 }
