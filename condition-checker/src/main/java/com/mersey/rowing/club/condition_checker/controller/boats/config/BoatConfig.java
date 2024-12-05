@@ -29,11 +29,11 @@ public class BoatConfig {
   @Value("${boats.boatTypes.double.wind}")
   private int doubleWindLimit;
 
-  @Value("${boats.boatTypes.seniorFourAndAbove.wind}")
-  private int seniorFourAboveWindLimit;
+  @Value("${boats.boatTypes.eight.wind}")
+  private int eightWindLimit;
 
-  @Value("${boats.boatTypes.noviceFourAndAbove.wind}")
-  private int noviceFourAboveWindLimit;
+  @Value("${boats.boatTypes.quads.wind}")
+  private int quadsWindLimit;
 
   @Bean
   public BoatLimits boatLimits() {
@@ -44,10 +44,10 @@ public class BoatConfig {
                 singleWindLimit,
                 DOUBLE,
                 doubleWindLimit,
-                SENIOR_FOUR_AND_ABOVE,
-                seniorFourAboveWindLimit,
-                NOVICE_FOUR_AND_ABOVE,
-                noviceFourAboveWindLimit))
+                EIGHT,
+                    eightWindLimit,
+                QUADS,
+                quadsWindLimit))
         .feelsLikeTempMaxCelsius(feelsLikeTempMaxCelsius)
         .feelsLikeTempMinCelsius(feelsLikeTempMinCelsius)
         .unacceptableIds(unacceptableIdsString.split(","))

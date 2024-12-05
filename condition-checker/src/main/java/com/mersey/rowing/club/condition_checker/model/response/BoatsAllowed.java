@@ -16,9 +16,9 @@ public class BoatsAllowed {
 
   private boolean doubles;
 
-  @JsonProperty("novice_four_and_above")
-  private boolean noviceFourAndAbove;
+  @JsonProperty("quads")
+  private boolean quads;
 
-  @JsonProperty("senior_four_and_above")
-  private boolean seniorFourAndAbove;
+  @JsonProperty("eight")
+  private boolean eight;
 }

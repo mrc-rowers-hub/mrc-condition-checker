@@ -31,15 +31,15 @@ public class BoatCapabilityClientTests {
   static void setup() {
     allBoatsCancelled =
         BoatsAllowed.builder()
-            .seniorFourAndAbove(false)
-            .noviceFourAndAbove(false)
+            .eight(false)
+            .quads(false)
             .doubles(false)
             .single(false)
             .build();
     allBoatsAllowed =
         BoatsAllowed.builder()
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(true)
+            .eight(true)
+            .quads(true)
             .doubles(true)
             .single(true)
             .build();
@@ -92,8 +92,8 @@ public class BoatCapabilityClientTests {
   void getBoatsAllowed_windInRangeForAboveSingles_allowsAllBoatsExceptSingle() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(true)
+            .eight(true)
+            .quads(true)
             .doubles(true)
             .single(false)
             .build();
@@ -106,8 +106,8 @@ public class BoatCapabilityClientTests {
   void getBoatsAllowed_windInRangeForAboveDoubles_allowsAllBoatsExceptSingleAndDouble() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(true)
+            .eight(true)
+            .quads(true)
             .doubles(false)
             .single(false)
             .build();
@@ -120,8 +120,8 @@ public class BoatCapabilityClientTests {
   void getBoatsAllowed_windInRangeForAboveNoviceQuad_allowsOnlySenior() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(false)
+            .eight(true)
+            .quads(false)
             .doubles(false)
             .single(false)
             .build();

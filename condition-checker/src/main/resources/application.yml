@@ -17,9 +17,9 @@ boats:
       wind: 12
     double:
       wind: 13
-    seniorFourAndAbove:
+    eight:
       wind: 17
-    noviceFourAndAbove:
+    quads:
       wind: 14
 #    the above are to be refined
 # the above wind values are treated as the max allowed atm

@@ -32,17 +32,17 @@ public class BoatCapabilityClient {
         (conditionsAtStart.isDoubles() && conditionsMidway.isDoubles())
             || (conditionsMidway.isDoubles() && conditionsEnd.isDoubles());
     boolean novice =
-        (conditionsAtStart.isNoviceFourAndAbove() && conditionsMidway.isNoviceFourAndAbove())
-            || (conditionsMidway.isNoviceFourAndAbove() && conditionsEnd.isNoviceFourAndAbove());
-    boolean senior =
-        (conditionsAtStart.isSeniorFourAndAbove() && conditionsMidway.isSeniorFourAndAbove())
-            || (conditionsMidway.isSeniorFourAndAbove() && conditionsEnd.isSeniorFourAndAbove());
+        (conditionsAtStart.isQuads() && conditionsMidway.isQuads())
+            || (conditionsMidway.isQuads() && conditionsEnd.isQuads());
+    boolean eight =
+        (conditionsAtStart.isEight() && conditionsMidway.isEight())
+            || (conditionsMidway.isEight() && conditionsEnd.isEight());
 
     return BoatsAllowed.builder()
         .single(singles)
         .doubles(doubles)
-        .noviceFourAndAbove(novice)
-        .seniorFourAndAbove(senior)
+        .quads(novice)
+        .eight(eight)
         .build();
   }
 
@@ -59,16 +59,16 @@ public class BoatCapabilityClient {
       return BoatsAllowed.builder()
           .doubles(false)
           .single(false)
-          .noviceFourAndAbove(false)
-          .seniorFourAndAbove(false)
+          .quads(false)
+          .eight(false)
           .build();
     } else if (!isIdWithinLimits(weather)) {
       log.info("Weather ID not allowed: {}", weather.getId());
       return BoatsAllowed.builder()
           .doubles(false)
           .single(false)
-          .noviceFourAndAbove(false)
-          .seniorFourAndAbove(false)
+          .quads(false)
+          .eight(false)
           .build();
     } else {
       return getBoatsAllowedByWind(windSpeed, boatLimits.getBoatTypeWindLimit());
@@ -82,23 +82,23 @@ public class BoatCapabilityClient {
 
     if (actualWindSpeed <= boatsAndLimits.get(BoatType.SINGLE)) {
       return boatsAllowedBuilder
-          .seniorFourAndAbove(true)
-          .noviceFourAndAbove(true)
+          .eight(true)
+          .quads(true)
           .doubles(true)
           .single(true)
           .build();
     }
 
-    if (actualWindSpeed > boatsAndLimits.get(BoatType.SENIOR_FOUR_AND_ABOVE)) {
+    if (actualWindSpeed > boatsAndLimits.get(BoatType.EIGHT)) {
       log.info("ALL BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
       return boatsAllowedBuilder.build();
     }
-    boatsAllowedBuilder.seniorFourAndAbove(true);
-    if (actualWindSpeed > boatsAndLimits.get(BoatType.NOVICE_FOUR_AND_ABOVE)) {
+    boatsAllowedBuilder.eight(true);
+    if (actualWindSpeed > boatsAndLimits.get(BoatType.QUADS)) {
       log.info("SOME BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
       return boatsAllowedBuilder.build();
     }
-    boatsAllowedBuilder.noviceFourAndAbove(true);
+    boatsAllowedBuilder.quads(true);
     if (actualWindSpeed > boatsAndLimits.get(BoatType.DOUBLE)) {
       log.info("SOME BOATS CANCELLED: wind too high: {} km/h", actualWindSpeed);
       return boatsAllowedBuilder.build();
