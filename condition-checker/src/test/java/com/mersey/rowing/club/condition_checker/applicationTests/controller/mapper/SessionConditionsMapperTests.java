@@ -58,8 +58,8 @@ public class SessionConditionsMapperTests {
           "boats_allowed": {
           "single": true,
           "doubles": true,
-          "novice_four_and_above": true,
-          "senior_four_and_above": true
+          "quads": true,
+          "eight": true
           }}
           """;
 
@@ -74,8 +74,8 @@ public class SessionConditionsMapperTests {
         BoatsAllowed.builder()
             .doubles(true)
             .single(true)
-            .noviceFourAndAbove(true)
-            .seniorFourAndAbove(true)
+            .quads(true)
+            .eight(true)
             .build();
     when(boatCapabilityClient.getBoatsAllowed(MOCK_OW_RESPONSE)).thenReturn(mockBoatsAllowed);
 

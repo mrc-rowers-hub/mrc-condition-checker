@@ -25,6 +25,9 @@ public class WeatherData {
   @JsonProperty("wind_speed")
   private double windSpeed; // in miles per hour
 
+  @JsonProperty("wind_gust")
+  private double windGust; // in miles per hour
+
   @JsonProperty("weather")
   private List<Weather> weather;
 

@@ -31,15 +31,15 @@ public class BoatCapabilityClientTests {
   static void setup() {
     allBoatsCancelled =
         BoatsAllowed.builder()
-            .seniorFourAndAbove(false)
-            .noviceFourAndAbove(false)
+            .eight(false)
+            .quads(false)
             .doubles(false)
             .single(false)
             .build();
     allBoatsAllowed =
         BoatsAllowed.builder()
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(true)
+            .eight(true)
+            .quads(true)
             .doubles(true)
             .single(true)
             .build();
@@ -89,12 +89,12 @@ public class BoatCapabilityClientTests {
   }
 
   @Test
-  void getBoatsAllowed_windInRangeForAboveSingles_allowsAllBoatsExceptSingle() {
+  void getBoatsAllowed_windInRangeForAboveSinglesAndDoubles_allowsAllBoatsExceptSingle() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(true)
-            .doubles(true)
+            .eight(true)
+            .quads(true)
+            .doubles(false)
             .single(false)
             .build();
     assertEquals(
@@ -106,8 +106,8 @@ public class BoatCapabilityClientTests {
   void getBoatsAllowed_windInRangeForAboveDoubles_allowsAllBoatsExceptSingleAndDouble() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(true)
+            .eight(true)
+            .quads(true)
             .doubles(false)
             .single(false)
             .build();
@@ -117,17 +117,31 @@ public class BoatCapabilityClientTests {
   }
 
   @Test
-  void getBoatsAllowed_windInRangeForAboveNoviceQuad_allowsOnlySenior() {
+  void getBoatsAllowed_gustsAbove30_cancels() {
     BoatsAllowed expectedBoatsAllowed =
         boatsAllowedBuilder
-            .seniorFourAndAbove(true)
-            .noviceFourAndAbove(false)
+            .eight(false)
+            .quads(false)
             .doubles(false)
             .single(false)
             .build();
     assertEquals(
         expectedBoatsAllowed,
-        boatCapabilityClient.getBoatsAllowed(getOpenWeatherResponseWindSpeed(15)));
+        boatCapabilityClient.getBoatsAllowed(getOpenWeatherResponseWindGustSpeed(31)));
+  }
+
+  @Test
+  void getBoatsAllowed_gustsUnder30_allows() {
+    BoatsAllowed expectedBoatsAllowed =
+            boatsAllowedBuilder
+                    .eight(true)
+                    .quads(true)
+                    .doubles(true)
+                    .single(true)
+                    .build();
+    assertEquals(
+            expectedBoatsAllowed,
+            boatCapabilityClient.getBoatsAllowed(getOpenWeatherResponseWindGustSpeed(29)));
   }
 
   @Test

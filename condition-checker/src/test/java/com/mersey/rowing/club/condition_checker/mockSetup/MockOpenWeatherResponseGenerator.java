@@ -12,35 +12,42 @@ public class MockOpenWeatherResponseGenerator {
   public static OpenWeatherResponse getOpenWeatherResponseAllGood() {
     List<Weather> weatherList = List.of(new Weather(800, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, weatherList)); // in imperial
+        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2,2,  weatherList)); // in imperial
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
   public static OpenWeatherResponse getOpenWeatherResponseExemptId() {
     List<Weather> weatherList = List.of(new Weather(101, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, weatherList));
+        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, 2, weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
   public static OpenWeatherResponse getOpenWeatherResponseUnacceptableIdSpecific() {
     List<Weather> weatherList = List.of(new Weather(302, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, weatherList));
+        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, 2, weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
   public static OpenWeatherResponse getOpenWeatherResponseUnacceptableIdXx() {
     List<Weather> weatherList = List.of(new Weather(250, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, weatherList));
+        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, 2, weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
   public static OpenWeatherResponse getOpenWeatherResponseWindSpeed(double windSpeed) {
     List<Weather> weatherList = List.of(new Weather(800, "clear sky", "01d"));
     List<WeatherData> weatherDataList =
-        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, getWindSpeedKmH(windSpeed), weatherList));
+        List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, getWindSpeedKmH(windSpeed), getWindSpeedKmH(windSpeed), weatherList));
+    return OpenWeatherResponse.builder().data(weatherDataList).build();
+  }
+
+  public static OpenWeatherResponse getOpenWeatherResponseWindGustSpeed(double windSpeed) {
+    List<Weather> weatherList = List.of(new Weather(800, "clear sky", "01d"));
+    List<WeatherData> weatherDataList =
+            List.of(new WeatherData(TEST_EPOCH_TIME, 50, 50, 2, getWindSpeedKmH(windSpeed), weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 
@@ -50,7 +57,7 @@ public class MockOpenWeatherResponseGenerator {
     List<WeatherData> weatherDataList =
         List.of(
             new WeatherData(
-                TEST_EPOCH_TIME, feelsLikeFahrenheit, feelsLikeFahrenheit, 2, weatherList));
+                TEST_EPOCH_TIME, feelsLikeFahrenheit, feelsLikeFahrenheit, 2, 2, weatherList));
     return OpenWeatherResponse.builder().data(weatherDataList).build();
   }
 

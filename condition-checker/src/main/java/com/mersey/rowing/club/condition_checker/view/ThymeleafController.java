@@ -65,7 +65,7 @@ public class ThymeleafController {
 
       // Calculate average boats permitted for the session
       BoatsAllowed averageBoatsAllowed =
-          boatCapabilityClient.getSessionAverage(conditionsForSession);
+          boatCapabilityClient.getSessionAverage(conditionsForSession); // conditionsForSession = null
 
       // Map start time to conditions and average boats allowed
       sessionConditionsMap.put(startTime, conditionsForSession);
