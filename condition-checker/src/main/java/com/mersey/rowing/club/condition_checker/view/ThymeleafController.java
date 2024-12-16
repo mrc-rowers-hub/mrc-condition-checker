@@ -7,6 +7,10 @@ import com.mersey.rowing.club.condition_checker.model.response.BoatsAllowed;
 import com.mersey.rowing.club.condition_checker.model.response.ConditionResponse;
 import com.mersey.rowing.club.condition_checker.model.response.SessionConditions;
 import com.mersey.rowing.club.condition_checker.model.response.TimeType;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,11 +50,15 @@ public class ThymeleafController {
     ConditionResponse conditionResponse =
         conditionResponseClient.getConditionResponseFromDateTime(dateTime, null).getBody();
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     // List of session start times
     List<SessionConditions> sessionStartTimes =
         conditionResponse.getSessionConditions().stream()
             .filter(sc -> sc.getTimeType().equals(TimeType.SESSION_START))
+                .sorted(Comparator.comparing(sc -> LocalDateTime.parse(sc.getDate(), formatter)))
             .toList();
+    model.addAttribute("sessionStartTimes", sessionStartTimes);
 
     // Map to hold session UUIDs and their conditions and average boats allowed
     Map<SessionConditions, List<SessionConditions>> sessionConditionsMap = new HashMap<>();
